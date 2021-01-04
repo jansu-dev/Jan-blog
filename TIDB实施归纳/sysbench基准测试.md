@@ -1,4 +1,4 @@
-# 基准测试简介与操作流程
+# sysbench基准测试简介与操作流程
 
 ## summary
 > - [sysbench](#sysbench)
@@ -292,7 +292,7 @@ sysbench --num-threads=12 --max-requests=10000 --test=memory --memory-block-size
 | --oltp-num-tables=N | 指定测试表的数量 | 默认[1] |
 
 
-* **OLTP基准测试比较**
+* **OLTP基准测试讲解**
 ```shell
 [tidb@tidb01-41 sysbench]$  sysbench /usr/share/sysbench/oltp_read_write.lua --mysql-host=192.168.1.41 --mysql-port=4000 --mysql-db=jan --mysql-user=root --mysql-password= --table_size=5000 --tables=1  --events=10000 --report-interval=10 --time=0 run
 sysbench 1.0.17 (using system LuaJIT 2.0.4)
