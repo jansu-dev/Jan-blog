@@ -100,8 +100,8 @@ export PATH
 | --host string            |  -h, |   连接host (default "127.0.0.1") |
 | --key string             |      |   The path name to the client private key file for TLS connection |
 | --logfile path           |  -L, |   日志文件路径, leave empty to write to console |
-| --logfmt format          |      |   日志格式: {text|json} (默认 "text") |
-| --loglevel string        |      |   Log level: {debug|info|warn|error|dpanic|panic|fatal} (default "info") |
+| --logfmt format          |      |   日志格式: {text/json} (默认 "text") |
+| --loglevel string        |      |   Log level: {debug/info/warn/error/dpanic/panic/fatal} (default "info") |
 | --no-data                |  -d, |   不导出数据 |
 | --no-header              |      |   不导出CSV表头信息 |
 | --no-schemas             |  -m, |   导出的表数据不含有模式信息 |
