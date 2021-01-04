@@ -5,6 +5,7 @@
 > [原理讲解](#原理讲解)  
 > [部署方式](#部署方式)  
 > [参数简介](#参数简介)  
+> [操作案例](#操作案例)
 
 
 ## 原理讲解
@@ -16,8 +17,8 @@
 
 ## 部署方式
 
-* **下载安装包**
-下载链接https://download.pingcap.org/tidb-toolkit-**{version}**-linux-amd64.tar.gz中的 **{version}** 为 Dumpling 的版本号。  
+* **下载安装包**  
+下载链接https://download.pingcap.org/tidb-toolkit-{version}-linux-amd64.tar.gz中的 **{version}** 为 Dumpling 的版本号。  
 本例，以v4.0.2 版本为范例下载链接如下。
 ```shell
 [tidb@tidb01-41 soft]$ wget https://download.pingcap.org/tidb-toolkit-v4.0.2-linux-amd64.tar.gz
@@ -90,27 +91,27 @@ export PATH
 | --cert string            |      |   The path name to the client certificate file for TLS connection |
 | --consistency string     |      |   Consistency level during dumping: {auto|none|flush|lock|snapshot} (default "auto") |
 | --csv-null-value string  |      |   The null value used when export to csv (default "\\N") |
-| --database strings       |  -B, |   Databases to dump |
-| --dump-empty-database    |      |   whether to dump empty database (default true) |
+| --database strings       |  -B, |   导出数据库 |
+| --dump-empty-database    |      |   导出数据库元数据信息 (默认:true) |
 | --escape-backslash       |      |   use backslash to escape special characters (default true) |
-| --filesize string        |  -F, |   The approximate size of output file |
-| --filetype string        |      |   The type of export file (sql/csv) (default "sql") |
+| --filesize string        |  -F, |   导出文件的最大大小 |
+| --filetype string        |      |   导出文件的类型(sql/csv) (默认:"sql") |
 | --filter stringArray     |  -f, |   filter to select which tables to dump (default [*.*]) |
-| --host string            |  -h, |   The host to connect to (default "127.0.0.1") |
+| --host string            |  -h, |   连接host (default "127.0.0.1") |
 | --key string             |      |   The path name to the client private key file for TLS connection |
-| --logfile path           |  -L, |   Log file path, leave empty to write to console |
-| --logfmt format          |      |   Log format: {text|json} (default "text") |
+| --logfile path           |  -L, |   日志文件路径, leave empty to write to console |
+| --logfmt format          |      |   日志格式: {text|json} (默认 "text") |
 | --loglevel string        |      |   Log level: {debug|info|warn|error|dpanic|panic|fatal} (default "info") |
-| --no-data                |  -d, |   Do not dump table data |
-| --no-header              |      |   whether not to dump CSV table header |
-| --no-schemas             |  -m, |   Do not dump table schemas with the data |
-| --no-views               |  -W, |   Do not dump views (default true) |
-| --output string          |  -o, |   Output directory (default "./export-2021-01-04T08:50:25-05:00") |
-| --password string        |  -p, |   User password |
-| --port int               |  -P, |   TCP/IP port to connect to (default 4000) |
-| --rows uint              |  -r, |   Split table into chunks of this many rows, default unlimited |
-| --snapshot string        |      |   Snapshot position (uint64 from pd timestamp for TiDB). Valid only when consistency=snapshot |
-| --sql string             |  -S, |   Dump data with given sql. This argument doesn't support concurrent dump |
+| --no-data                |  -d, |   不导出数据 |
+| --no-header              |      |   不导出CSV表头信息 |
+| --no-schemas             |  -m, |   导出的表数据不含有模式信息 |
+| --no-views               |  -W, |   不导出视图，默认为true |
+| --output string          |  -o, |   导出文件位置路径，默认为："./export-2021-01-04T08:50:25-05:00" |
+| --password string        |  -p, |   用户密码 |
+| --port int               |  -P, |   连接端口，默认端口号：4000 |
+| --rows uint              |  -r, |   将表切分为n行的chunk,默认:unlimited |
+| --snapshot string        |      |   快照位置 (来之pd server的uint64格式的时间戳)。 仅当快照一致性时有效(consistency=snapshot) |
+| --sql string             |  -S, |   导出sql语句内容的数据，这个参数不支持并发导出 |
 | --statement-size uint    |  -s, |   Attempted size of INSERT statement in bytes |
 | --status-addr string     |      |   dumpling API server and pprof addr (default ":8281") |
 | --tables-list strings    |  -T, |   Comma delimited table list to dump; must be qualified table names |
@@ -169,7 +170,8 @@ Finished dump at: 2021-01-04 09:26:42   # 导出的起始时间
 
 # 查看result.0.csv文件的前5行
 
-[tidb@tidb01-41 sqlexp]$ head -5 result.0.sql 
+[tidb@tidb01-41 sqlexp]$ head -5 result.0.sql
+
 /*!40101 SET NAMES binary*/;
 INSERT INTO `` (`id`,`k`,`c`,`pad`) VALUES
 (1,2494,'31451373586-15688153734-79729593694-96509299839-83724898275-86711833539-78981337422-35049690573-51724173961-87474696253','98996621624-36689827414-04092488557-09587706818-65008859162'),
@@ -179,9 +181,8 @@ INSERT INTO `` (`id`,`k`,`c`,`pad`) VALUES
 
 [tidb@tidb01-41 sqlexp]$ cat ./result.0.sql |wc -l
 101
-
 ```
-
+可以看到导出的result文件中为101行，证明--sql参数也适用于sql文件的导出。
 
 * **导出到 csv 文件**
 ```shell
