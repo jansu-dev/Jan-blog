@@ -1,4 +1,4 @@
-# 基准测试操作流程
+# 基准测试简介与操作流程
 
 ## sysbench
 
@@ -9,25 +9,21 @@
 
 
 * **sysbench部署**
+sysbench安装步骤如下所示，主要分为依赖安装、软件部署、验证安装三个部分。
+```shell
 
-sysbench依赖安装
-```
+# 安装相关依赖
 yum -y install  make automake libtool pkgconfig libaio-devel vim-common
-```
-sysbench安装
-```
-yum list
 
+# sysbench安装
+yum list
 yum install sysbench
-```
-验证sysbench
-```
+
+# 验证sysbench正确安装，并查看sysbench版本
 sysbench --version
 ```
-[sysbench project link:https://github.com/akopytov/sysbench](https://github.com/akopytov/sysbench)
 
-
-![体系结构图](http://cdn.lifemini.cn/dbblog/20201013/162ff66eca8948569edb35eb4d3cd92d.jpg)
+[**sysbench project link** :https://github.com/akopytov/sysbench](https://github.com/akopytov/sysbench)
 
 
 ### 测试CPU性能
@@ -50,7 +46,7 @@ sysbench --version
 
 
 
-# 参考文章
+## 参考文章
 
 [美团tech：https://tech.meituan.com/2017/07/14/sysbench-meituan.html](https://tech.meituan.com/2017/07/14/sysbench-meituan.html)
 
