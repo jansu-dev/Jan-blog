@@ -71,16 +71,12 @@ Threads fairness:  # 线程平均维度
     execution time (avg/stddev):   9.9962/0.00 # # 线程平均维度：每个线程平均耗时时间/所有线程执行event的耗时标准差
 ```
 
-2台服务器CPU性能对比基本方法：
+* **2台服务器CPU性能对比基本方法**
 
 当素数上限和线程数一致时：
 相同时间，比较event谁更多
 相同event，比较时间谁更少
 时间和event都相同，比较stddev(标准差)谁更低
-
-
-### 测试线程性能
-
 
 
 ### 测试IO性能
@@ -104,20 +100,194 @@ Threads fairness:  # 线程平均维度
 
 
 * **I/O基准测试讲解**
+
+prepare阶段：生成测试所需要的文件。
+```shell
+[tidb@tidb01-41 sysbench]$ sysbench --test=fileio --num-threads=16 --file-total-size=2G --file-test-mode=rndrw prepare
+Creating file test_file.1
+
+......
+......
+
+Creating file test_file.127
+2147483648 bytes written in 43.20 seconds (47.41 MiB/sec).
 ```
 
+run阶段：生成测试所需要的文件。
+```shell
+[tidb@tidb01-41 sysbench]$ sysbench --test=fileio --num-threads=20 --file-total-size=2G --file-test-mode=rndrw run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.17 (using system LuaJIT 2.0.4)
+
+Running the test with following options:
+Number of threads: 20  # 用来I/O文件的线程数
+Initializing random number generator from current time
+
+
+Extra file open flags: (none) # 是否使用其它符号打开文件
+128 files, 16MiB each  # 文件总数量，每个文件的大小
+2GiB total file size # 文件总大小
+Block size 16KiB  # 单次I/O容量
+Number of IO requests: 0
+Read/Write ratio for combined random IO test: 1.50 # 读写比例
+Periodic FSYNC enabled, calling fsync() each 100 requests. # 开启fsync，每100个请求进行一次fsync同步
+Calling fsync() at the end of test, Enabled.  # 最后结束的时候进行fsync操作
+Using synchronous I/O mode
+Doing random r/w test
+Initializing worker threads...
+
+Threads started!
+
+
+File operations:
+    reads/s:                      5625.14 
+    writes/s:                     3749.93
+    fsyncs/s:                     12244.30
+
+Throughput:
+    read, MiB/s:                  87.89  # 吞吐量：平均每秒读取87MB/s
+    written, MiB/s:               58.59  # 吞吐量：每秒每秒读取58MB/s
+
+General statistics:
+    total time:                          10.0147s  # 总好费时间
+    total number of events:              213978    # 同执行event数量
+
+Latency (ms):
+         min:                                    0.00  # 时间维度：最小I/O请求耗费时间
+         avg:                                    0.93  # 时间维度：平均每次I/O请求耗费时间
+         max:                                  292.48  # 时间维度：最大I/O请求耗费时间
+         95th percentile:                        2.91  # 时间维度：95%分位位置处的I/O请求耗费时间
+         sum:                               199618.07  # 时间维度：总耗时
+
+Threads fairness:
+    events (avg/stddev):           10698.9000/647.23  # 线程均分维度：平均线程event执行数/标准差
+    execution time (avg/stddev):   9.9809/0.01  # 线程均分维度：线程执行时间均数/标准差
+```
+
+cleanup阶段：清理测试文件。
+```
+[tidb@tidb01-41 sysbench]$ sysbench --test=fileio --num-threads=20 --file-total-size=2G --file-test-mode=rndrw cleanup
+
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
+WARNING: --num-threads is deprecated, use --threads instead
+sysbench 1.0.17 (using system LuaJIT 2.0.4)
+
+Removing test files...
+
+
+[tidb@tidb01-41 sysbench]$ ll
+total 0
 ```
 
 
 ### 测试内存性能
 
+* **Memory基准测试参数**
 
-### 测试mutex
+| 参数名 | 参数翻译 | 参数涵义 |
+| --- | --- | --- |
+| memory-block-size=SIZE  | 测试时内存块大小 |  默认是1K |
+| memory-total-size=SIZE | 传输数据的总大小 | 默认是100G |
+| memory-scope=STRING | 内存访问范围 | {global,local}，默认是global |
+| memory-oper=STRING | 内存操作类型 | {read, write, none} ，默认是write |
+| memory-access-mode=STRING | 存储器存取方式 | {seq,rnd} 默认是seq |
+
+* **Memory基准测试讲解**
+```shell
+[tidb@tidb01-41 sysbench]$ sysbench --num-threads=12 --max-requests=10000 --test=memory --memory-block-size=8K --memory-total-size=100G --memory-access-mode=seq run
+WARNING: the --test option is deprecated. You can pass a script name or path on the command line without any options.
+WARNING: --num-threads is deprecated, use --threads instead
+WARNING: --max-requests is deprecated, use --events instead
+sysbench 1.0.17 (using system LuaJIT 2.0.4)
+
+Running the test with following options:
+Number of threads: 12
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 8KiB
+  total size: 102400MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 13107192 (2675218.69 per second)
+
+102399.94 MiB transferred (20900.15 MiB/sec)  # 总传送10G数据，平均每秒2G数据读取吞吐
+
+
+General statistics:
+    total time:                          4.8984s
+    total number of events:              13107192
+
+Latency (ms):
+         min:                                    0.00
+         avg:                                    0.00
+         max:                                   81.91
+         95th percentile:                        0.00
+         sum:                                49597.31
+
+Threads fairness:
+    events (avg/stddev):           1092266.0000/0.00
+    execution time (avg/stddev):   4.1331/0.25
+```
+
+
+* **内存基准测试比较** 不同块大小传输一定数量的数据吞吐量越大越好
+```
+sysbench --num-threads=12 --max-requests=10000 --test=memory --memory-block-size=8K --memory-total-size=100G --memory-access-mode=seq run #顺序读 8k
+sysbench --num-threads=12 --max-requests=10000 --test=memory --memory-block-size=8K --memory-total-size=100G --memory-access-mode=rnd run #随机读 8k
+```
 
 
 ### 测试OLTP性能
 
+* **OLTP基准测试参数**
 
+| 参数名 | 参数翻译 | 参数涵义 |
+| --- | --- | --- |
+| --oltp-test-mode=STRING | 测试类型 |simple(简单select测试),complex(事务测试),nontrx(非事务测试),sp(存储过程) ；默认complex |
+| --oltp-reconnect-mode=STRING | 连接类型 | session(每个线程到测试结束不重新连接),| transaction(执行每个事务重新连接),query(每一个查询重新连接),random(随机)；默认 [session] |
+| --oltp-sp-name=STRING | 指定执行测试的存储过程名 |  |
+| --oltp-read-only=[on\off] | 仅执行select测试 | 默认关闭 |
+| --oltp-avoid-deadlocks=[on\off] | 更新过程中忽略死锁 |  默认[off] |
+| --oltp-skip-trx=[on\off] | 语句以bigin/commit开始结尾 | 默认[off] |
+| --oltp-range-size=N | 范围查询的范围大小 | 默认 [100]，例如begin 100 and 200 |
+| --oltp-point-selects=N | 单个事务中select查询的数量 | 默认 [10] |
+| --oltp-use-in-statement=N | 每个查询中主键查找(in 10个值)的数量 | 默认 [0] |
+| --oltp-simple-ranges=N | 单个事务中执行范围查询的数量 |  (SELECT c FROM sbtest | WHERE id BETWEEN N AND M)，默认[1] |
+| --oltp-sum-ranges=N | 单个事务中执行范围sum查询的数量 | 默认 [1] |
+| --oltp-order-ranges=N | 单个事务中执行范围order by查询的数量 | 默认[1] |
+| --oltp-distinct-ranges=N  | 单个事务中执行范围distinct查询的数量 | 默认[1] |
+| --oltp-index-updates=N | 单个事务中执行索引更新的操作的数量 |  默认[1] |
+| --oltp-non-index-updates=N | 单个事务中执行非索引更新操作的数量 | 默认[1] |
+| --oltp-nontrx-mode=STRING | 指定单独非事务测试类型进行测试 | 默认select {select, | update_key, update_nokey, insert, delete} [select] |
+| --oltp-auto-inc=[on\off] | id列默认自增 | 默认[on] |
+| --oltp-connect-delay=N | 指定每一次重新连接延时的时长 | 默认1秒 [10000] |
+| --oltp-user-delay-min=N | 请求后最小睡眠时间 | minimum time in microseconds to sleep after each request [0] |
+| --oltp-user-delay-max=N | 请求后最大睡眠时间 |  maximum time in microseconds to sleep after each request [0] |
+| --oltp-table-name=STRING | 指定测试的表名 | 默认[sbtest] |
+| --oltp-table-size=N | 指定表的记录大小 | 默认[10000] |
+| --oltp-dist-type=STRING | 随机数分布状态 | uniform(均匀分布)、gauss(高斯分布)、special(特殊分布)，默认 [special] | 
+| --oltp-dist-iter=N |  | number of iterations used for numbers generation [12]
+| --oltp-dist-pct=N | 启用百分比特殊分布 | 默认 [1] |
+| --oltp-dist-res=N | special 百分比 | 百分比[75] |
+| --oltp-point-select-mysql-handler=[on\off] |  |  Use MySQL HANDLER for point select [off] | 
+| --oltp-point-select-all-cols=[on\off] | select查询测试时select所有列 | 默认[off] |
+| --oltp-secondary=[on\off]  | 索引不是主键索引而是二级索引 | 默认[off] |
+| --oltp-num-partitions=N | 指定表分区的数量 | 默认 [0] |
+| --oltp-num-tables=N | 指定测试表的数量 | 默认[1] |
+
+
+* **OLTP基准测试比较**
+```
+
+```
 
 
 ## 参考文章
