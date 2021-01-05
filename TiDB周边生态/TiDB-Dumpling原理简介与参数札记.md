@@ -4,14 +4,19 @@
 ## summary
 > - [原理讲解](#原理讲解)  
 > - [部署方式](#部署方式)  
->   - [下载安装包](#下载安装包)
->   - [解压并配置环境变量](#解压并配置环境变量)
-> - [参数简介](#参数简介)  
-> - [注意事项](#注意事项)
-> - [操作案例](#操作案例)
->   - [导出到csv文件](#导出到csv文件)
->   - [rows参数case精讲](#rows参数case精讲)
->   - [filesize参数case精讲](#filesize参数case精讲)
+>   - [下载安装包](#下载安装包)  
+>   - [解压并配置环境变量](#解压并配置环境变量)  
+>   - [tiup工具使用dumpling](#tiup工具使用dumpling)  
+> - [参数简介](#参数简介)    
+> - [注意事项](#注意事项)  
+> - [操作案例](#操作案例)  
+>   - [导出到csv文件](#导出到csv文件)  
+>   - [thread参数case精讲](#thread参数case精讲)  
+>   - [filiter参数case精讲](#filiter参数case精讲)  
+>   - [rows参数case精讲](#rows参数case精讲)  
+>   - [filesize参数case精讲](#filesize参数case精讲)  
+>   - [snapshot参数case精讲](#snapshot参数case精讲)  
+>   - [consistency参数case精讲](#consistency参数case精讲)  
 
 
 ## 原理讲解
@@ -259,6 +264,8 @@ Finished dump at: 2021-01-04 09:11:00   # 导出的起始时间
 
 ```
 
+#### filiter参数case精讲
+
 #### rows参数case精讲
 
 #### filesize参数case精讲
@@ -268,3 +275,8 @@ Finished dump at: 2021-01-04 09:11:00   # 导出的起始时间
 ## 参考文章
 
 [TiDB官网-工具下载：https://docs.pingcap.com/zh/tidb/stable/download-ecosystem-tools#dumpling](https://docs.pingcap.com/zh/tidb/stable/download-ecosystem-tools#dumpling)
+
+[B站-yi888long对dumpling的讲解：https://www.bilibili.com/video/BV1kK4y1Z7tE?from=search&seid=8438422389068483544](https://www.bilibili.com/video/BV1kK4y1Z7tE?from=search&seid=8438422389068483544)
+
+
+[B站-【High Performance TiDB】Lesson 12：生态工具优化https://www.bilibili.com/video/BV1D5411L7z5](https://www.bilibili.com/video/BV1D5411L7z5)
