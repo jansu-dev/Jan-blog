@@ -78,7 +78,9 @@ location_labels = ["host"]
 #### block-cache-size下的capacity参数调整
 
 多实例情况下，需要修改 tidb-ansible/conf/tikv.yml 中 block-cache-size 下面的 capacity 参数;
-用以限制每个TiKV实例用于block-cache的内存使用限制，官方推荐设置：capacity = MEM_TOTAL * 0.5 / TiKV 实例数量
+用以限制每个TiKV实例用于block-cache的内存使用限制。
+
+官方推荐设置：capacity = MEM_TOTAL * 0.5 / TiKV 实例数量
 
 本例：各节点内存3G，每个节点部署两台实例，因此 capacity = 3 * 0.5 / 2 = 0.75GB
 
@@ -310,6 +312,8 @@ Congrats! All goes well. :-)
 ```
 [tidb@tidb01-41 tidb-ansible]$ ansible-playbook bootstrap.yml
 
+PLAY [initializing deployment target] *****************************************************************
+
 ......
 ......
 
@@ -319,7 +323,14 @@ Congrats! All goes well. :-)
 
 #### 部署TiDB集群软件
 ```
-ansible-playbook deploy.yml
+[tidb@tidb01-41 tidb-ansible]$ ansible-playbook deploy.yml
+
+PLAY [check config locally] ***************************************************************************
+
+......
+......
+
+Congrats! All goes well. :-)
 ```
 
 #### 安装Dashboard依赖包
