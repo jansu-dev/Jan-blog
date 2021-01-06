@@ -82,7 +82,7 @@ client首次访问TiKV存储引擎获取数据时，会先访问PD Server获取�
 SQL的执行过程：
  - SQL首先通过Pasrsor转换为AST抽象语法树
  - 对AST进行语法校验、语义校验，如：select * B where B.id=1;(语法校验失败)，select * from B(当B表不存在于DB中时，语义校验失败)
- - 进行逻辑优化，基于代数表达式层面的优化，如：A hash_join B <=> A merge_join B 
+ - 进行逻辑优化，基于代数表达式层面的等价代换优化，如：A hash_join B <=> A merge_join B 
  - 结合统计信息，基于成本件合适的物理执行计划，并调用具体的物理算子下推到TiKV层执行并获取结果。无论是在TiDB层面的join算子,还是TiKV层面的aggregation算子均利用单CPU多核特性，采用多线程并行的执行计算操作。
 
 
