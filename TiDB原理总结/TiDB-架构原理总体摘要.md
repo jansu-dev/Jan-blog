@@ -11,10 +11,8 @@
 >   - [Percolators](#Percolators)  
 >   - [去中心化的2PC实现](#去中心化的2PC实现)  
 > - [SQL引擎](#SQL引擎)  
->   - [关系模型](#关系模型)  
->   - [一致索引](#一致索引)  
->   - [完善SQL功能](#完善SQL功能)  
->   - [HTAP(OLTP、OLAP)](#HTAP(OLTP、OLAP))  
+
+
 
 
 
