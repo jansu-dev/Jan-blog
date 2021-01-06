@@ -2,6 +2,7 @@
 
 ## summary
 > - [配置inventory的TiKV部分](#配置inventory的TiKV部分)  
+> - [服务配置文件参数调整](#服务配置文件参数调整)
 > - [中控机操作部署机建用户](#中控机操作部署机建用户)
 > - [中控机操作部署机配置ntp服务](#中控机操作部署机配置ntp服务)
 > - [中控及操作部署机设置CPU模式](#中控及操作部署机设置CPU模式)
@@ -11,57 +12,6 @@
 > - [pd-ctl命令行验证是否成功](#pd-ctl命令行验证是否成功)
 
 
-```
-[tidb_servers]
-172.16.10.1
-172.16.10.2
-
-[pd_servers]
-172.16.10.1
-172.16.10.2
-172.16.10.3
-
-# 注意：要使用 TiKV 的 labels，必须同时配置 PD 的 location_labels 参数，否则 labels 设置不生效。
-
-# 多实例场景需要额外配置 status 端口，示例如下：
-[tikv_servers]
-TiKV1-1 ansible_host=192.168.1.80 deploy_dir=/data1/deploy tikv_port=20171 tikv_status_port=20181 labels="host=tikv1"
-TiKV1-2 ansible_host=192.168.1.80 deploy_dir=/data2/deploy tikv_port=20172 tikv_status_port=20182 labels="host=tikv1"
-TiKV2-1 ansible_host=172.16.10.5 deploy_dir=/data1/deploy tikv_port=20171 tikv_status_port=20181 labels="host=tikv2"
-TiKV2-2 ansible_host=172.16.10.5 deploy_dir=/data2/deploy tikv_port=20172 tikv_status_port=20182 labels="host=tikv2"
-TiKV3-1 ansible_host=172.16.10.6 deploy_dir=/data1/deploy tikv_port=20171 tikv_status_port=20181 labels="host=tikv3"
-TiKV3-2 ansible_host=172.16.10.6 deploy_dir=/data2/deploy tikv_port=20172 tikv_status_port=20182 labels="host=tikv3"
-
-[monitoring_servers]
-172.16.10.1
-
-[grafana_servers]
-172.16.10.1
-
-[monitored_servers]
-172.16.10.1
-172.16.10.2
-172.16.10.3
-192.168.1.80
-172.16.10.5
-172.16.10.6
-
-# 注意：为使 TiKV 的 labels 设置生效，部署集群时必须设置 PD 的 location_labels 参数。
-[pd_servers:vars]
-location_labels = ["host"]
-```
-
- - labels是Region调度的最小单元，每一个raft group中不同的replica不会在扩展过程中被迁移到同一个lable单元，避免这种情况下server宕机导致的单点问题（3副本，2副本落在同一个server）。  
- - raft group的multi-replica主要解决的是数据的容灾问题，labels参数可以有效防止随数据扩展，在Region迁移过程中因散列计算Region迁移位置时，由于冲撞导致的同一个server存储同一个Region group的多个replica的情况。
-- 可以给一个服务器打一个labels、可以给一个服务器机柜打一个labels，也可以是一个IDC打一个labels。
-
-
-
-
-
-
-
-
 
 
 
@@ -69,17 +19,112 @@ location_labels = ["host"]
 
 ## 配置inventory的TiKV部分
 
+配置范例：
 ```
 [tidb@tidb01-41 tidb-ansible]$ vi inventory.ini
+
+[tidb_servers]
+TiDB1-11 ansible_host=192.168.1.41 deploy_dir=/data1/deploy tikv_port=4000 tikv_status_port=10080
+TiDB1-12 ansible_host=192.168.1.41 deploy_dir=/data2/deploy tikv_port=4001 tikv_status_port=10081
+TiDB1-21 ansible_host=192.168.1.43 deploy_dir=/data1/deploy tikv_port=4000 tikv_status_port=10080
+TiDB1-22 ansible_host=192.168.1.43 deploy_dir=/data2/deploy tikv_port=4001 tikv_status_port=10081
+
+[pd_servers]
+192.168.1.41
+192.168.1.42
+192.168.1.43
+
+# 注意：要使用 TiKV 的 labels，必须同时配置 PD 的 location_labels 参数，否则 labels 设置不生效。
+
+# 多实例场景需要额外配置 status 端口，示例如下：
+
+[tikv_servers]
+TiKV1-11 ansible_host=192.168.1.41 deploy_dir=/data1/deploy tikv_port=20171 tikv_status_port=20181 labels="host=tikv1"
+TiKV1-12 ansible_host=192.168.1.41 deploy_dir=/data2/deploy tikv_port=20172 tikv_status_port=20182 labels="host=tikv1"
+TiKV2-21 ansible_host=192.168.1.42 deploy_dir=/data1/deploy tikv_port=20171 tikv_status_port=20181 labels="host=tikv2"
+TiKV2-22 ansible_host=192.168.1.42 deploy_dir=/data2/deploy tikv_port=20172 tikv_status_port=20182 labels="host=tikv2"
+TiKV3-31 ansible_host=192.168.1.43 deploy_dir=/data1/deploy tikv_port=20171 tikv_status_port=20181 labels="host=tikv3"
+TiKV3-32 ansible_host=192.168.1.43 deploy_dir=/data2/deploy tikv_port=20172 tikv_status_port=20182 labels="host=tikv3"
+
+
+[monitoring_servers]
+192.168.1.42
+
+[grafana_servers]
+192.168.1.42
+
+[monitored_servers]
+192.168.1.41
+192.168.1.42
+192.168.1.43
+
+
+
+# 为使 TiKV 的 labels 设置生效，部署集群时必须设置 PD 的 location_labels 参数
+[pd_servers:vars]
+location_labels = ["host"]
 ```
-使用上述命令，在tikv_servers和monitored_servers中分别追加新部署节点的IP地址；
 
-![5132bd5af713ee6e76bf91a87f58d87.png](http://cdn.lifemini.cn/dbblog/20201227/c45b87c46cc143f8a0def8b154e35c6c.png)
-
-
-![dea88cbf26d02fa12d699d69bf343c8.png](http://cdn.lifemini.cn/dbblog/20201227/15323cdc7b4a49c2a7b30532829c1c83.png)
+ - labels 是 Region 调度的最小单元，每一个 raft group 中不同的 replica 不会在扩展过程中被迁移到同一个lable单元，避免这种情况下 server 宕机导致的单点问题（3副本，2副本落在同一个server）。  
+ - raft group 的 multi-replica 主要解决的是数据的容灾问题，labels 参数可以有效防止随数据扩展，在Region 迁移过程中因散列计算 Region 迁移位置时，由于冲撞导致的同一个 server 存储同一个 Region group 的多个 replica 的情况。
+- 可以给一个服务器打一个 labels、可以给一个服务器机柜打一个 labels，也可以是一个 IDC 打一个 labels。
 
 
+## 服务配置文件参数调整
+
+#### block-cache-size下的capacity参数调整
+
+多实例情况下，需要修改 tidb-ansible/conf/tikv.yml 中 block-cache-size 下面的 capacity 参数;
+用以限制每个TiKV实例用于block-cache的内存使用限制，官方推荐设置：capacity = MEM_TOTAL * 0.5 / TiKV 实例数量
+
+本例：各节点内存3G，每个节点部署两台实例，因此 capacity = 3 * 0.5 / 2 = 0.75GB
+
+```shell
+[tidb@tidb01-41 ~]$ vi ~/tidb-ansible/conf/tikv.yml
+
+
+storage:
+  block-cache:
+    capacity: "0.75GB"
+```
+
+#### readpool下coprocessor的并发度调整
+
+官方推荐设置： 参数值 = ( CPU 核心数量 * 0.8 ) / TiKV 实例数量
+
+本例：各节点部署两个实例，CPU 核心数量 8 个，参数值 = ( 8 * 0.8 ) / 2 = 3
+
+```shell
+# 使用 shell 命令查看逻辑核心数量
+[tidb@tidb01-41 tidb-ansible]$ cat /proc/cpuinfo| grep "processor"| wc -l
+8
+
+
+[tidb@tidb01-41 ~]$ vi ~/tidb-ansible/conf/tikv.yml
+
+
+readpool:
+  coprocessor:
+    # Notice: if CPU_NUM > 8, default thread pool size for coprocessors
+    # will be set to CPU_NUM * 0.8.
+    high-concurrency: 3
+    normal-concurrency: 3
+    low-concurrency: 3
+```
+
+#### raftstore下的capacity参数调整
+
+如果多个 TiKV 实例部署在同一块物理磁盘上，需要修改 conf/tikv.yml 中的 capacity 参数，限制每个 TiKV 实例所能使用的磁盘容量，官方推荐配置：capacity = 磁盘总容量 / TiKV 实例数量。
+
+本例：各节点限制使用磁盘容量为 5 GB ，capacity = "5GB"
+
+```
+vi ~/tidb-ansible/conf/tikv.yml
+
+
+raftstore:
+  capacity = "5GB"
+```
 
 ## 中控机操作部署机建用户
 
@@ -121,6 +166,94 @@ PLAY RECAP *********************************************************************
 Congrats! All goes well. :-)
 
 ```
+
+验证互信时候成功
+```
+[tidb@tidb01-41 tidb-ansible]$ ansible -i inventory.ini all -m shell -a 'whoami'
+192.168.1.43 | SUCCESS | rc=0 >>
+tidb
+
+192.168.1.42 | SUCCESS | rc=0 >>
+tidb
+
+TiDB1-21 | SUCCESS | rc=0 >>
+tidb
+
+TiDB1-22 | SUCCESS | rc=0 >>
+tidb
+
+TiDB1-12 | SUCCESS | rc=0 >>
+tidb
+
+192.168.1.41 | SUCCESS | rc=0 >>
+tidb
+
+TiDB1-11 | SUCCESS | rc=0 >>
+tidb
+
+TiKV3-31 | SUCCESS | rc=0 >>
+tidb
+
+TiKV3-32 | SUCCESS | rc=0 >>
+tidb
+
+TiKV2-21 | SUCCESS | rc=0 >>
+tidb
+
+TiKV2-22 | SUCCESS | rc=0 >>
+tidb
+
+TiKV1-11 | SUCCESS | rc=0 >>
+tidb
+
+TiKV1-12 | SUCCESS | rc=0 >>
+tidb
+```
+
+验证sudo 免密码配置成功
+
+```
+[tidb@tidb01-41 tidb-ansible]$ ansible -i inventory.ini all -m shell -a 'whoami' -b
+192.168.1.43 | SUCCESS | rc=0 >>
+root
+
+TiDB1-12 | SUCCESS | rc=0 >>
+root
+
+192.168.1.41 | SUCCESS | rc=0 >>
+root
+
+192.168.1.42 | SUCCESS | rc=0 >>
+root
+
+TiDB1-11 | SUCCESS | rc=0 >>
+root
+
+TiDB1-21 | SUCCESS | rc=0 >>
+root
+
+TiDB1-22 | SUCCESS | rc=0 >>
+root
+
+TiKV2-21 | SUCCESS | rc=0 >>
+root
+
+TiKV2-22 | SUCCESS | rc=0 >>
+root
+
+TiKV3-31 | SUCCESS | rc=0 >>
+root
+
+TiKV3-32 | SUCCESS | rc=0 >>
+root
+
+TiKV1-11 | SUCCESS | rc=0 >>
+root
+
+TiKV1-12 | SUCCESS | rc=0 >>
+root
+```
+
 
 ## 中控机操作部署机配置ntp服务
 
@@ -187,178 +320,65 @@ Error setting new values. Common errors:
 ```
 
 
-## 执行bootstrap创建模板
+
+## 黄金四步骤走
+
+#### 执行local_prepare联网下载binary包
+
+执行 local_prepare.yml playbook，联网下载 TiDB binary 至中控机。
+
 ```
-[tidb@tidb01-41 tidb-ansible]$ ansible-playbook bootstrap.yml -l 192.168.1.44
+[tidb@tidb01-41 tidb-ansible]$ ansible-playbook local_prepare.yml
 
-PLAY [initializing deployment target] ************************************************************************************
-skipping: no hosts matched
-
-PLAY [check node config] *************************************************************************************************
-
-TASK [pre-ansible : disk space check - fail when disk is full] ***********************************************************
-ok: [192.168.1.44]
+PLAY [do local preparation] ***************************************************************************
 
 ......
 ......
 
-PLAY RECAP ***************************************************************************************************************
-192.168.1.44               : ok=21   changed=0    unreachable=0    failed=0   
+Congrats! All goes well. :-)
+```
+
+#### 初始化系统环境并修改内核参数
+
+```
+[tidb@tidb01-41 tidb-ansible]$ ansible-playbook bootstrap.yml
+
+......
+......
 
 Congrats! All goes well. :-)
 ```
 
 
-
-## 执行start启动tikv服务
-
+#### 部署TiDB集群软件
 ```
-Congrats! All goes well. :-)
-[tidb@tidb01-41 tidb-ansible]$ ansible-playbook start.yml -l 192.168.1.44
+ansible-playbook deploy.yml
+```
+
+#### 安装Dashboard依赖包
+Grafana Dashboard 上的 Report 按钮可用来生成 PDF 文件，此功能依赖 fontconfig 包和英文字体。如
+```
+sudo yum install fontconfig open-sans-fonts
+```
+
+#### 启动TiDB集群。
+```
+[tidb@tidb01-41 tidb-ansible]$ ansible-playbook start.yml
 
 PLAY [check config locally] **********************************************************************************************
-skipping: no hosts matched
 
 ......
 ......
-
-PLAY RECAP ***************************************************************************************************************
-192.168.1.44               : ok=14   changed=3    unreachable=0    failed=0   
 
 Congrats! All goes well. :-)
 ```
 
-## 执行rolling-update滚动更新
 
-```
-[tidb@tidb01-41 tidb-ansible]$ ansible-playbook rolling_update_monitor.yml --tags=prometheus
 
-PLAY [check config locally] **********************************************************************************************
 
-TASK [check_config_static : Ensure only one monitoring host exists] ******************************************************
-
-......
-......
-
-PLAY RECAP ***************************************************************************************************************
-192.168.1.41               : ok=3    changed=0    unreachable=0    failed=0   
-192.168.1.42               : ok=25   changed=8    unreachable=0    failed=0   
-192.168.1.43               : ok=3    changed=0    unreachable=0    failed=0   
-192.168.1.44               : ok=3    changed=0    unreachable=0    failed=0   
-localhost                  : ok=7    changed=4    unreachable=0    failed=0   
-
-Congrats! All goes well. :-)
-
-```
 
 
 ## pd-ctl命令行验证是否成功
-
-可以使用stores show命令可以在pd-ctl交互式命令行中看到；
-"count"：4 表示当前tikv有四个节点，说明tikv节点已经添加成功了。
-
-```
-[tidb@tidb01-41 tidb-ansible]$ resources/bin/pd-ctl -u http://192.168.1.41:2379 -i
-» stores show
-{
-  "count": 4,
-  "stores": [
-    {
-      "store": {
-        "id": 2001,
-        "address": "192.168.1.44:20160",
-        "version": "3.0.1",
-        "state_name": "Up"
-      },
-      "status": {
-        "capacity": "17 GiB",
-        "available": "15 GiB",
-        "leader_count": 1,
-        "leader_weight": 1,
-        "leader_score": 1,
-        "leader_size": 1,
-        "region_count": 20,
-        "region_weight": 1,
-        "region_score": 20,
-        "region_size": 20,
-        "start_ts": "2020-12-27T01:53:06-05:00",
-        "last_heartbeat_ts": "2020-12-27T01:59:36.260710913-05:00",
-        "uptime": "6m30.260710913s"
-      }
-    },
-    {
-      "store": {
-        "id": 1,
-        "address": "192.168.1.41:20160",
-        "version": "3.0.1",
-        "state_name": "Up"
-      },
-      "status": {
-        "capacity": "17 GiB",
-        "available": "3.4 GiB",
-        "leader_weight": 1,
-        "region_weight": 1,
-        "region_score": 1073738348.2304688,
-        "start_ts": "2020-12-27T01:02:52-05:00",
-        "last_heartbeat_ts": "2020-12-27T01:59:34.041233812-05:00",
-        "uptime": "56m42.041233812s"
-      }
-    },
-    {
-      "store": {
-        "id": 4,
-        "address": "192.168.1.43:20160",
-        "version": "3.0.1",
-        "state_name": "Up"
-      },
-      "status": {
-        "capacity": "17 GiB",
-        "available": "14 GiB",
-        "leader_count": 9,
-        "leader_weight": 1,
-        "leader_score": 9,
-        "leader_size": 9,
-        "region_count": 20,
-        "region_weight": 1,
-        "region_score": 20,
-        "region_size": 20,
-        "start_ts": "2020-12-27T01:01:12-05:00",
-        "last_heartbeat_ts": "2020-12-27T01:59:32.975729011-05:00",
-        "uptime": "58m20.975729011s"
-      }
-    },
-    {
-      "store": {
-        "id": 5,
-        "address": "192.168.1.42:20160",
-        "version": "3.0.1",
-        "state_name": "Up"
-      },
-      "status": {
-        "capacity": "17 GiB",
-        "available": "13 GiB",
-        "leader_count": 10,
-        "leader_weight": 1,
-        "leader_score": 10,
-        "leader_size": 10,
-        "region_count": 20,
-        "region_weight": 1,
-        "region_score": 20,
-        "region_size": 20,
-        "start_ts": "2020-12-27T01:01:12-05:00",
-        "last_heartbeat_ts": "2020-12-27T01:59:33.014833325-05:00",
-        "uptime": "58m21.014833325s"
-      }
-    }
-  ]
-}
-
-» exit
-[tidb@tidb01-41 tidb-ansible]$ 
-
-```
-
-
 更新普罗米修斯后：
 
 
