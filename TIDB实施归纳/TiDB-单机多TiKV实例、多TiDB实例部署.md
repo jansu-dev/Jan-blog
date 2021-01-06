@@ -23,14 +23,16 @@
 ## 配置inventory的TiKV部分
 
 配置范例：
-```
+```python
 [tidb@tidb01-41 tidb-ansible]$ vi inventory.ini
 
 [tidb_servers]
-TiDB1-11 ansible_host=192.168.1.41 deploy_dir=/data1/deploy tikv_port=4000 tikv_status_port=10080
-TiDB1-12 ansible_host=192.168.1.41 deploy_dir=/data2/deploy tikv_port=4001 tikv_status_port=10081
-TiDB1-21 ansible_host=192.168.1.43 deploy_dir=/data1/deploy tikv_port=4000 tikv_status_port=10080
-TiDB1-22 ansible_host=192.168.1.43 deploy_dir=/data2/deploy tikv_port=4001 tikv_status_port=10081
+TiDB1-11 ansible_host=192.168.1.42 deploy_dir=/data1/deploy tikv_port=4000 tikv_status_port=10080
+TiDB1-12 ansible_host=192.168.1.42 deploy_dir=/data2/deploy tikv_port=4001 tikv_status_port=10081
+TiDB2-21 ansible_host=192.168.1.43 deploy_dir=/data1/deploy tikv_port=4000 tikv_status_port=10080
+TiDB2-22 ansible_host=192.168.1.43 deploy_dir=/data2/deploy tikv_port=4001 tikv_status_port=10081
+
+
 
 [pd_servers]
 192.168.1.41
@@ -57,7 +59,7 @@ TiKV3-32 ansible_host=192.168.1.43 deploy_dir=/data2/deploy tikv_port=20172 tikv
 192.168.1.42
 
 [monitored_servers]
-192.168.1.41
+# 192.168.1.41
 192.168.1.42
 192.168.1.43
 
@@ -139,7 +141,7 @@ raftstore:
 
 
 
-```
+```python
 [tidb@tidb01-41 tidb-ansible]$ vi hosts.ini 
 [tidb@tidb01-41 tidb-ansible]$ cat hosts.ini 
 [servers]
@@ -412,6 +414,9 @@ ERROR 2003 (HY000): Can't connect to MySQL server on '192.168.1.43' (111)
 [tidb@tidb01-41 tidb-ansible]$ mysql -uroot -P4001 -h192.168.1.42
 ERROR 2003 (HY000): Can't connect to MySQL server on '192.168.1.42' (111)
   ```
+
+**出现了TiDB实例没有起来的状况，但是ansible没有报错！**
+
 
  - grafana图形界面验证
 ![grafana节点校验](http://cdn.lifemini.cn/dbblog/20210106/9e1e0fde9ec446c7ae32df0a6f1f5338.png)
