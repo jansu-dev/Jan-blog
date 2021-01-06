@@ -7,6 +7,9 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 [TiDB-架构原理总体摘要](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/TiDB-%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E6%80%BB%E4%BD%93%E6%91%98%E8%A6%81.md)
 
 ## TiDB实施部署
+
+[TiDB-单机多TiKV实例、多TiDB实例部署](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/TiDB-%E5%8D%95%E6%9C%BA%E5%A4%9ATiKV%E9%83%A8%E7%BD%B2.md#%E9%85%8D%E7%BD%AEinventory%E7%9A%84TiKV%E9%83%A8%E5%88%86)
+
 [sysbench基准测试简介与操作流程](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/sysbench%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95.md)
 
 ## TiDB周边生态

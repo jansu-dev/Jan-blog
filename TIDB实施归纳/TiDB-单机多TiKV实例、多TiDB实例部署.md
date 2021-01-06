@@ -1,14 +1,17 @@
-# TiDB-单机多TiKV部署
+# TiDB-单机多TiKV实例、多TiDB实例部署
 
 ## summary
 > - [配置inventory的TiKV部分](#配置inventory的TiKV部分)  
-> - [服务配置文件参数调整](#服务配置文件参数调整)
-> - [中控机操作部署机建用户](#中控机操作部署机建用户)
-> - [中控机操作部署机配置ntp服务](#中控机操作部署机配置ntp服务)
-> - [中控及操作部署机设置CPU模式](#中控及操作部署机设置CPU模式)
-> - [执行bootstrap创建模板](#执行bootstrap创建模板)
-> - [执行start启动tikv服务](#执行start启动tikv服务)
-> - [执行rolling-update滚动更新](#执行rolling-update滚动更新)
+> - [集群节点环境配置与参数限制](#集群节点环境配置与参数限制)
+>   - [中控机操作部署机建用户](#中控机操作部署机建用户)
+>   - [中控机操作部署机配置ntp服务](#中控机操作部署机配置ntp服务)
+>   - [中控及操作部署机设置CPU模式](#中控及操作部署机设置CPU模式)
+> - [ansible部署命令黄金五步骤走](#ansible部署命令黄金五步骤走)
+>   - [执行local_prepare联网下载binary包](#执行local_prepare联网下载binary包)
+>   - [初始化系统环境并修改内核参数](#初始化系统环境并修改内核参数)
+>   - [部署TiDB集群软件](#部署TiDB集群软件)  
+>   - [安装Dashboard依赖包](#安装Dashboard依赖包)
+>   - [执行start启动TiDB集群](#执行start启动TiDB集群)
 > - [pd-ctl命令行验证是否成功](#pd-ctl命令行验证是否成功)
 
 
@@ -69,8 +72,8 @@ location_labels = ["host"]
  - raft group 的 multi-replica 主要解决的是数据的容灾问题，labels 参数可以有效防止随数据扩展，在Region 迁移过程中因散列计算 Region 迁移位置时，由于冲撞导致的同一个 server 存储同一个 Region group 的多个 replica 的情况。
 - 可以给一个服务器打一个 labels、可以给一个服务器机柜打一个 labels，也可以是一个 IDC 打一个 labels。
 
+## 集群节点环境配置与参数限制
 
-## 服务配置文件参数调整
 
 #### block-cache-size下的capacity参数调整
 
@@ -151,17 +154,8 @@ SSH password:
 
 PLAY [all] ***************************************************************************************************************
 
-TASK [create user] *******************************************************************************************************
-ok: [192.168.1.44]
-
-TASK [set authorized key] ************************************************************************************************
-changed: [192.168.1.44]
-
-TASK [update sudoers file] ***********************************************************************************************
-ok: [192.168.1.44]
-
-PLAY RECAP ***************************************************************************************************************
-192.168.1.44               : ok=3    changed=1    unreachable=0    failed=0   
+......
+......
 
 Congrats! All goes well. :-)
 
@@ -321,7 +315,7 @@ Error setting new values. Common errors:
 
 
 
-## 黄金四步骤走
+## ansible部署命令黄金五步骤走
 
 #### 执行local_prepare联网下载binary包
 
@@ -358,10 +352,10 @@ ansible-playbook deploy.yml
 #### 安装Dashboard依赖包
 Grafana Dashboard 上的 Report 按钮可用来生成 PDF 文件，此功能依赖 fontconfig 包和英文字体。如
 ```
-sudo yum install fontconfig open-sans-fonts
+[root@tidb01-41 tmp]# sudo yum install fontconfig open-sans-fonts
 ```
 
-#### 启动TiDB集群。
+#### 执行start启动TiDB集群
 ```
 [tidb@tidb01-41 tidb-ansible]$ ansible-playbook start.yml
 
