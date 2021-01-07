@@ -68,7 +68,7 @@ TiKV逻辑视图，在逻辑上如何管理、遍历数据实现真正的分布�
 
 #### Percolator
 
-Percolator 模型由 Google 研发并实现，是构建于 Bigtable 分布式存储（部分功能于 HBASE 类似）之上的、为大数据集群增量更新处理提供更新的系统。主要应用场景为 Google 的搜索索引服务，Google 的搜索索引服务主要依赖于 Page Rank 算法对爬虫爬取到的数据进行 MapReduce 汇总，搜索索引服务获取数据的特点决定了增量处理数据过程中很少出现热点数据的情况，因此 Percolator 可以使用乐观锁机制实现分布式事务的低延时特性。详细可以参加下篇文章[Percolator paper 学习笔记]()
+Percolator 模型由 Google 研发并实现，是构建于 Bigtable 分布式存储（部分功能于 HBASE 类似）之上的、为大数据集群增量更新处理提供更新的系统。主要应用场景为 Google 的搜索索引服务，Google 的搜索索引服务主要依赖于 Page Rank 算法对爬虫爬取到的数据进行 MapReduce 汇总，搜索索引服务获取数据的特点决定了增量处理数据过程中很少出现热点数据的情况，因此 Percolator 可以使用乐观锁机制实现分布式事务的低延时特性。详细可以参加下篇文章[Percolator paper 学习笔记](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/Percolator%20paper%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md)
 
 事务的所得模型V3.0版本之前乐观锁模型，V3.0开始支持悲观锁模型
 事务的隔离级别，目前仅支持snapshot isolation的隔离级别
