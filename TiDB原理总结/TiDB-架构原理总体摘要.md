@@ -66,14 +66,36 @@ TiKV逻辑视图，在逻辑上如何管理、遍历数据实现真正的分布�
 
 ## 事务模型
 
-#### Percolators
+#### Percolator
 
-#### 去中心化的2PC实现
-
-两阶段提交中存在单点问题，TiDB会产生一个全局TSO（**类似于Oracle的scn**）,TSO 由PD Server master产生。
+Percolator 模型由 Google 研发并实现，是构建于 Bigtable 分布式存储（部分功能于 HBASE 类似）之上的、为大数据集群增量更新处理提供更新的系统。主要应用场景为 Google 的搜索索引服务，Google 的搜索索引服务主要依赖于 Page Rank 算法对爬虫爬取到的数据进行 MapReduce 汇总，搜索索引服务获取数据的特点决定了增量处理数据过程中很少出现热点数据的情况，因此 Percolator 可以使用乐观锁机制实现分布式事务的低延时特性。详细可以参加下篇文章[Percolator paper 学习笔记]()
 
 事务的所得模型V3.0版本之前乐观锁模型，V3.0开始支持悲观锁模型
 事务的隔离级别，目前仅支持snapshot isolation的隔离级别
+
+#### 去中心化的2PC实现
+
+ - 什么是2PC？  
+ 2PC又名两阶段提交，是解决分布式系统中共识问题一类解决方案的归纳，可以有多种实现，如：zookeeper实现的zab、TiDB实现的single Paxos(Raft)
+ 
+ - 2PC具体分为prepare阶段和commit阶段(以zab协议为例)
+  - prepare阶段由coordinator发起RPC请求，请求本次所有的participant是否均在线，且可以接受数据的写入，如果所有participant均接受其次请求便会返回自己的RPC消息
+  - commit阶段由于coordinator接收到了所有participant的RPC消息回传，验证了当前数据已被所有participant写入本地，此时coordinator向所有participant广播commit操作的RPC消息
+
+ - 注意(zab协议)
+  - zab协议的prepare阶段的participants消息回传确认仅是整明已经接受数据写入，但是并没有提交此时数据仍可以rollback，这样才能实现分布式系统中任何节点故障所有节点也进行回滚，保证分布式事务一致
+  - zab协议如果在一轮2PC事务操作发起后出现节点崩溃故障，其他节点将长时间被阻塞导致冲突，相应的产生了3PC实现，但是3PC的超时机制并没有根本性解决分布式事务问题
+  - zab协议实现的2PC存在性能问题，如果存在n个节点，那么将发起3n次RPC消息，可能导致性能问题且难以改善
+
+ - Raft协议实现
+  - TiDB实现raft协议解决，同一个raft group中的多数派写入保证了分布式事务问题
+  - raft协议由multi-Paxos协议演变而来，通过选主lader解决的RPC消息时的效率问题
+  - raft协议包含proposer、acceptor、linear三个角色，详细可以查看官方Raft Paper
+
+ - 注意(raft协议)
+  - 两阶段提交中存在单点问题，TiDB会产生一个全局TSO（**类似于Oracle的scn**）,TSO 由PD Server master产生。
+
+
 
 ## SQL引擎
 client首次访问TiKV存储引擎获取数据时，会先访问PD Server获取并缓存，如Region Leader及其他follower的路由信息等；
