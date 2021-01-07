@@ -6,6 +6,8 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 [TiDB-架构原理总体摘要](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/TiDB-%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E6%80%BB%E4%BD%93%E6%91%98%E8%A6%81.md)
 
+[Spanner Paper 学习笔记]()
+
 ## TiDB实施部署
 
 [TiDB-Ansible部署工具简介与TiDB集群部署](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/TiDB-Ansible%E9%83%A8%E7%BD%B2%E5%B7%A5%E5%85%B7%E7%AE%80%E4%BB%8B%E4%B8%8ETiDB%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2.md)
