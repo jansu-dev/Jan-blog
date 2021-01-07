@@ -10,6 +10,8 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 [Percolator paper 学习笔记](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/Percolator%20paper%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md)
 
+[TiDB-TiKV原理探究](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/TiDB-TiKV%E5%8E%9F%E7%90%86%E6%8E%A2%E7%A9%B6.md)
+
 ## TiDB实施部署
 
 [TiDB-Ansible部署工具简介与TiDB集群部署](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/TiDB-Ansible%E9%83%A8%E7%BD%B2%E5%B7%A5%E5%85%B7%E7%AE%80%E4%BB%8B%E4%B8%8ETiDB%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2.md)

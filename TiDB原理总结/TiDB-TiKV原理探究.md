@@ -2,9 +2,9 @@
 时间：2021/01/07
 
 > - [保存数据总结](#保存数据总结)  
-> - [Key-Value存储模型](#Key-Value存储模型)
-> - [Raft协议实现](#Key-Value存储模型)
-> - [percolater冲突case](#percolater冲突case)
+> - [Key-Value存储模型](#Key-Value存储模型)  
+> - [Raft协议实现](#Key-Value存储模型)  
+> - [percolater冲突case](#percolater冲突case)  
 
 
 
