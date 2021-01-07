@@ -8,7 +8,24 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ## TiDB实施部署
 
+[TiDB-集群部署前环境检测](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/TiDB-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E5%89%8D%E7%8E%AF%E5%A2%83%E6%A3%80%E6%B5%8B.md)
+
+[TiDB-TiDB集群Ansible方式节点扩容](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/TiDB-TiDB%E9%9B%86%E7%BE%A4Ansible%E6%96%B9%E5%BC%8F%E8%8A%82%E7%82%B9%E6%89%A9%E5%AE%B9.md)
+
+
+[TiDB-TiDB集群Ansible方式节点缩容](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/TiDB-TiDB%E9%9B%86%E7%BE%A4Ansible%E6%96%B9%E5%BC%8F%E8%8A%82%E7%82%B9%E7%BC%A9%E5%AE%B9.md)
+
+[TiDB-TiKV集群Ansible方式节点扩容](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/TiDB-TiKV%E9%9B%86%E7%BE%A4Ansible%E6%96%B9%E5%BC%8F%E8%8A%82%E7%82%B9%E6%89%A9%E5%AE%B9.md)
+
+[TiDB-TiKV集群Ansible方式节点缩容](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/TiDB-TiKV%E9%9B%86%E7%BE%A4Ansible%E6%96%B9%E5%BC%8F%E8%8A%82%E7%82%B9%E7%BC%A9%E5%AE%B9.md)
+
+[TiDB-PD集群Ansible方式节点扩容](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/TiDB-PD%E9%9B%86%E7%BE%A4Ansible%E6%96%B9%E5%BC%8F%E8%8A%82%E7%82%B9%E6%89%A9%E5%AE%B9.md)
+
+[TiDB-PD集群Ansible方式节点缩容](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/TiDB-PD%E9%9B%86%E7%BE%A4Ansible%E6%96%B9%E5%BC%8F%E8%8A%82%E7%82%B9%E7%BC%A9%E5%AE%B9.md)
+
+
 [TiDB-单机多TiKV实例、多TiDB实例部署](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/TiDB-%E5%8D%95%E6%9C%BA%E5%A4%9ATiKV%E5%AE%9E%E4%BE%8B%E3%80%81%E5%A4%9ATiDB%E5%AE%9E%E4%BE%8B%E9%83%A8%E7%BD%B2.md)
+
 
 [sysbench基准测试简介与操作流程](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB%E5%AE%9E%E6%96%BD%E5%BD%92%E7%BA%B3/sysbench%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95.md)
 
