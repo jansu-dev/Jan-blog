@@ -11,7 +11,7 @@
 
 ## 获取升级版本镜像包
 
-方式一：[**TiDB社区版获取方式：**](https://pingcap.com/download-cn/community/)
+方式一：[**TiDB社区版获取方式：https://pingcap.com/download-cn/community/**](https://pingcap.com/download-cn/community/)
 
 方式二：联网TiUP服务器打包scp
 ```
