@@ -194,12 +194,374 @@ UUID=003d05ff-6e97-49ec-abf4-b86be07754b8 /data ext4    defaults,nodelalloc,noat
 ```
 
 ## 配置topology配置文件
+```
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ vi topology.yaml
+
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ cat topology.yaml
+# # Global variables are applied to all deployments and used as the default value of
+# # the deployments if a specific deployment value is missing.
+global:
+  user: "tidb"
+  ssh_port: 22
+  deploy_dir: "/data/tidb-deploy"
+  data_dir: "/data/tidb-data"
+
+server_configs:
+  pd:
+    replication.enable-placement-rules: true
+
+pd_servers:
+  - host: 192.168.169.41
+  - host: 192.168.169.42
+  - host: 192.168.169.43
+tidb_servers:
+  - host: 192.168.169.41
+  - host: 192.168.169.42
+  - host: 192.168.169.43
+tikv_servers:
+  - host: 192.168.169.41
+  - host: 192.168.169.42
+  - host: 192.168.169.43
+tiflash_servers:
+  - host: 192.168.169.43
+    data_dir: /data/tiflash1/data,/data/tiflash2/data
+cdc_servers:
+  - host: 192.168.169.41
+  - host: 192.168.169.42
+  - host: 192.168.169.43
+monitoring_servers:
+  - host: 192.168.169.42
+grafana_servers:
+  - host: 192.168.169.42
+alertmanager_servers:
+  - host: 192.168.169.42
+```
 
 
 ## 部署TiDB集群
+```
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ pwd
+/home/tidb/tidb-community-server-v4.0.2-linux-amd64
 
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ export TIUP_MIRRORS=/home/tidb/tidb-community-server-v4.0.2-linux-amd64
+
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup cluster deploy tidb-test v4.0.2 topology.yaml --user root -p 
+Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster deploy tidb-test v4.0.2 topology.yaml --user root -p
+Please confirm your topology:
+Cluster type:    tidb
+Cluster name:    tidb-test
+Cluster version: v4.0.2
+Type          Host            Ports                            OS/Arch       Directories
+----          ----            -----                            -------       -----------
+pd            192.168.169.41  2379/2380                        linux/x86_64  /tidb-deploy/pd-2379,/tidb-data/pd-2379
+pd            192.168.169.42  2379/2380                        linux/x86_64  /tidb-deploy/pd-2379,/tidb-data/pd-2379
+pd            192.168.169.43  2379/2380                        linux/x86_64  /tidb-deploy/pd-2379,/tidb-data/pd-2379
+tikv          192.168.169.41  20160/20180                      linux/x86_64  /tidb-deploy/tikv-20160,/tidb-data/tikv-20160
+tikv          192.168.169.42  20160/20180                      linux/x86_64  /tidb-deploy/tikv-20160,/tidb-data/tikv-20160
+tikv          192.168.169.43  20160/20180                      linux/x86_64  /tidb-deploy/tikv-20160,/tidb-data/tikv-20160
+tidb          192.168.169.41  4000/10080                       linux/x86_64  /tidb-deploy/tidb-4000
+tidb          192.168.169.42  4000/10080                       linux/x86_64  /tidb-deploy/tidb-4000
+tidb          192.168.169.43  4000/10080                       linux/x86_64  /tidb-deploy/tidb-4000
+tiflash       192.168.169.43  9000/8123/3930/20170/20292/8234  linux/x86_64  /tidb-deploy/tiflash-9000,/data/tiflash/data
+cdc           192.168.169.41  8300                             linux/x86_64  /tidb-deploy/cdc-8300
+cdc           192.168.169.42  8300                             linux/x86_64  /tidb-deploy/cdc-8300
+cdc           192.168.169.43  8300                             linux/x86_64  /tidb-deploy/cdc-8300
+prometheus    192.168.169.42  9090                             linux/x86_64  /tidb-deploy/prometheus-9090,/tidb-data/prometheus-9090
+grafana       192.168.169.42  3000                             linux/x86_64  /tidb-deploy/grafana-3000
+alertmanager  192.168.169.42  9093/9094                        linux/x86_64  /tidb-deploy/alertmanager-9093,/tidb-data/alertmanager-9093
+Attention:
+    1. If the topology is not what you expected, check your yaml file.
+    2. Please confirm there is no port/directory conflicts in same host.
+Do you want to continue? [y/N]:  y
+
+Input SSH password: 
++ Generate SSH keys ... Done
++ Download TiDB components
+  - Download pd:v4.0.2 (linux/amd64) ... Done
+  - Download tikv:v4.0.2 (linux/amd64) ... Done
+  - Download tidb:v4.0.2 (linux/amd64) ... Done
+  - Download tiflash:v4.0.2 (linux/amd64) ... Done
+  - Download cdc:v4.0.2 (linux/amd64) ... Done
+  - Download prometheus:v4.0.2 (linux/amd64) ... Done
+  - Download grafana:v4.0.2 (linux/amd64) ... Done
+  - Download alertmanager:v0.17.0 (linux/amd64) ... Done
+  - Download node_exporter:v0.17.0 (linux/amd64) ... Done
+  - Download blackbox_exporter:v0.12.0 (linux/amd64) ... Done
++ Initialize target host environments
+  - Prepare 192.168.169.41:22 ... Done
+  - Prepare 192.168.169.42:22 ... Done
+  - Prepare 192.168.169.43:22 ... Done
++ Copy files
+  - Copy pd -> 192.168.169.41 ... Done
+  - Copy pd -> 192.168.169.42 ... Done
+  - Copy pd -> 192.168.169.43 ... Done
+  - Copy tikv -> 192.168.169.41 ... Done
+  - Copy tikv -> 192.168.169.42 ... Done
+  - Copy tikv -> 192.168.169.43 ... Done
+  - Copy tidb -> 192.168.169.41 ... Done
+  - Copy tidb -> 192.168.169.42 ... Done
+  - Copy tidb -> 192.168.169.43 ... Done
+  - Copy tiflash -> 192.168.169.43 ... Done
+  - Copy cdc -> 192.168.169.41 ... Done
+  - Copy cdc -> 192.168.169.42 ... Done
+  - Copy cdc -> 192.168.169.43 ... Done
+  - Copy prometheus -> 192.168.169.42 ... Done
+  - Copy grafana -> 192.168.169.42 ... Done
+  - Copy alertmanager -> 192.168.169.42 ... Done
+  - Copy node_exporter -> 192.168.169.43 ... Done
+  - Copy node_exporter -> 192.168.169.41 ... Done
+  - Copy node_exporter -> 192.168.169.42 ... Done
+  - Copy blackbox_exporter -> 192.168.169.41 ... Done
+  - Copy blackbox_exporter -> 192.168.169.42 ... Done
+  - Copy blackbox_exporter -> 192.168.169.43 ... Done
++ Check status
+Enabling component pd
+	Enabling instance pd 192.168.169.43:2379
+	Enabling instance pd 192.168.169.41:2379
+	Enabling instance pd 192.168.169.42:2379
+	Enable pd 192.168.169.42:2379 success
+	Enable pd 192.168.169.43:2379 success
+	Enable pd 192.168.169.41:2379 success
+Enabling component node_exporter
+Enabling component blackbox_exporter
+Enabling component node_exporter
+Enabling component blackbox_exporter
+Enabling component node_exporter
+Enabling component blackbox_exporter
+Enabling component tikv
+	Enabling instance tikv 192.168.169.43:20160
+	Enabling instance tikv 192.168.169.41:20160
+	Enabling instance tikv 192.168.169.42:20160
+	Enable tikv 192.168.169.43:20160 success
+	Enable tikv 192.168.169.42:20160 success
+	Enable tikv 192.168.169.41:20160 success
+Enabling component tidb
+	Enabling instance tidb 192.168.169.43:4000
+	Enabling instance tidb 192.168.169.41:4000
+	Enabling instance tidb 192.168.169.42:4000
+	Enable tidb 192.168.169.43:4000 success
+	Enable tidb 192.168.169.42:4000 success
+	Enable tidb 192.168.169.41:4000 success
+Enabling component tiflash
+	Enabling instance tiflash 192.168.169.43:9000
+	Enable tiflash 192.168.169.43:9000 success
+Enabling component cdc
+	Enabling instance cdc 192.168.169.43:8300
+	Enabling instance cdc 192.168.169.42:8300
+	Enabling instance cdc 192.168.169.41:8300
+	Enable cdc 192.168.169.43:8300 success
+	Enable cdc 192.168.169.42:8300 success
+	Enable cdc 192.168.169.41:8300 success
+Enabling component prometheus
+	Enabling instance prometheus 192.168.169.42:9090
+	Enable prometheus 192.168.169.42:9090 success
+Enabling component grafana
+	Enabling instance grafana 192.168.169.42:3000
+	Enable grafana 192.168.169.42:3000 success
+Enabling component alertmanager
+	Enabling instance alertmanager 192.168.169.42:9093
+	Enable alertmanager 192.168.169.42:9093 success
+Cluster `tidb-test` deployed successfully, you can start it with command: `tiup cluster start tidb-test`
+```
 
 ## 启动TiDB集群
-
+```
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup cluster start tidb-test
+Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster start tidb-test
+Starting cluster tidb-test...
++ [ Serial ] - SSHKeySet: privateKey=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/ssh/id_rsa, publicKey=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/ssh/id_rsa.pub
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
++ [ Serial ] - StartCluster
+Starting component pd
+	Starting instance pd 192.168.169.43:2379
+	Starting instance pd 192.168.169.42:2379
+	Starting instance pd 192.168.169.41:2379
+	Start pd 192.168.169.42:2379 success
+	Start pd 192.168.169.43:2379 success
+	Start pd 192.168.169.41:2379 success
+Starting component node_exporter
+	Starting instance 192.168.169.41
+	Start 192.168.169.41 success
+Starting component blackbox_exporter
+	Starting instance 192.168.169.41
+	Start 192.168.169.41 success
+Starting component node_exporter
+	Starting instance 192.168.169.42
+	Start 192.168.169.42 success
+Starting component blackbox_exporter
+	Starting instance 192.168.169.42
+	Start 192.168.169.42 success
+Starting component node_exporter
+	Starting instance 192.168.169.43
+	Start 192.168.169.43 success
+Starting component blackbox_exporter
+	Starting instance 192.168.169.43
+	Start 192.168.169.43 success
+Starting component tikv
+	Starting instance tikv 192.168.169.43:20160
+	Starting instance tikv 192.168.169.41:20160
+	Starting instance tikv 192.168.169.42:20160
+	Start tikv 192.168.169.41:20160 success
+	Start tikv 192.168.169.43:20160 success
+	Start tikv 192.168.169.42:20160 success
+Starting component tidb
+	Starting instance tidb 192.168.169.43:4000
+	Starting instance tidb 192.168.169.41:4000
+	Starting instance tidb 192.168.169.42:4000
+	Start tidb 192.168.169.43:4000 success
+	Start tidb 192.168.169.42:4000 success
+	Start tidb 192.168.169.41:4000 success
+Starting component tiflash
+	Starting instance tiflash 192.168.169.43:9000
+	Start tiflash 192.168.169.43:9000 success
+Starting component cdc
+	Starting instance cdc 192.168.169.43:8300
+	Starting instance cdc 192.168.169.42:8300
+	Starting instance cdc 192.168.169.41:8300
+	Start cdc 192.168.169.42:8300 success
+	Start cdc 192.168.169.41:8300 success
+	Start cdc 192.168.169.43:8300 success
+Starting component prometheus
+	Starting instance prometheus 192.168.169.42:9090
+	Start prometheus 192.168.169.42:9090 success
+Starting component grafana
+	Starting instance grafana 192.168.169.42:3000
+	Start grafana 192.168.169.42:3000 success
+Starting component alertmanager
+	Starting instance alertmanager 192.168.169.42:9093
+	Start alertmanager 192.168.169.42:9093 success
++ [ Serial ] - UpdateTopology: cluster=tidb-test
+Started cluster `tidb-test` successfully
+```
 
 ## 检查集群状态
+```
+
+```
+
+## 卸载集群
+```
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup cluster clean tidb-test --all
+Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster clean tidb-test --all
+This operation will stop tidb v4.0.2 cluster tidb-test and clean its' data and log.
+Nodes will be ignored: []
+Roles will be ignored: []
+Files to be deleted are: 
+192.168.169.42:
+ /tidb-deploy/cdc-8300/log/*.log
+ /tidb-deploy/tidb-4000/log/*.log
+ /tidb-deploy/tikv-20160/log/*.log
+ /tidb-deploy/alertmanager-9093/log/*.log
+ /tidb-data/alertmanager-9093/*
+ /tidb-data/prometheus-9090/*
+ /tidb-deploy/pd-2379/log/*.log
+ /tidb-data/pd-2379/*
+ /tidb-deploy/grafana-3000/log/*.log
+ /tidb-deploy/prometheus-9090/log/*.log
+ /tidb-data/tikv-20160/*
+192.168.169.41:
+ /tidb-deploy/pd-2379/log/*.log
+ /tidb-data/pd-2379/*
+ /tidb-deploy/cdc-8300/log/*.log
+ /tidb-deploy/tidb-4000/log/*.log
+ /tidb-deploy/tikv-20160/log/*.log
+ /tidb-data/tikv-20160/*
+192.168.169.43:
+ /tidb-deploy/tiflash-9000/log/*.log
+ /data/tiflash/data/*
+ /tidb-deploy/tidb-4000/log/*.log
+ /tidb-deploy/tikv-20160/log/*.log
+ /tidb-data/tikv-20160/*
+ /tidb-deploy/pd-2379/log/*.log
+ /tidb-data/pd-2379/*
+ /tidb-deploy/cdc-8300/log/*.log
+Do you want to continue? [y/N]: y
+Cleanup cluster...
++ [ Serial ] - SSHKeySet: privateKey=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/ssh/id_rsa, publicKey=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/ssh/id_rsa.pub
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [ Serial ] - StopCluster
+Stopping component alertmanager
+	Stopping instance 192.168.169.42
+	Stop alertmanager 192.168.169.42:9093 success
+Stopping component grafana
+	Stopping instance 192.168.169.42
+	Stop grafana 192.168.169.42:3000 success
+Stopping component prometheus
+	Stopping instance 192.168.169.42
+	Stop prometheus 192.168.169.42:9090 success
+Stopping component cdc
+	Stopping instance 192.168.169.43
+	Stopping instance 192.168.169.42
+	Stopping instance 192.168.169.41
+	Stop cdc 192.168.169.42:8300 success
+	Stop cdc 192.168.169.41:8300 success
+	Stop cdc 192.168.169.43:8300 success
+Stopping component tiflash
+	Stopping instance 192.168.169.43
+	Stop tiflash 192.168.169.43:9000 success
+Stopping component tidb
+	Stopping instance 192.168.169.43
+	Stopping instance 192.168.169.42
+	Stopping instance 192.168.169.41
+	Stop tidb 192.168.169.42:4000 success
+	Stop tidb 192.168.169.41:4000 success
+	Stop tidb 192.168.169.43:4000 success
+Stopping component tikv
+	Stopping instance 192.168.169.43
+	Stopping instance 192.168.169.41
+	Stopping instance 192.168.169.42
+	Stop tikv 192.168.169.42:20160 success
+	Stop tikv 192.168.169.43:20160 success
+	Stop tikv 192.168.169.41:20160 success
+Stopping component pd
+	Stopping instance 192.168.169.43
+	Stopping instance 192.168.169.41
+	Stopping instance 192.168.169.42
+	Stop pd 192.168.169.41:2379 success
+	Stop pd 192.168.169.43:2379 success
+	Stop pd 192.168.169.42:2379 success
+Stopping component node_exporter
+Stopping component blackbox_exporter
+Stopping component node_exporter
+Stopping component blackbox_exporter
+Stopping component node_exporter
+Stopping component blackbox_exporter
++ [ Serial ] - CleanupCluster
+Cleanup instance 192.168.169.43
+Cleanup 192.168.169.43 success
+Cleanup instance 192.168.169.42
+Cleanup 192.168.169.42 success
+Cleanup instance 192.168.169.41
+Cleanup 192.168.169.41 success
+Cleanup cluster `tidb-test` successfully
+```
