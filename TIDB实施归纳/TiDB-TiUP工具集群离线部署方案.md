@@ -253,27 +253,26 @@ Cluster name:    tidb-test
 Cluster version: v4.0.2
 Type          Host            Ports                            OS/Arch       Directories
 ----          ----            -----                            -------       -----------
-pd            192.168.169.41  2379/2380                        linux/x86_64  /tidb-deploy/pd-2379,/tidb-data/pd-2379
-pd            192.168.169.42  2379/2380                        linux/x86_64  /tidb-deploy/pd-2379,/tidb-data/pd-2379
-pd            192.168.169.43  2379/2380                        linux/x86_64  /tidb-deploy/pd-2379,/tidb-data/pd-2379
-tikv          192.168.169.41  20160/20180                      linux/x86_64  /tidb-deploy/tikv-20160,/tidb-data/tikv-20160
-tikv          192.168.169.42  20160/20180                      linux/x86_64  /tidb-deploy/tikv-20160,/tidb-data/tikv-20160
-tikv          192.168.169.43  20160/20180                      linux/x86_64  /tidb-deploy/tikv-20160,/tidb-data/tikv-20160
-tidb          192.168.169.41  4000/10080                       linux/x86_64  /tidb-deploy/tidb-4000
-tidb          192.168.169.42  4000/10080                       linux/x86_64  /tidb-deploy/tidb-4000
-tidb          192.168.169.43  4000/10080                       linux/x86_64  /tidb-deploy/tidb-4000
-tiflash       192.168.169.43  9000/8123/3930/20170/20292/8234  linux/x86_64  /tidb-deploy/tiflash-9000,/data/tiflash/data
-cdc           192.168.169.41  8300                             linux/x86_64  /tidb-deploy/cdc-8300
-cdc           192.168.169.42  8300                             linux/x86_64  /tidb-deploy/cdc-8300
-cdc           192.168.169.43  8300                             linux/x86_64  /tidb-deploy/cdc-8300
-prometheus    192.168.169.42  9090                             linux/x86_64  /tidb-deploy/prometheus-9090,/tidb-data/prometheus-9090
-grafana       192.168.169.42  3000                             linux/x86_64  /tidb-deploy/grafana-3000
-alertmanager  192.168.169.42  9093/9094                        linux/x86_64  /tidb-deploy/alertmanager-9093,/tidb-data/alertmanager-9093
+pd            192.168.169.41  2379/2380                        linux/x86_64  /data/tidb-deploy/pd-2379,/data/tidb-data/pd-2379
+pd            192.168.169.42  2379/2380                        linux/x86_64  /data/tidb-deploy/pd-2379,/data/tidb-data/pd-2379
+pd            192.168.169.43  2379/2380                        linux/x86_64  /data/tidb-deploy/pd-2379,/data/tidb-data/pd-2379
+tikv          192.168.169.41  20160/20180                      linux/x86_64  /data/tidb-deploy/tikv-20160,/data/tidb-data/tikv-20160
+tikv          192.168.169.42  20160/20180                      linux/x86_64  /data/tidb-deploy/tikv-20160,/data/tidb-data/tikv-20160
+tikv          192.168.169.43  20160/20180                      linux/x86_64  /data/tidb-deploy/tikv-20160,/data/tidb-data/tikv-20160
+tidb          192.168.169.41  4000/10080                       linux/x86_64  /data/tidb-deploy/tidb-4000
+tidb          192.168.169.42  4000/10080                       linux/x86_64  /data/tidb-deploy/tidb-4000
+tidb          192.168.169.43  4000/10080                       linux/x86_64  /data/tidb-deploy/tidb-4000
+tiflash       192.168.169.43  9000/8123/3930/20170/20292/8234  linux/x86_64  /data/tidb-deploy/tiflash-9000,/data/tiflash1/data,/data/tiflash2/data
+cdc           192.168.169.41  8300                             linux/x86_64  /data/tidb-deploy/cdc-8300
+cdc           192.168.169.42  8300                             linux/x86_64  /data/tidb-deploy/cdc-8300
+cdc           192.168.169.43  8300                             linux/x86_64  /data/tidb-deploy/cdc-8300
+prometheus    192.168.169.42  9090                             linux/x86_64  /data/tidb-deploy/prometheus-9090,/data/tidb-data/prometheus-9090
+grafana       192.168.169.42  3000                             linux/x86_64  /data/tidb-deploy/grafana-3000
+alertmanager  192.168.169.42  9093/9094                        linux/x86_64  /data/tidb-deploy/alertmanager-9093,/data/tidb-data/alertmanager-9093
 Attention:
     1. If the topology is not what you expected, check your yaml file.
     2. Please confirm there is no port/directory conflicts in same host.
 Do you want to continue? [y/N]:  y
-
 Input SSH password: 
 + Generate SSH keys ... Done
 + Download TiDB components
@@ -308,12 +307,12 @@ Input SSH password:
   - Copy prometheus -> 192.168.169.42 ... Done
   - Copy grafana -> 192.168.169.42 ... Done
   - Copy alertmanager -> 192.168.169.42 ... Done
-  - Copy node_exporter -> 192.168.169.43 ... Done
   - Copy node_exporter -> 192.168.169.41 ... Done
   - Copy node_exporter -> 192.168.169.42 ... Done
-  - Copy blackbox_exporter -> 192.168.169.41 ... Done
+  - Copy node_exporter -> 192.168.169.43 ... Done
   - Copy blackbox_exporter -> 192.168.169.42 ... Done
   - Copy blackbox_exporter -> 192.168.169.43 ... Done
+  - Copy blackbox_exporter -> 192.168.169.41 ... Done
 + Check status
 Enabling component pd
 	Enabling instance pd 192.168.169.43:2379
@@ -332,8 +331,8 @@ Enabling component tikv
 	Enabling instance tikv 192.168.169.43:20160
 	Enabling instance tikv 192.168.169.41:20160
 	Enabling instance tikv 192.168.169.42:20160
-	Enable tikv 192.168.169.43:20160 success
 	Enable tikv 192.168.169.42:20160 success
+	Enable tikv 192.168.169.43:20160 success
 	Enable tikv 192.168.169.41:20160 success
 Enabling component tidb
 	Enabling instance tidb 192.168.169.43:4000
@@ -347,8 +346,8 @@ Enabling component tiflash
 	Enable tiflash 192.168.169.43:9000 success
 Enabling component cdc
 	Enabling instance cdc 192.168.169.43:8300
-	Enabling instance cdc 192.168.169.42:8300
 	Enabling instance cdc 192.168.169.41:8300
+	Enabling instance cdc 192.168.169.42:8300
 	Enable cdc 192.168.169.43:8300 success
 	Enable cdc 192.168.169.42:8300 success
 	Enable cdc 192.168.169.41:8300 success
@@ -371,28 +370,28 @@ Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cl
 Starting cluster tidb-test...
 + [ Serial ] - SSHKeySet: privateKey=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/ssh/id_rsa, publicKey=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/ssh/id_rsa.pub
 + [Parallel] - UserSSH: user=tidb, host=192.168.169.42
-+ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
-+ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
 + [Parallel] - UserSSH: user=tidb, host=192.168.169.42
 + [Parallel] - UserSSH: user=tidb, host=192.168.169.43
 + [Parallel] - UserSSH: user=tidb, host=192.168.169.41
 + [Parallel] - UserSSH: user=tidb, host=192.168.169.42
-+ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
-+ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
-+ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
-+ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
-+ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
-+ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
-+ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
 + [Parallel] - UserSSH: user=tidb, host=192.168.169.43
 + [Parallel] - UserSSH: user=tidb, host=192.168.169.41
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.41
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.43
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
++ [Parallel] - UserSSH: user=tidb, host=192.168.169.42
 + [ Serial ] - StartCluster
 Starting component pd
 	Starting instance pd 192.168.169.43:2379
 	Starting instance pd 192.168.169.42:2379
 	Starting instance pd 192.168.169.41:2379
-	Start pd 192.168.169.42:2379 success
 	Start pd 192.168.169.43:2379 success
+	Start pd 192.168.169.42:2379 success
 	Start pd 192.168.169.41:2379 success
 Starting component node_exporter
 	Starting instance 192.168.169.41
@@ -421,18 +420,18 @@ Starting component tikv
 	Start tikv 192.168.169.42:20160 success
 Starting component tidb
 	Starting instance tidb 192.168.169.43:4000
-	Starting instance tidb 192.168.169.41:4000
 	Starting instance tidb 192.168.169.42:4000
-	Start tidb 192.168.169.43:4000 success
-	Start tidb 192.168.169.42:4000 success
+	Starting instance tidb 192.168.169.41:4000
 	Start tidb 192.168.169.41:4000 success
+	Start tidb 192.168.169.42:4000 success
+	Start tidb 192.168.169.43:4000 success
 Starting component tiflash
 	Starting instance tiflash 192.168.169.43:9000
 	Start tiflash 192.168.169.43:9000 success
 Starting component cdc
 	Starting instance cdc 192.168.169.43:8300
-	Starting instance cdc 192.168.169.42:8300
 	Starting instance cdc 192.168.169.41:8300
+	Starting instance cdc 192.168.169.42:8300
 	Start cdc 192.168.169.42:8300 success
 	Start cdc 192.168.169.41:8300 success
 	Start cdc 192.168.169.43:8300 success
@@ -451,7 +450,32 @@ Started cluster `tidb-test` successfully
 
 ## 检查集群状态
 ```
-
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup cluster display tidb-test
+Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster display tidb-test
+Cluster type:       tidb
+Cluster name:       tidb-test
+Cluster version:    v4.0.2
+SSH type:           builtin
+Dashboard URL:      http://192.168.169.42:2379/dashboard
+ID                    Role          Host            Ports                            OS/Arch       Status  Data Dir                                 Deploy Dir
+--                    ----          ----            -----                            -------       ------  --------                                 ----------
+192.168.169.42:9093   alertmanager  192.168.169.42  9093/9094                        linux/x86_64  Up      /data/tidb-data/alertmanager-9093        /data/tidb-deploy/alertmanager-9093
+192.168.169.41:8300   cdc           192.168.169.41  8300                             linux/x86_64  Up      -                                        /data/tidb-deploy/cdc-8300
+192.168.169.42:8300   cdc           192.168.169.42  8300                             linux/x86_64  Up      -                                        /data/tidb-deploy/cdc-8300
+192.168.169.43:8300   cdc           192.168.169.43  8300                             linux/x86_64  Up      -                                        /data/tidb-deploy/cdc-8300
+192.168.169.42:3000   grafana       192.168.169.42  3000                             linux/x86_64  Up      -                                        /data/tidb-deploy/grafana-3000
+192.168.169.41:2379   pd            192.168.169.41  2379/2380                        linux/x86_64  Up      /data/tidb-data/pd-2379                  /data/tidb-deploy/pd-2379
+192.168.169.42:2379   pd            192.168.169.42  2379/2380                        linux/x86_64  Up|UI   /data/tidb-data/pd-2379                  /data/tidb-deploy/pd-2379
+192.168.169.43:2379   pd            192.168.169.43  2379/2380                        linux/x86_64  Up|L    /data/tidb-data/pd-2379                  /data/tidb-deploy/pd-2379
+192.168.169.42:9090   prometheus    192.168.169.42  9090                             linux/x86_64  Up      /data/tidb-data/prometheus-9090          /data/tidb-deploy/prometheus-9090
+192.168.169.41:4000   tidb          192.168.169.41  4000/10080                       linux/x86_64  Up      -                                        /data/tidb-deploy/tidb-4000
+192.168.169.42:4000   tidb          192.168.169.42  4000/10080                       linux/x86_64  Up      -                                        /data/tidb-deploy/tidb-4000
+192.168.169.43:4000   tidb          192.168.169.43  4000/10080                       linux/x86_64  Up      -                                        /data/tidb-deploy/tidb-4000
+192.168.169.43:9000   tiflash       192.168.169.43  9000/8123/3930/20170/20292/8234  linux/x86_64  Down    /data/tiflash1/data,/data/tiflash2/data  /data/tidb-deploy/tiflash-9000
+192.168.169.41:20160  tikv          192.168.169.41  20160/20180                      linux/x86_64  Up      /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
+192.168.169.42:20160  tikv          192.168.169.42  20160/20180                      linux/x86_64  Up      /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
+192.168.169.43:20160  tikv          192.168.169.43  20160/20180                      linux/x86_64  Up      /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
+Total nodes: 16
 ```
 
 ## 卸载集群
@@ -564,4 +588,69 @@ Cleanup 192.168.169.42 success
 Cleanup instance 192.168.169.41
 Cleanup 192.168.169.41 success
 Cleanup cluster `tidb-test` successfully
+```
+
+
+
+```
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup install tiflash:v4.0.2
+component tiflash version v4.0.2 is already installed
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup clean tiflash:v4.0.2
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup uninstall tiflash:v4.0.2
+Uninstalled component `tiflash:v4.0.2` successfully!
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup clean tiflash:v4.0.2
+[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup install tiflash:v4.0.2
+```
+
+
+
+## 常见错误解决
+
+最开始安装过一次，以为tiflash必须要配置两个才能来起来，所以想尝试重新部署一次  
+
+但是正常 tiup clean --all 删除所有组件之后，修改topology.yaml的tiflash配置重新部署，出现如下报错  
+
+解决方案为，进入/home/tidb/.tiup/storage/cluster/clusters目录下删除tidb-test的文件   
+
+本人猜测可能是clean的时候没有将这部分文件一起删除导致的
+
+```shell
+[tidb@tiup-tidb41 ~]$ export TIUP_MIRRORS=/home/tidb/tidb-community-server-v4.0.2-linux-amd64
+
+[tidb@tiup-tidb41 ~]$ tiup cluster deploy tidb-test v4.0.2 topology.yaml --user root -p 
+Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster deploy tidb-test v4.0.2 topology.yaml --user root -p
+
+Error: Cluster name 'tidb-test' is duplicated (deploy.name_dup)
+
+Please specify another cluster name
+Error: run `/home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster` (wd:/home/tidb/.tiup/data/SLZjdQu) failed: exit status 1
+
+
+
+
+# 解决方式
+
+[tidb@tiup-tidb41 clusters]$ pwd
+/home/tidb/.tiup/storage/cluster/clusters
+
+[tidb@tiup-tidb41 clusters]$ rm -rf tidb-test/
+```
+
+
+```
+[tidb@tiup-tidb41 ~]$ tiup cluster deploy tidb-test v4.0.2 topology.yaml --user root -p 
+Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster deploy tidb-test v4.0.2 topology.yaml --user root -p
+
+Error: Failed to read topology file topology.yaml (topology.read_failed)
+  caused by: open topology.yaml: no such file or directory
+
+Please check whether your topology file topology.yaml exists and try again.
+
+To generate a sample topology file:
+  tiup cluster template topology > topo.yaml
+Error: run `/home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster` (wd:/home/tidb/.tiup/data/SLZk26m) failed: exit status 1
+
+
+
+
 ```
