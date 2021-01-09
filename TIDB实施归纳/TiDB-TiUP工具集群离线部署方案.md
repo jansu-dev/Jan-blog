@@ -1,5 +1,13 @@
 # TiDB-TiUP工具集群离线部署方案
 
+> - [下载TiUP离线组件](#下载TiUP离线组件)
+> - [TiKV数据盘挂载](#下载TiUP离线组件)
+> - [配置topology配置文件](#配置topology配置文件)
+> - [部署TiDB集群](#部署TiDB集群)
+> - [检查集群状态](#检查集群状态)
+> - [TiUP卸载集群](#TiUP卸载集群)
+> - [常见错误解决](#常见错误解决)
+
 
 ## 下载TiUP离线组件
 
@@ -103,12 +111,6 @@ Installed path: /home/tidb/.tiup/bin/tiup
 
 [tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ source /home/tidb/.bash_profile
 ```
-
-
-## 配置集群免密登录
-
-
-
 
 ## TiKV数据盘挂载
 
@@ -450,35 +452,35 @@ Started cluster `tidb-test` successfully
 
 ## 检查集群状态
 ```
-[tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup cluster display tidb-test
+[tidb@tiup-tidb41 ~]$ tiup cluster display tidb-test
 Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster display tidb-test
 Cluster type:       tidb
 Cluster name:       tidb-test
 Cluster version:    v4.0.2
 SSH type:           builtin
 Dashboard URL:      http://192.168.169.42:2379/dashboard
-ID                    Role          Host            Ports                            OS/Arch       Status  Data Dir                                 Deploy Dir
---                    ----          ----            -----                            -------       ------  --------                                 ----------
-192.168.169.42:9093   alertmanager  192.168.169.42  9093/9094                        linux/x86_64  Up      /data/tidb-data/alertmanager-9093        /data/tidb-deploy/alertmanager-9093
-192.168.169.41:8300   cdc           192.168.169.41  8300                             linux/x86_64  Up      -                                        /data/tidb-deploy/cdc-8300
-192.168.169.42:8300   cdc           192.168.169.42  8300                             linux/x86_64  Up      -                                        /data/tidb-deploy/cdc-8300
-192.168.169.43:8300   cdc           192.168.169.43  8300                             linux/x86_64  Up      -                                        /data/tidb-deploy/cdc-8300
-192.168.169.42:3000   grafana       192.168.169.42  3000                             linux/x86_64  Up      -                                        /data/tidb-deploy/grafana-3000
-192.168.169.41:2379   pd            192.168.169.41  2379/2380                        linux/x86_64  Up      /data/tidb-data/pd-2379                  /data/tidb-deploy/pd-2379
-192.168.169.42:2379   pd            192.168.169.42  2379/2380                        linux/x86_64  Up|UI   /data/tidb-data/pd-2379                  /data/tidb-deploy/pd-2379
-192.168.169.43:2379   pd            192.168.169.43  2379/2380                        linux/x86_64  Up|L    /data/tidb-data/pd-2379                  /data/tidb-deploy/pd-2379
-192.168.169.42:9090   prometheus    192.168.169.42  9090                             linux/x86_64  Up      /data/tidb-data/prometheus-9090          /data/tidb-deploy/prometheus-9090
-192.168.169.41:4000   tidb          192.168.169.41  4000/10080                       linux/x86_64  Up      -                                        /data/tidb-deploy/tidb-4000
-192.168.169.42:4000   tidb          192.168.169.42  4000/10080                       linux/x86_64  Up      -                                        /data/tidb-deploy/tidb-4000
-192.168.169.43:4000   tidb          192.168.169.43  4000/10080                       linux/x86_64  Up      -                                        /data/tidb-deploy/tidb-4000
-192.168.169.43:9000   tiflash       192.168.169.43  9000/8123/3930/20170/20292/8234  linux/x86_64  Down    /data/tiflash1/data,/data/tiflash2/data  /data/tidb-deploy/tiflash-9000
-192.168.169.41:20160  tikv          192.168.169.41  20160/20180                      linux/x86_64  Up      /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
-192.168.169.42:20160  tikv          192.168.169.42  20160/20180                      linux/x86_64  Up      /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
-192.168.169.43:20160  tikv          192.168.169.43  20160/20180                      linux/x86_64  Up      /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
+ID                    Role          Host            Ports                            OS/Arch       Status   Data Dir                                 Deploy Dir
+--                    ----          ----            -----                            -------       ------   --------                                 ----------
+192.168.169.42:9093   alertmanager  192.168.169.42  9093/9094                        linux/x86_64  Up       /data/tidb-data/alertmanager-9093        /data/tidb-deploy/alertmanager-9093
+192.168.169.41:8300   cdc           192.168.169.41  8300                             linux/x86_64  Up       -                                        /data/tidb-deploy/cdc-8300
+192.168.169.42:8300   cdc           192.168.169.42  8300                             linux/x86_64  Up       -                                        /data/tidb-deploy/cdc-8300
+192.168.169.43:8300   cdc           192.168.169.43  8300                             linux/x86_64  Up       -                                        /data/tidb-deploy/cdc-8300
+192.168.169.42:3000   grafana       192.168.169.42  3000                             linux/x86_64  Up       -                                        /data/tidb-deploy/grafana-3000
+192.168.169.41:2379   pd            192.168.169.41  2379/2380                        linux/x86_64  Up       /data/tidb-data/pd-2379                  /data/tidb-deploy/pd-2379
+192.168.169.42:2379   pd            192.168.169.42  2379/2380                        linux/x86_64  Up|L|UI  /data/tidb-data/pd-2379                  /data/tidb-deploy/pd-2379
+192.168.169.43:2379   pd            192.168.169.43  2379/2380                        linux/x86_64  Up       /data/tidb-data/pd-2379                  /data/tidb-deploy/pd-2379
+192.168.169.42:9090   prometheus    192.168.169.42  9090                             linux/x86_64  Up       /data/tidb-data/prometheus-9090          /data/tidb-deploy/prometheus-9090
+192.168.169.41:4000   tidb          192.168.169.41  4000/10080                       linux/x86_64  Up       -                                        /data/tidb-deploy/tidb-4000
+192.168.169.42:4000   tidb          192.168.169.42  4000/10080                       linux/x86_64  Up       -                                        /data/tidb-deploy/tidb-4000
+192.168.169.43:4000   tidb          192.168.169.43  4000/10080                       linux/x86_64  Up       -                                        /data/tidb-deploy/tidb-4000
+192.168.169.44:9000   tiflash       192.168.169.44  9000/8123/3930/20170/20292/8234  linux/x86_64  Up       /data/tiflash1/data,/data/tiflash2/data  /data/tidb-deploy/tiflash-9000
+192.168.169.41:20160  tikv          192.168.169.41  20160/20180                      linux/x86_64  Up       /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
+192.168.169.42:20160  tikv          192.168.169.42  20160/20180                      linux/x86_64  Up       /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
+192.168.169.43:20160  tikv          192.168.169.43  20160/20180                      linux/x86_64  Up       /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
 Total nodes: 16
 ```
 
-## 卸载集群
+## TiUP卸载集群
 ```
 [tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup cluster clean tidb-test --all
 Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster clean tidb-test --all
