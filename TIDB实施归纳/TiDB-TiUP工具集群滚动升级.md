@@ -5,7 +5,7 @@
 > [将集群升级到指定版本](#将集群升级到指定版本)  
 > [TiUP工具滚动升级](#TiUP工具滚动升级)  
 > [验证集群升级](#验证集群升级)  
-
+> [常见问题解决方案](#常见问题解决方案)
 
 
 
@@ -143,4 +143,49 @@ ID                    Role          Host            Ports                       
 192.168.169.42:20160  tikv          192.168.169.42  20160/20180                      linux/x86_64  Up       /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
 192.168.169.43:20160  tikv          192.168.169.43  20160/20180                      linux/x86_64  Up       /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
 Total nodes: 16
+```
+
+## 常见问题解决方案
+
+ - Run Command Timeout错误解决
+```
+[tidb@tiup-tidb41 tidb-community-server-v4.0.9-linux-amd64]$ tiup cluster upgrade tidb-test v4.0.9
+Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster upgrade tidb-test v4.0.9
+This operation will upgrade tidb v4.0.2 cluster tidb-test to v4.0.9.
+Do you want to continue? [y/N]: y
+Upgrading cluster...
+......
+......
++ [ Serial ] - InitConfig: cluster=tidb-test, user=tidb, host=192.168.169.42, path=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/config-cache/tikv-20160.service, deploy_dir=/data/tidb-deploy/tikv-20160, data_dir=[/data/tidb-data/tikv-20160], log_dir=/data/tidb-deploy/tikv-20160/log, cache_dir=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/config-cache
+
+Error: stderr: Run Command Timeout!
+: executor.ssh.execute_timedout: Execute command over SSH timedout for 'tidb@192.168.169.44:22' {ssh_stderr: Run Command Timeout!
+, ssh_stdout: , ssh_command: export LANG=C; PATH=$PATH:/usr/bin:/usr/sbin tar --no-same-owner -zxf /data/tidb-deploy/tiflash-9000/bin/tiflash-v4.0.9-linux-amd64.tar.gz -C /data/tidb-deploy/tiflash-9000/bin && rm /data/tidb-deploy/tiflash-9000/bin/tiflash-v4.0.9-linux-amd64.tar.gz}
+
+Verbose debug logs has been written to /home/tidb/.tiup/logs/tiup-cluster-debug-2021-01-10-01-04-18.log.
+Error: run `/home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster` (wd:/home/tidb/.tiup/data/SLfUqGv) failed: exit status 1
+```
+通过指定wait-timeout参数增大SSH Command的执行时间
+```
+[tidb@tiup-tidb41 tidb-community-server-v4.0.9-linux-amd64]$ tiup cluster upgrade tidb-test v4.0.9 --ssh-timeout 100000000 --wait-timeout 100000000
+Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster upgrade tidb-test v4.0.9 --wait-timeout 100000000
+This operation will upgrade tidb v4.0.2 cluster tidb-test to v4.0.9.
+Do you want to continue? [y/N]: y
+Upgrading cluster...
++ [ Serial ] - SSHKeySet: privateKey=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/ssh/id_rsa, publicKey=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/ssh/id_rsa.pub
+......
+......
+Upgraded custer `tidb-test` successfully
+
+
+
+[tidb@tiup-tidb41 tidb-community-server-v4.0.9-linux-amd64]$ tiup cluster display tidb-test
+Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster display tidb-test
+Cluster type:       tidb
+Cluster name:       tidb-test
+Cluster version:    v4.0.9
+SSH type:           builtin
+Dashboard URL:      http://192.168.169.41:2379/dashboard
+......
+......
 ```
