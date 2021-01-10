@@ -8,6 +8,16 @@
 > - [TiUP卸载集群](#TiUP卸载集群)  
 > - [常见错误解决](#常见错误解决)  
 
+> **IP规划**
+
+| IP地址 | Role信息 | 备注 |
+|-|-|-|
+| 192.168.169.41 | pd+tikv+tidb+cdc | 部署TiUP主机 |
+| 192.168.169.42 | pd+tikv+tidb+cdc+prometheus+grafana+alertmanager |  |
+| 192.168.169.43 | pd+tikv+tidb+cdc |  |
+| 192.168.169.44 | tiflash |  |
+
+
 
 ## 下载TiUP离线组件
 
