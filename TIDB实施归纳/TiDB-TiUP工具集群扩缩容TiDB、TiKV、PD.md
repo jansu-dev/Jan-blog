@@ -1,9 +1,22 @@
 # TiDB-TiUP工具集群扩缩容TiDB、TiKV、PD
 
+> - [扩容TiDB、TiKV、PD节点](#扩容TiDB、TiKV、PD节点)  
+>     - [编写scale-out文件](#编写scale-out文件)  
+>     - [执行scale-out扩容操作](#执行scale-out扩容操作)  
+>     - [display验证扩容操作](#display验证扩容操作)  
+> - [缩容TiDB、TiKV、PD节点](#缩容TiDB、TiKV、PD节点)  
+>     - [缩容TiDB节点](#缩容TiDB节点)  
+>     - [缩容TiKV节点](#缩容TiKV节点)  
+>     - [缩容PD节点](#缩容PD节点)  
 
 
+
+## 扩容TiDB、TiKV、PD节点
+#### 编写scale-out文件
 ```
-[tidb@tiup-tidb41 tidb-community-server-v4.0.9-linux-amd64]$ cat scale-out.yaml 
+[tidb@tiup-tidb41 tidb-community-server-v4.0.9-linux-amd64]$ cat scale-out.yaml  
+
+[tidb@tiup-tidb41 tidb-community-server-v4.0.9-linux-amd64]$ vi scale-out.yaml 
 tidb_servers:
   - host: 192.168.169.44
     ssh_port: 22
@@ -31,6 +44,11 @@ pd_servers:
     deploy_dir: /data/tidb-deploy/install/deploy/pd-2379
     data_dir: /data/tidb-data/install/data/pd-2379
     log_dir: /data/tidb-deploy/install/log/pd-2379
+```
+
+
+#### 执行scale-out扩容操作
+```
 [tidb@tiup-tidb41 tidb-community-server-v4.0.9-linux-amd64]$ tiup cluster scale-out tidb-test scale-out.yaml
 Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/tiup-cluster scale-out tidb-test scale-out.yaml
 Please confirm your topology:
@@ -48,29 +66,26 @@ Attention:
 Do you want to continue? [y/N]:  y
 Input SSH password: 
 + [ Serial ] - SSHKeySet: privateKey=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/ssh/id_rsa, publicKey=/home/tidb/.tiup/storage/cluster/clusters/tidb-test/ssh/id_rsa.pub
-
 ......
 ......
-
 Scaled cluster `tidb-test` out successfully
 ```
 
-
+#### display验证扩容操作
 ```
 [tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup cluster display tidb-test
 Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.3.1/
-
 ......
 ......
-
 tikv-20160               /data/tidb-deploy/tikv-20160
 192.168.169.44:20160  tikv          192.168.169.44  20160/20180                      linux/x86_64  Up      /data/tidb-data/install/data/tikv-20160  /data/tidb-deploy/install/deploy/tikv-20160
 Total nodes: 19
 ```
 
 
-## 缩容
+## 缩容TiDB、TiKV、PD节点
 
+#### 缩容TiDB节点
 ```
 [tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup cluster scale-in tidb-test --node 192.168.169.44:20160
 
@@ -88,10 +103,8 @@ Scaled cluster `tidb-test` in successfully
 
 ```
 [tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup cluster display tidb-test
-
 ......
 ......
-
 There are some nodes can be pruned: 
 	Nodes: [192.168.169.44:20160]
 	You can destroy them with the command: `tiup cluster prune tidb-test`
@@ -147,8 +160,7 @@ ID                    Role          Host            Ports                       
 192.168.169.43:20160  tikv          192.168.169.43  20160/20180                      linux/x86_64  Up      /data/tidb-data/tikv-20160               /data/tidb-deploy/tikv-20160
 ```
 
-## 缩容TiDB节点
-
+#### 缩容TiDB节点
  - 开始缩容TiDB节点
 ```
 [tidb@tiup-tidb41 tidb-community-server-v4.0.2-linux-amd64]$ tiup cluster scale-in tidb-test --node 192.168.169.44:4000
