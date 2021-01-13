@@ -98,9 +98,15 @@ export PATH
 #### tiup工具使用dumpling
 
 ```
-tiup install dumpling
+[tidb@tiup-tidb41 ~]$ tiup install dumpling
 
-tiup dumpling  -h192.168.1.44 -ujan -p123123 -P 3306 -T "jan_db.jan_test"  ......
+[tidb@tiup-tidb41 ~]$ tiup list --installed
+Available components:
+Name      Owner    Description
+----      -----    -----------
+dumpling  pingcap  Dumpling is a CLI tool that helps you dump MySQL/TiDB data
+......
+......
 ```
 
 ## 参数简介

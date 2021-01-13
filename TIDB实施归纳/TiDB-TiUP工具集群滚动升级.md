@@ -64,15 +64,22 @@ Installed path: /home/tidb/.tiup/bin/tiup
 
  - 注意：在升级的过程中不要执行 DDL 请求，否则可能会出现行为未定义的问题
 
+如下情况便不能执行滚动上级操作
 ```
-MySQL [INFORMATION_SCHEMA]> select * from INFORMATION_SCHEMA.processlist;
-+----+------+----------------+--------------------+---------+------+-------+----------------------------------------------+------+----------+
-| ID | USER | HOST           | DB                 | COMMAND | TIME | STATE | INFO                                         | MEM  | TxnStart |
-+----+------+----------------+--------------------+---------+------+-------+----------------------------------------------+------+----------+
-|  2 | root | 192.168.169.41 | INFORMATION_SCHEMA | Query   |    0 | 2     | select * from INFORMATION_SCHEMA.processlist |    0 |          |
-+----+------+----------------+--------------------+---------+------+-------+----------------------------------------------+------+----------+
-1 row in set (0.00 sec)
-
+MySQL [(none)]> admin show ddl jobs where state !='synced'\G
+*************************** 1. row ***************************
+      JOB_ID: 90
+     DB_NAME: jan
+  TABLE_NAME: 
+    JOB_TYPE: drop schema
+SCHEMA_STATE: delete only
+   SCHEMA_ID: 46
+    TABLE_ID: 0
+   ROW_COUNT: 0
+  START_TIME: 2021-01-13 04:15:22
+    END_TIME: NULL
+       STATE: running
+1 row in set (0.01 sec)
 ```
 
 
