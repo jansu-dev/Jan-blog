@@ -422,9 +422,360 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 
 ```
 
+查看任务状态
+```
+[tidb@tiup-tidb41 dm]$ tiup dmctl --master-addr 192.168.169.42:8261 query-status one-tidb-slave
+Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr 192.168.169.42:8261 query-status one-tidb-slave
+{
+    "result": true,
+    "msg": "",
+    "sources": [
+        {
+            "result": true,
+            "msg": "",
+            "sourceStatus": {
+                "source": "mysql-replica-01",
+                "worker": "dm-192.168.169.41-8262",
+                "result": null,
+                "relayStatus": null
+            },
+            "subTaskStatus": [
+                {
+                    "name": "one-tidb-slave",
+                    "stage": "Running",
+                    "unit": "Sync",
+                    "result": null,
+                    "unresolvedDDLLockID": "",
+                    "sync": {
+                        "totalEvents": "0",
+                        "totalTps": "0",
+                        "recentTps": "0",
+                        "masterBinlog": "(mysql-bin.000001, 6633)",
+                        "masterBinlogGtid": "581426c4-563a-11eb-8eea-000c2972c98a:1-35",
+                        "syncerBinlog": "(mysql-bin.000001, 6633)",
+                        "syncerBinlogGtid": "581426c4-563a-11eb-8eea-000c2972c98a:1-35",
+                        "blockingDDLs": [
+                        ],
+                        "unresolvedGroups": [
+                        ],
+                        "synced": true,
+                        "binlogType": "remote"
+                    }
+                }
+            ]
+        },
+        {
+            "result": true,
+            "msg": "",
+            "sourceStatus": {
+                "source": "mysql-replica-02",
+                "worker": "dm-192.168.169.42-8262",
+                "result": null,
+                "relayStatus": null
+            },
+            "subTaskStatus": [
+                {
+                    "name": "one-tidb-slave",
+                    "stage": "Running",
+                    "unit": "Sync",
+                    "result": null,
+                    "unresolvedDDLLockID": "",
+                    "sync": {
+                        "totalEvents": "0",
+                        "totalTps": "0",
+                        "recentTps": "0",
+                        "masterBinlog": "(mysql-bin.000001, 7957)",
+                        "masterBinlogGtid": "8b923309-5644-11eb-a36c-000c29d3567e:1-41",
+                        "syncerBinlog": "(mysql-bin.000001, 7957)",
+                        "syncerBinlogGtid": "8b923309-5644-11eb-a36c-000c29d3567e:1-41",
+                        "blockingDDLs": [
+                        ],
+                        "unresolvedGroups": [
+                        ],
+                        "synced": true,
+                        "binlogType": "remote"
+                    }
+                }
+            ]
+        },
+        {
+            "result": true,
+            "msg": "",
+            "sourceStatus": {
+                "source": "mysql-replica-03",
+                "worker": "dm-192.168.169.43-8262",
+                "result": null,
+                "relayStatus": null
+            },
+            "subTaskStatus": [
+                {
+                    "name": "one-tidb-slave",
+                    "stage": "Running",
+                    "unit": "Sync",
+                    "result": null,
+                    "unresolvedDDLLockID": "",
+                    "sync": {
+                        "totalEvents": "0",
+                        "totalTps": "0",
+                        "recentTps": "0",
+                        "masterBinlog": "(mysql-bin.000001, 9273)",
+                        "masterBinlogGtid": "9d33b95a-5644-11eb-a720-000c290d4084:1-47",
+                        "syncerBinlog": "(mysql-bin.000001, 9273)",
+                        "syncerBinlogGtid": "9d33b95a-5644-11eb-a720-000c290d4084:1-47",
+                        "blockingDDLs": [
+                        ],
+                        "unresolvedGroups": [
+                        ],
+                        "synced": true,
+                        "binlogType": "remote"
+                    }
+                }
+            ]
+        }
+    ]
+}
+
+```
+
+恢复任务
+```
+[tidb@tiup-tidb41 dm]$ tiup dmctl --master-addr 192.168.169.42:8261 resume-task one-tidb-slave
+Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr 192.168.169.42:8261 resume-task one-tidb-slave
+{
+    "op": "Resume",
+    "result": true,
+    "msg": "",
+    "sources": [
+        {
+            "result": true,
+            "msg": "",
+            "source": "mysql-replica-01",
+            "worker": "dm-192.168.169.41-8262"
+        },
+        {
+            "result": true,
+            "msg": "",
+            "source": "mysql-replica-02",
+            "worker": "dm-192.168.169.42-8262"
+        },
+        {
+            "result": true,
+            "msg": "",
+            "source": "mysql-replica-03",
+            "worker": "dm-192.168.169.43-8262"
+        }
+    ]
+}
+[tidb@tiup-tidb41 dm]$ tiup dmctl --master-addr 192.168.169.42:8261 query-status one-tidb-slave
+Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr 192.168.169.42:8261 query-status one-tidb-slave
+{
+    "result": true,
+    "msg": "",
+    "sources": [
+        {
+            "result": true,
+            "msg": "",
+            "sourceStatus": {
+                "source": "mysql-replica-01",
+                "worker": "dm-192.168.169.41-8262",
+                "result": null,
+                "relayStatus": null
+            },
+            "subTaskStatus": [
+                {
+                    "name": "one-tidb-slave",
+                    "stage": "Running",
+                    "unit": "Sync",
+                    "result": null,
+                    "unresolvedDDLLockID": "",
+                    "sync": {
+                        "totalEvents": "0",
+                        "totalTps": "0",
+                        "recentTps": "0",
+                        "masterBinlog": "(mysql-bin.000001, 6633)",
+                        "masterBinlogGtid": "581426c4-563a-11eb-8eea-000c2972c98a:1-35",
+                        "syncerBinlog": "(mysql-bin.000001, 6633)",
+                        "syncerBinlogGtid": "581426c4-563a-11eb-8eea-000c2972c98a:1-35",
+                        "blockingDDLs": [
+                        ],
+                        "unresolvedGroups": [
+                        ],
+                        "synced": true,
+                        "binlogType": "remote"
+                    }
+                }
+            ]
+        },
+        {
+            "result": true,
+            "msg": "",
+            "sourceStatus": {
+                "source": "mysql-replica-02",
+                "worker": "dm-192.168.169.42-8262",
+                "result": null,
+                "relayStatus": null
+            },
+            "subTaskStatus": [
+                {
+                    "name": "one-tidb-slave",
+                    "stage": "Running",
+                    "unit": "Sync",
+                    "result": null,
+                    "unresolvedDDLLockID": "",
+                    "sync": {
+                        "totalEvents": "0",
+                        "totalTps": "0",
+                        "recentTps": "0",
+                        "masterBinlog": "(mysql-bin.000001, 7957)",
+                        "masterBinlogGtid": "8b923309-5644-11eb-a36c-000c29d3567e:1-41",
+                        "syncerBinlog": "(mysql-bin.000001, 7957)",
+                        "syncerBinlogGtid": "8b923309-5644-11eb-a36c-000c29d3567e:1-41",
+                        "blockingDDLs": [
+                        ],
+                        "unresolvedGroups": [
+                        ],
+                        "synced": true,
+                        "binlogType": "remote"
+                    }
+                }
+            ]
+        },
+        {
+            "result": true,
+            "msg": "",
+            "sourceStatus": {
+                "source": "mysql-replica-03",
+                "worker": "dm-192.168.169.43-8262",
+                "result": null,
+                "relayStatus": null
+            },
+            "subTaskStatus": [
+                {
+                    "name": "one-tidb-slave",
+                    "stage": "Running",
+                    "unit": "Sync",
+                    "result": null,
+                    "unresolvedDDLLockID": "",
+                    "sync": {
+                        "totalEvents": "0",
+                        "totalTps": "0",
+                        "recentTps": "0",
+                        "masterBinlog": "(mysql-bin.000001, 9273)",
+                        "masterBinlogGtid": "9d33b95a-5644-11eb-a720-000c290d4084:1-47",
+                        "syncerBinlog": "(mysql-bin.000001, 9273)",
+                        "syncerBinlogGtid": "9d33b95a-5644-11eb-a720-000c290d4084:1-47",
+                        "blockingDDLs": [
+                        ],
+                        "unresolvedGroups": [
+                        ],
+                        "synced": true,
+                        "binlogType": "remote"
+                    }
+                }
+            ]
+        }
+    ]
+}
+
+```
+验证同步
+```
+[tidb@tiup-tidb41 dm]$ mysql -uroot -P4000 -h192.168.169.41
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 429
+Server version: 5.7.25-TiDB-v4.0.9 TiDB Server (Apache License 2.0) Community Edition, MySQL 5.7 compatible
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| INFORMATION_SCHEMA |
+| METRICS_SCHEMA     |
+| PERFORMANCE_SCHEMA |
+| dm_meta            |
+| dump_test          |
+| dumptest1          |
+| dumptest2          |
+| jan                |
+| mysql              |
+| store              |
+| user_east          |
+| user_north         |
+| user_south         |
++--------------------+
+13 rows in set (0.00 sec)
+
+MySQL [(none)]> use store
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MySQL [store]> show tales;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your TiDB version for the right syntax to use line 1 column 10 near "tales" 
+MySQL [store]> show tables;
++-----------------+
+| Tables_in_store |
++-----------------+
+| store_bj        |
+| store_gz        |
+| store_sh        |
+| store_shenzhen  |
+| store_suzhou    |
+| store_tj        |
++-----------------+
+6 rows in set (0.00 sec)
+
+MySQL [store]> select * from store_bj;
++------+-------------+
+| id   | name        |
++------+-------------+
+|    1 | store_bj_01 |
+|    2 | store_bj_02 |
++------+-------------+
+2 rows in set (0.01 sec)
+
+MySQL [store]> select * from store_gz;
++------+-------------+
+| id   | name        |
++------+-------------+
+|    1 | store_gz_01 |
+|    2 | store_gz_02 |
++------+-------------+
+2 rows in set (0.25 sec)
+
+MySQL [store]> select * from store_shenzhen;
++------+-------------------+
+| id   | name              |
++------+-------------------+
+|    1 | store_shenzhen_01 |
+|    2 | store_shenzhen_02 |
++------+-------------------+
+2 rows in set (0.01 sec)
+
+MySQL [store]> select * from store_suzhou;
++------+-----------------+
+| id   | name            |
++------+-----------------+
+|    1 | store_suzhou_01 |
+|    2 | store_suzhou_02 |
++------+-----------------+
+2 rows in set (0.00 sec)
+
+
+```
 
 ## 参考文章
 
-[https://www.bookstack.cn/read/tidb-data-migration-1.0-zh/zh-get-started.md](https://www.bookstack.cn/read/tidb-data-migration-1.0-zh/zh-get-started.md)
+[TiDB Data Migration (DM) 用户文档 v1.0://www.bookstack.cn/read/tidb-data-migration-1.0-zh/zh-get-started.md](https://www.bookstack.cn/read/tidb-data-migration-1.0-zh/zh-get-started.md)
 
-[]
+[Data Migration 简单使用场景:https://docs.pingcap.com/zh/tidb-data-migration/stable/usage-scenario-simple-migration](https://docs.pingcap.com/zh/tidb-data-migration/stable/usage-scenario-simple-migration)
+
+[使用 DM 迁移数据:https://docs.pingcap.com/zh/tidb-data-migration/stable/migrate-data-using-dm#%E7%AC%AC-4-%E6%AD%A5%E9%85%8D%E7%BD%AE%E4%BB%BB%E5%8A%A1](https://docs.pingcap.com/zh/tidb-data-migration/stable/migrate-data-using-dm#%E7%AC%AC-4-%E6%AD%A5%E9%85%8D%E7%BD%AE%E4%BB%BB%E5%8A%A1)
+
+[TiDB Data Migration 快速上手指南:https://docs.pingcap.com/zh/tidb-data-migration/stable/quick-start-with-dm](https://docs.pingcap.com/zh/tidb-data-migration/stable/quick-start-with-dm)
+
+[创建数据迁移任务:https://docs.pingcap.com/zh/tidb-data-migration/stable/quick-start-create-task](https://docs.pingcap.com/zh/tidb-data-migration/stable/quick-start-create-task)
