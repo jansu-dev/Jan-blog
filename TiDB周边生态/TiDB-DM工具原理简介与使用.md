@@ -166,11 +166,12 @@ ID                   Role       Host            Ports      OS/Arch       Status 
 192.168.169.41:8262  dm-worker  192.168.169.41  8262       linux/x86_64  Free       /data/tidb-data/dm/dm-worker-8262  /data/tidb-deploy/dm/dm-worker-8262
 192.168.169.42:8262  dm-worker  192.168.169.42  8262       linux/x86_64  Free       /data/tidb-data/dm/dm-worker-8262  /data/tidb-deploy/dm/dm-worker-8262
 192.168.169.43:8262  dm-worker  192.168.169.43  8262       linux/x86_64  Free       /data/tidb-data/dm/dm-worker-8262  /data/tidb-deploy/dm/dm-worker-8262
+```
 
 
+上游数据准备
 
-
-
+```
 create database user;
 
 create database store;
@@ -197,6 +198,10 @@ create table store_bj (id int,name varchar(20));
 
 create table store_tj (id int,name varchar(20));
 
+insert into store.store_bj values (1,'store_bj_01'),(2,'store_bj_02');
+
+insert into store.store_tj values (1,'store_tj_01'),(2,'store_tj_02');
+
 # 192.168.169.45
 
 use store;
@@ -204,6 +209,10 @@ use store;
 create table store_sh (id int,name varchar(20));
 
 create table store_sz (id int,name varchar(20));
+
+insert into store.store_sh values (1,'store_sh_01'),(2,'store_sh_02');
+
+insert into store.store_sz values (1,'store_sz_01'),(2,'store_sz_02');
 
 # 192.168.169.46
 
@@ -213,5 +222,51 @@ create table store_gz (id int,name varchar(20));
 
 create table store_sz (id int,name varchar(20));
 
+insert into store.store_gz values (1,'store_gz_01'),(2,'store_gz_02');
+
+insert into store.store_sz values (1,'store_sz_01'),(2,'store_sz_02');
+
+
+```
+
+下游数据准备
+
+```
+create database user_north;
+
+create database user_east;
+
+create database user_south;
+
+use user_north;
+
+create table information (id int,name varchar(20));
+
+create table log (id int,name varchar(20));
+
+use user_east;
+
+create table information (id int,name varchar(20));
+
+create table log (id int,name varchar(20));
+
+use user_south;
+
+create table information (id int,name varchar(20));
+
+create table log (id int,name varchar(20));
+
+
+create database store;
+
+use store;
+
+
+create table store_bj (id int,name varchar(20));
+create table store_tj (id int,name varchar(20));
+create table store_sh (id int,name varchar(20));
+create table store_gz (id int,name varchar(20));
+create table store_suzhou   (id int,name varchar(20));
+create table store_shenzhen (id int,name varchar(20));
 
 ```
