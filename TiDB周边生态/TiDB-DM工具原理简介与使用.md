@@ -171,11 +171,11 @@ ID                   Role       Host            Ports      OS/Arch       Status 
 
 
 
-create databae user;
+create database user;
 
-create databae store;
+create database store;
 
-create databae log;
+create database log;
 
 use user;
 
