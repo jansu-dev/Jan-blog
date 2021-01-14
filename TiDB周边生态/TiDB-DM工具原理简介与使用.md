@@ -47,7 +47,7 @@ firewall-cmd --reload
 
 ## 部署DM
 
-```
+```shell
 [tidb@tiup-tidb41 dumpling_dir]$ tiup install dm
 
 [tidb@tiup-tidb41 dumpling_dir]$ tiup list --installed
@@ -166,5 +166,52 @@ ID                   Role       Host            Ports      OS/Arch       Status 
 192.168.169.41:8262  dm-worker  192.168.169.41  8262       linux/x86_64  Free       /data/tidb-data/dm/dm-worker-8262  /data/tidb-deploy/dm/dm-worker-8262
 192.168.169.42:8262  dm-worker  192.168.169.42  8262       linux/x86_64  Free       /data/tidb-data/dm/dm-worker-8262  /data/tidb-deploy/dm/dm-worker-8262
 192.168.169.43:8262  dm-worker  192.168.169.43  8262       linux/x86_64  Free       /data/tidb-data/dm/dm-worker-8262  /data/tidb-deploy/dm/dm-worker-8262
+
+
+
+
+
+create databae user;
+
+create databae store;
+
+create databae log;
+
+use user;
+
+create table information (id int,name varchar(20));
+
+create table log (id int,name varchar(20));
+
+use log;
+
+create table messages(id int,name varchar(20));
+
+
+
+# 192.168.169.44
+
+use store;
+
+create table store_bj (id int,name varchar(20));
+
+create table store_tj (id int,name varchar(20));
+
+# 192.168.169.45
+
+use store;
+
+create table store_sh (id int,name varchar(20));
+
+create table store_sz (id int,name varchar(20));
+
+# 192.168.169.46
+
+use store;
+
+create table store_gz (id int,name varchar(20));
+
+create table store_sz (id int,name varchar(20));
+
 
 ```
