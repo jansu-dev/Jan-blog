@@ -27,7 +27,7 @@ Duration
 
 Statements  
 涵义: SQL 每秒的select、update、insert、show等不同类型SQL语句的执行数量；    
-作用: 判断写多，还是都多，便于处理性能问题  
+作用: 判断当前业务是写多，还是读多，便于处理性能问题  
 
 ![image.png](http://cdn.lifemini.cn/dbblog/20210115/16975bf0779742b899a90ef9127208f5.png)
 
