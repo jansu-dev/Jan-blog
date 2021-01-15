@@ -143,6 +143,9 @@ upload-speed-limit = "512MB"
 min-available-ratio = 0.05
 
 [tidb@tiup-tidb41 importer]$ tiup tikv-importer -C tikv-importer.toml 
+
+# 或者后台运行
+nohup /root/tidb-toolkit-v4.0.2-linux-amd64/bin/tikv-importer -C tikv-importer.toml > nohup.out &
 ```
  - 编写lightning.toml任务文件
  - 创建 TiDB importer 任务并导入
