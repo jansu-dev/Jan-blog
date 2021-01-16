@@ -10,12 +10,12 @@
 
 
 ## TiDB转换字符集
-```
-MySQL [jan]> CREATE TABLE `t` (     
-    ->   `a` varchar(10) DEFAULT NULL 
-    ->  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+```shell
+# 创建 CHARSET=utf8 COLLATE=utf8_bin 的 t 表
+MySQL [jan]> CREATE TABLE `t` ( `a` varchar(10) DEFAULT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
+# 关闭 utf8 字符集检查
 MySQL [jan]> show variables like '%tidb_skip_utf8_check%';
 +----------------------+-------+
 | Variable_name        | Value |
@@ -24,7 +24,7 @@ MySQL [jan]> show variables like '%tidb_skip_utf8_check%';
 +----------------------+-------+
 1 row in set (0.00 sec)
 
-
+# 可以向表中插入一个非 utf8 字符
 MySQL [jan]> insert t values (unhex('f09f8c80'));
 Query OK, 1 row affected (0.03 sec)
 
@@ -35,13 +35,11 @@ MySQL [jan]> select * from t;
 |      |
 +------+
 
-
+# 可以使用以下两个方式，进行字符集更改
 MySQL [jan]> alter table t change column a a varchar(20) character set utf8mb4;
-
-
 MySQL [jan]> alter table t convert to character set utf8mb4;
 
-
+# 表 t 已经更改为 CHARSET=utf8mb4 COLLATE=utf8mb4_bin
 MySQL [jan]> show create table t;
 +-------+---------------------------------------------------------------------------------------------------------------+
 | Table | Create Table                                                                                                  |
