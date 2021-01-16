@@ -30,28 +30,29 @@ mirror = "/home/tidb/tidb-community-server-v4.0.9-linux-amd64"
 # tiup 目录结构
 [tidb@tiup-tidb41 .tiup]$ tree -L 1
 .
-├── bin
-├── components
+├── bin          # 存放二进制 tiup 可执行文件、安全通信的公私钥信息
+├── components   # 存放使用 tiup 下载的组件的启动文件和依赖文件
 ├── data
-├── logs
-├── manifests
-├── storage
-├── telemetry
-└── tiup.toml
+├── logs         # 存放使用 TiUP 过程中产生的日志信息
+├── manifests    # 存放 TiUP 各个组件不同版本的信息（版本号、hash值、拉取路径等）
+├── storage      # 存放使用各组件的镜像压缩包解压内容
+├── telemetry    # 存放遥测控制信息
+└── tiup.toml     
 
 7 directories, 1 file
 ```
 
 #### bin目录
 在 bin 目录下，
-```
+
+```shell
 [tidb@tiup-tidb41 bin]$ ll
 total 24952
 -rw-r--r-- 1 tidb tidb     5221 Jan 10 00:54 root.json
 -rwxr-xr-x 1 tidb tidb 25542656 Dec 31 04:39 tiup
 ```
 
-```
+```json
 {
     "signatures":[
         {
@@ -67,15 +68,9 @@ total 24952
         "roles":{
             "index":{
                 "keys":{
-                    "6b41f6015fdb441edac......":{
+                    "6b41f6015fdb441edac3aee45f047281de3a749579d3e9d61330bd6f1fd47bc9":{
                         "keytype":"rsa",
-                        "keyval":{
-                            "public":"-----BEGIN PUBLIC KEY-----
-                                      MIIBIjANBgkqhkiG9w0BAQEFAAOC
-                                      ......
-                                      -----END PUBLIC KEY-----
-"
-                        },
+                        "keyval":Object{...},
                         "scheme":"rsassa-pss-sha256"
                     }
                 },
@@ -86,34 +81,17 @@ total 24952
                 "keys":{
                     "231c93b183d187d4f8ecd8a48bb235d25b7b3ebf6f30ec48d313d8747f1217d4":{
                         "keytype":"rsa",
-                        "keyval":{
-                            "public":"-----BEGIN PUBLIC KEY-----
-                                      MIIBIjANBgkqhkiG9w0BAQEFAA
-                                      ......
-                                      -----END PUBLIC KEY-----
-"
-                        },
+                        "keyval":Object{...},
                         "scheme":"rsassa-pss-sha256"
                     },
-                    "34c12305009799580e8a9ef68156......":{
+                    "34c12305009799580e8a9ef681561858dabadce758644e07303bbe5000e36398":{
                         "keytype":"rsa",
-                        "keyval":{
-                            "public":"-----BEGIN PUBLIC KEY-----
-                                      MIIBIjANBgkqhkiG9w0BAQEFAA
-                                      ......
-                                      -----END PUBLIC KEY-----
-"
-                        },
+                        "keyval":Object{...},
                         "scheme":"rsassa-pss-sha256"
                     },
                     "89d3a1fff58e75a8a4eb8625e94372774087384cab9573652c8f5993438511e5":{
                         "keytype":"rsa",
-                        "keyval":{
-                            "public":"-----BEGIN PUBLIC KEY-----
-                                      MIIBIjANBgkqhkiG9w0BAQEFAAO
-                                      ......
-                                      -----END PUBLIC KEY-----"
-                        },
+                        "keyval":Object{...},
                         "scheme":"rsassa-pss-sha256"
                     }
                 },
@@ -121,34 +99,12 @@ total 24952
                 "url":"/root.json"
             },
             "snapshot":{
-                "keys":{
-                    "d5d0a867b9214000c56d32103a585fa50bcf2561877a725333f51cd81233eb95":{
-                        "keytype":"rsa",
-                        "keyval":{
-                            "public":"-----BEGIN PUBLIC KEY-----
-                                      MIIBIjANBgkqhkiG9w0BAQEFAAO
-                                      ......
-                                      -----END PUBLIC KEY-----"
-                        },
-                        "scheme":"rsassa-pss-sha256"
-                    }
-                },
+                "keys":Object{...},
                 "threshold":1,
                 "url":"/snapshot.json"
             },
             "timestamp":{
-                "keys":{
-                    "c7c1dd913b399076243eb30b83beecb112b6ca9b2f448ade69247559546240dc":{
-                        "keytype":"rsa",
-                        "keyval":{
-                            "public":"-----BEGIN PUBLIC KEY-----
-                                      MIIBIjANBg......
-                                      ......
-                                      -----END PUBLIC KEY-----"
-                        },
-                        "scheme":"rsassa-pss-sha256"
-                    }
-                },
+                "keys":Object{...},
                 "threshold":1,
                 "url":"/timestamp.json"
             }
@@ -161,14 +117,55 @@ total 24952
 
 
 #### components目录
-#### data目录
-#### logs目录
+ - 该目录用于存放已经安装的组件的启动命令的二进制启动文件  
+ - 也会存放一些依赖文件，如：jar包、库文件等...
+```
+[tidb@tiup-tidb41 components]$ tree -L 3
+.
+├── br
+│   └── v4.0.9
+│       └── br
+├── cluster
+│   └── v1.3.1
+│       └── tiup-cluster
+├── ctl
+│   ├── v4.0.2
+│   │   ├── binlogctl
+│   │   ├── cdc
+│   │   ├── ctl
+......
+......
+```
 
+#### data目录 
+
+SLa... 等信息会在TiUP出现错误时出现
+```
+[tidb@tiup-tidb41 data]$ ll
+total 0
+drwxr-xr-x. 2 tidb tidb 6 Jan  9 06:18 SLavikg
+drwxr-xr-x. 2 tidb tidb 6 Jan  9 06:18 SLavrCu
+drwxr-xr-x. 2 tidb tidb 6 Jan  9 06:34 SLazrZB
+drwxr-xr-x. 2 tidb tidb 6 Jan  9 06:35 SLb00ns
+drwxr-xr-x. 2 tidb tidb 6 Jan  9 06:36 SLb0Dsk
+drwxr-xr-x. 2 tidb tidb 6 Jan  9 06:36 SLb0P1O
+drwxr-xr-x  2 tidb tidb 6 Jan 11 07:51 SLn0MdO
+```
+
+#### logs目录
+存放了一些 tiup 部署过程中的日志信息
+```
+[tidb@tiup-tidb41 logs]$ ll -lrt|more |tail -4
+-rw-r--r--  1 tidb tidb   3604 Jan 14 05:36 tiup-dm-debug-2021-01-14-05-36-59.log
+-rw-r--r--  1 tidb tidb   2726 Jan 14 05:55 tiup-dm-debug-2021-01-14-05-55-19.log
+-rw-r--r--  1 tidb tidb   2726 Jan 14 05:55 tiup-dm-debug-2021-01-14-05-55-31.log
+-rw-r--r--  1 tidb tidb 122088 Jan 15 01:58 tiup-cluster-debug-2021-01-15-01-58-49.log
+```
 
 #### manifests目录
 
 manifests 中记录了不同组件版本信息，以 json 格式存在，如：alertmanager（告警组件）、bench（基准测试组件）、（集群组件）的信息。
-```
+```shell
 [tidb@tiup-tidb41 manifests]$ ll
 total 396
 -rw-r--r-- 1 tidb tidb   929 Jan 10 00:55 alertmanager.json  # alertmanager 组件的版本信息，及获取路径
@@ -227,9 +224,43 @@ total 396
 
 #### storage目录
 
+ - 一些组件可能非常大，组件镜相包解压之后会有一些文件存于这个目录下，然后转发给其他节点  
+ - 也会存放一些组件安装过程中的审计信息等...
+```shell
+[tidb@tiup-tidb41 storage]$ tree -L 2
+.
+├── br
+├── cluster
+│   ├── audit
+│   ├── clusters
+│   └── packages
+├── ctl
+├── dm
+│   ├── audit
+│   ├── clusters
+│   └── packages
+├── dmctl
+├── dumpling
+├── tidb-lightning
+├── tiflash
+├── tikv-importer
+└── tispark
+
+```
 
 #### telemetry目录
 
+用于存放 TiUP 遥测相关信息，TiDB 官方用于软件改进的信息搜集
+```shell
+[tidb@tiup-tidb41 .tiup]$ cd telemetry/
 
+[tidb@tiup-tidb41 telemetry]$ ll
+total 4
+-rw-r--r--. 1 tidb tidb 58 Jan  9 00:50 meta.yaml
+
+[tidb@tiup-tidb41 telemetry]$ cat meta.yaml 
+uuid: 4eae5f76-ed60-4fb2-b651-5a3f53309859
+status: enable
+```
 
 
