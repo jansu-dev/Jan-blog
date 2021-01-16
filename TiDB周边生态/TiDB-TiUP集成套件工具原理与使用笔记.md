@@ -51,8 +51,9 @@ total 24952
 -rw-r--r-- 1 tidb tidb     5221 Jan 10 00:54 root.json
 -rwxr-xr-x 1 tidb tidb 25542656 Dec 31 04:39 tiup
 ```
-
+ - root.json 主要存放一些签名信息，rsa 加密算法信息等
 ```json
+[tidb@tiup-tidb41 bin]$ cat root.json
 {
     "signatures":[
         {
