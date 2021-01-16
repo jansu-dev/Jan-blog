@@ -1,16 +1,17 @@
 # TiDB-TiUP集成套件工具原理与使用笔记
 
-> - [bin](#bin目录)
-> - [components](#components目录)
-> - [data](#data目录)
-> - [logs](#logs目录)
-> - [manifests](#manifests目录)
-> - [storage](#storage目录)
-> - [telemetry](#telemetry目录)
-> - [tiup.toml](#tiup.toml目录)
+> - [tiup.toml文件](#tiup.toml文件)
+> - [TiUP目录结构](#TiUP目录结构)
+>    - [bin](#bin目录)
+>    - [components](#components目录)
+>    - [data](#data目录)
+>    - [logs](#logs目录)
+>    - [manifests](#manifests目录)
+>    - [storage](#storage目录)
+>    - [telemetry](#telemetry目录)
+>    - [tiup.toml](#tiup.toml目录)
 
-
-## 目录结构
+## tiup.toml文件
 在.tiup目录下，会存在一个tiup.toml文件，里面记录了tiup所要拉去的镜像路径；  
 如果是联网环境下，可以把该路径改为 pingcap 官方网站的录取路径；   
 如果是离线环境下，tiup 相关命令的拉去路径为自己上传的 tiup 压缩包解压的路径；
@@ -19,6 +20,8 @@
 [tidb@tiup-tidb41 .tiup]$ cat tiup.toml 
 mirror = "/home/tidb/tidb-community-server-v4.0.9-linux-amd64"
 ```
+
+## TiUP目录结构
 
 #### bin目录
 在 bin 目录下，
