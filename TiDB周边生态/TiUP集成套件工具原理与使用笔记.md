@@ -34,7 +34,7 @@ total 24952
     "signatures":[
         {
             "keyid":"34c12305009799580e8a9ef681561858dabadce758644e07303bbe5000e36398",
-            "sig":"M/0YF18jfrezjUxP0+grLxVVP1bp41BG7kQ1EJQ1jc/H6zG3ND8vPxgVVdGpzTJABSHsy7DD3aSmwzJDuEyToTJFBERqWCIqYfezevCaW0h0+B3Z5cICo1VqoJOgp8jtw15vH+BPX9T9H1oM2fPV7eEJHmMqKJMDmiGq5R94GdZLatAz2eyXzUf8JRs9IY4YvQDcZhdeliBYppfIQ384k4KLpBLSMfZoD68SdQMsqVSHSjs1s9wdmisKwfiKqHdI2ZfAd/sa3UW8VbkFX7CVX/uNqJAAzeqQVqX1q8x7o0ph8ngbFU0Lxx+ne0xfo2z+apFmjHRDiEwhkNTP46rWBw=="
+            "sig":"M/0YF18jfrezjUxP0+g......"
         },
         Object{...},
         Object{...}
@@ -45,18 +45,13 @@ total 24952
         "roles":{
             "index":{
                 "keys":{
-                    "6b41f6015fdb441edac3aee45f047281de3a749579d3e9d61330bd6f1fd47bc9":{
+                    "6b41f6015fdb441edac......":{
                         "keytype":"rsa",
                         "keyval":{
                             "public":"-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAre8CBlA/SBwH74My3pXJ
-fkeQ67H4hgP2Juib79ir5gMbIiS+xuhTzV6BlA7b3lbYEByq3YQo4qKp8ZkbqQb6
-YyEh+oXA0VtXixeUKQOVk07A4qFZamicbycpr5snLp0XHUXlgwXkOzumW3B1Zzso
-wpSC+EGRVFm0r9oESbBdiE1nrwV/VZ9IQ1UCiSkoBP1QdRXkPcoIA22rP8P+kpz1
-ESsOl9f0M8FedXoubagwuFIfLH3abtZZYvWXtt/Xy01oefALarTL8AXIEzu0pndi
-nyfxh/LA+gxXP4Gic07HxVsysMF7+sloRArj/sx9rQMH7tT2vXEDkVN/EzlE1yxt
-EQIDAQAB
------END PUBLIC KEY-----
+                                      MIIBIjANBgkqhkiG9w0BAQEFAAOC
+                                      ......
+                                      -----END PUBLIC KEY-----
 "
                         },
                         "scheme":"rsassa-pss-sha256"
