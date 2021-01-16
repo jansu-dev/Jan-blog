@@ -24,8 +24,10 @@
 ## 原理讲解
 
 
-![image.png](http://cdn.lifemini.cn/dbblog/20201228/f6e704ee71424ac8833765dc53c465aa.png)
+ - 通过导出将SQL数据组合成SQL语句的逻辑格式或CSV等第三方格式的数据文件，在由其他数据库识别此类文件的方式导入，从而实现数据迁移。
 
+
+![image.png](http://cdn.lifemini.cn/dbblog/20201228/f6e704ee71424ac8833765dc53c465aa.png)
 
 
 ## 部署方式

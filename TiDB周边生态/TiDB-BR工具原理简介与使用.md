@@ -12,6 +12,27 @@
 
 ## 原理简介
 
+* **BR的备份过程**
+
+![image.png](http://cdn.lifemini.cn/dbblog/20201228/845fe9f3fd83439d99db72557df3285e.png)
+
+1. BR的备份不是由BR这个工具操作的，而是由BR给每个TIKV leader发送一个备份信息，具体的备份由TiKV节点基于Regin实现备份操作；  
+2. TiKV节点会扫描对应Regin的所有键值对，并收集到备份的内存的memtable或SST file中，此时的SST file文件是暂时存在文件系统中的；  
+3. 上传SST File备份文件到终端存储时，如果数据还处于内存中时直接从内存上传到终端系统（如：S3、云文件系统等），如果已经落盘到文件系统的SSt file就将SST file上传到终端文件系统。  
+
+* **BR的恢复过程**
+
+![image.png](http://cdn.lifemini.cn/dbblog/20201228/ed3812a5aba94719afdac381e94b69a8.png)
+
+
+1. 在BR的写入阶段，首先使用16线程并行的执行CREATE TABLE TABLE_NAME IF NOT EXIST命令；  
+2. 停止PD Server的调度功能，防止PD Server将正在恢复的Regin调度到其他TiKV节点，以减小无谓的开销；  
+3. TiKV计入“import mode”模式，通过停止write stall trigger和compaction trigger两个功能，停止SST file文件合并，增加读方法的方式实现更快的恢复；  
+4. 因为在备份的时候，是基于一个Regin备份到一个SST文件实现的，因此最快的方式是将一个SST写入到一个Regin中。相应的优化操作为通过PD Server搜集所有当前数据库的所有SST files的边界,通知PD Server将每一个备份的SST file至少执行“Batch Split”操作打散为1个SST file的多个SST file。**注意**:这里分发到Regin Leader节点，因为TiKV进行数据写入的时候是需要同故宫Raft协议实现分布式一致性，所以应当分发至不同Regin Leader；    
+5. 在还没有数据的时候执行一个scatter操作将打散的SST file（也就是Regin）均匀的分发到不同的Regin leader节点。因为每一个备份的SST file还是存在于原来的Store上面的，所以需要在打散之后由PD Server调度至不同TiKV节点，防止未做此操作后还需要进行的rebalance操作；  
+6. 每个Regin并行的在每个TiKV节点执行restore。  
+
+
 ## 异常处理
 
 异常处理备份期间的异常和 select * 一样，可分为两种可恢复和不可恢复，所有的异常都可以直接复用 TiDB 现有的机制。
