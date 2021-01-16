@@ -1,20 +1,22 @@
 # TiDB-DM工具原理简介与使用
 时间：2021-01-13
 
-> - [安装MySQL5.7](#安装MySQL5.7)  
-> - [部署DM](#部署DM)  
-> - [上游数据准备](#上游数据准备)  
-> - [下游schema准备](#下游schema准备)    
-> - [创建source对应的worker](#创建source对应的worker)  
-> - [dmctl工具验证member](#dmctl工具验证member)  
-> - [dmctl启动并验证task](#dmctl启动并验证task)  
-> - [dmctl恢复task](#dmctl恢复task)  
-> - [TiDB验证同步](#TiDB验证同步)  
-> - [TiDB验证同步](#TiDB验证同步)  
-> - [MySQL到TiDB增量同步验证](#MySQL到TiDB增量同步验证)  
+> - [DM官方CASE同步演示](#DM官方CASE同步演示)
+>    - [安装MySQL5.7](#安装MySQL5.7)  
+>    - [部署DM](#部署DM)  
+>    - [上游数据准备](#上游数据准备)  
+>    - [下游schema准备](#下游schema准备)    
+>    - [创建source对应的worker](#创建source对应的worker)  
+>    - [dmctl工具验证member](#dmctl工具验证member)  
+>    - [dmctl启动并验证task](#dmctl启动并验证task)  
+>    - [dmctl恢复task](#dmctl恢复task)  
+>    - [TiDB验证同步](#TiDB验证同步)  
+>    - [MySQL到TiDB增量同步验证](#MySQL到TiDB增量同步验证)  
 
 
-## 安装MySQL5.7
+## DM官方CASE同步演示
+
+#### 安装MySQL5.7
 ```shell
 # 下载
 wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
@@ -59,7 +61,7 @@ firewall-cmd --zone=public --add-port=3306/tcp --permanent
 firewall-cmd --reload
 ```
 
-## 部署DM
+#### 部署DM
 
 ```shell
 [tidb@tiup-tidb41 dumpling_dir]$ tiup install dm
@@ -342,7 +344,7 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 
 
 
-## dmctl工具验证member
+#### dmctl工具验证member
 ```
 [tidb@tiup-tidb41 conf]$ tiup dmctl --master-addr=192.168.169.41:8261 list-member
 Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr=192.168.169.41:8261 list-member
@@ -428,7 +430,7 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 ```
 
 
-## dmctl启动并验证task
+#### dmctl启动并验证task
 ```shell
 [tidb@tiup-tidb41 dm]$ tiup dmctl -master-addr 192.168.169.42:8261 start-task task.yml
 
@@ -547,7 +549,7 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 
 ```
 
-## dmctl恢复task
+#### dmctl恢复task
 ```
 [tidb@tiup-tidb41 dm]$ tiup dmctl --master-addr 192.168.169.42:8261 resume-task one-tidb-slave
 Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr 192.168.169.42:8261 resume-task one-tidb-slave
@@ -688,7 +690,7 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 }
 
 ```
-## TiDB验证同步
+#### TiDB验证同步
 ```
 [tidb@tiup-tidb41 dm]$ mysql -uroot -P4000 -h192.168.169.41
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
@@ -778,7 +780,7 @@ MySQL [store]> select * from store_suzhou;
 
 ```
 
-## MySQL到TiDB增量同步验证
+#### MySQL到TiDB增量同步验证
 ```shell
 
 # MySQL上游泳增量插入
