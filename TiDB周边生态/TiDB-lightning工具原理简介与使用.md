@@ -13,6 +13,15 @@
 
 ## lighting简介
 
+ - BR、TiDB-backend(loader)、lighting local-backend三者原理于区别
+    - loader的导入是单纯的逻辑导入，parser解析sql或csv的文本文件，增加了断点续传，线程并发方面的优化  
+    - BR的restore属于物理导入，直接操作多次切分的sst文件，备份的sst文件被PD切分为多份，新的小sst文件打散到各个tikv节点，tikv读切分的sst文件生成新的kv对的sst文件，然后直接合并（应该也走raft）到tikv中   
+       - 特点：各tikv并行处理新的kv sst文件速度快  
+    - lighting分为local backend模式和backend模式    
+       - backend模式与loader是一样的    
+       - local backend模式相当于loader和restore的结合，也用parser解析文本文件，之后用组件编码成有序的kv格式sst文件，在之后就与上面说的restore步骤一样    
+          - 特点是兼具逻辑导入和物理导入  
+
  - 使用场景  
     1. 大量新数据的快速导入  
     2. 全量备份数据的恢复  
@@ -33,6 +42,9 @@
 | 目标表 |	必须为空 |	必须为空 |	可以不为空 |
 | 额外组件 |	无 |	tikv-importer |	无 |
 | 支持 TiDB 集群版本 |	>= v4.0.0 |	全部 |	全部 |
+
+
+
 
 ## 下载部署
 
