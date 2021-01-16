@@ -11,7 +11,7 @@
 
 
 ## TiSpark与Spark下载
-```
+```shell
 [tidb@tiup-tidb41 conf]$ tiup install spark
 
 [tidb@tiup-tidb41 conf]$ tiup install tispark
