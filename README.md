@@ -67,6 +67,7 @@ That the repository was build is aim to log process of mysql TiDB Learning.
     - [TiDB-lightning工具原理简介与使用](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%91%A8%E8%BE%B9%E7%94%9F%E6%80%81/TiDB-lightning%E5%B7%A5%E5%85%B7%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B%E4%B8%8E%E4%BD%BF%E7%94%A8.md)
 
  - TiDB安全
+    - [TiDB-基于RBAC的权限管理]()
     - [TiDB-TLS加密传输安全协议原理与应用](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5%E5%BD%92%E7%BA%B3/TiDB-TLS%E5%8A%A0%E5%AF%86%E4%BC%A0%E8%BE%93%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8.md)
 
  - Prometheus监控与Grafana可视化
