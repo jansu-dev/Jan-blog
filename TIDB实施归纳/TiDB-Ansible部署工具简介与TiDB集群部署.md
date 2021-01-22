@@ -232,13 +232,13 @@ ansible-playbook -i hosts.ini create_users.yml -u root -k
 
 > **在部署目标机器上安装 NTP 服务**
 
-注意事项：
-1.以 tidb 用户登录中控机，执行以下命令；  
-2.该步骤将在部署目标机器上使用系统自带软件源联网安装并启动 NTP 服务;  
-3.服务使用安装包默认的 NTP server 列表，见配置文件 /etc/ntp.conf 中 server 参数，如果使用默认的 NTP server，你的机器需要连接外网。   
-4.为让 NTP 尽快开始同步，启动 NTP 服务前，系统会执行 ntpdate 命令，与用户在 hosts.ini 文件中指定的 ntp_server 同步日期与时间。    
-5.默认的服务器为 pool.ntp.org，也可替换为你的 NTP server。     
-6.<span style='color:red'>注意：如果你的部署目标机器时间、时区设置一致，已开启 NTP 服务且在正常同步时间，此步骤可忽略。可参考如何检测 NTP 服务是否正常。</span>    
+注意事项：   
+1. 以 tidb 用户登录中控机，执行以下命令；  
+2. 该步骤将在部署目标机器上使用系统自带软件源联网安装并启动 NTP 服务;  
+3. 服务使用安装包默认的 NTP server 列表，见配置文件 /etc/ntp.conf 中 server 参数，如果使用默认的 NTP server，你的机器需要连接外网。   
+4. 为让 NTP 尽快开始同步，启动 NTP 服务前，系统会执行 ntpdate 命令，与用户在 hosts.ini 文件中指定的 ntp_server 同步日期与时间。    
+5. 默认的服务器为 pool.ntp.org，也可替换为你的 NTP server。     
+6. <span style='color:red'>注意：如果你的部署目标机器时间、时区设置一致，已开启 NTP 服务且在正常同步时间，此步骤可忽略。可参考如何检测 NTP 服务是否正常。</span>    
 
 ```
 cd /home/tidb/tidb-ansible && \
