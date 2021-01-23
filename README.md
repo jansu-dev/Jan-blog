@@ -21,15 +21,15 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ## TiDB原理探究
 
-[TiDB-架构原理总体摘要](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/TiDB-%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E6%80%BB%E4%BD%93%E6%91%98%E8%A6%81.md)
+ - [TiDB-架构原理总体摘要](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/TiDB-%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E6%80%BB%E4%BD%93%E6%91%98%E8%A6%81.md)
 
-[Spanner Paper 学习笔记(未整理完)](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/Spanner%20Paper%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md)
+ - [Spanner Paper 学习笔记(未整理完)](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/Spanner%20Paper%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md)
 
-[Percolator paper 学习笔记(未整理完)](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/Percolator%20paper%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md)
+ - [Percolator paper 学习笔记(未整理完)](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/Percolator%20paper%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md)
 
-[TiDB-TiKV原理探究(未整理完)](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/TiDB-TiKV%E5%8E%9F%E7%90%86%E6%8E%A2%E7%A9%B6.md)
+ - [TiDB-TiKV原理探究(未整理完)](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/TiDB-TiKV%E5%8E%9F%E7%90%86%E6%8E%A2%E7%A9%B6.md)
 
-[数据库事务隔离界别CASE详解](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/%E4%BA%8B%E5%8A%A1%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB.md)
+ - [数据库事务隔离界别CASE详解](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/%E4%BA%8B%E5%8A%A1%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB.md)
 
 ## TiDB实施部署
 
