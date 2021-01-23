@@ -666,6 +666,10 @@
 
 ## prepared-plan-cache实验参数配置 
 
+> - [enabled参数](#enabled参数)  
+> - [capacity参数](#capacity参数)  
+> - [memory-guard-ratio参数](#memory-guard-ratio参数)  
+
 #### enabled参数
 
  - 涵义：开启 prepare 语句的 plan cache 功能    
@@ -692,147 +696,253 @@
 
 
 
-## tikv-client相关参数配置  
+## tikv-client相关参数配置 
+
+> - [grpc-connection-count参数](#grpc-connection-count参数)  
+> - [grpc-keepalive-time参数](#grpc-keepalive-time参数)  
+> - [grpc-keepalive-timeout参数](#grpc-keepalive-timeout参数)  
+> - [commit-timeout参数](#commit-timeout参数)  
+> - [max-txn-ttl参数](#max-txn-ttl参数)  
+> - [max-batch-size参数](#max-batch-size参数) 
+> - [max-batch-wait-time参数](#max-batch-wait-time参数) 
+> - [batch-wait-size参数](#batch-wait-size参数) 
+> - [overload-threshold参数](#overload-threshold参数) 
+> - [tikv-client相关参数使用](#tikv-client相关参数使用) 
+
 
 #### grpc-connection-count参数
 
- - 涵义：缓存语句的数量    
- - 默认值: 100
+ - 涵义：在 TiDB 层限制跟每个 TiKV 节点建立连接的最大连接数限制    
+ - 默认值: 16
  - 作用：同涵义   
- - 建议：不做修改  
+ - 建议：不做修改，如果部署 TiDB 节点特别多,可酌情增加    
 
 #### grpc-keepalive-time参数
 
- - 涵义：缓存语句的数量    
- - 默认值: 100
- - 作用：同涵义   
+ - 涵义：TiDB 和 TiKV 之间 rpc 连接保持活跃的时间间隔    
+ - 默认值: 10
+ - 作用：同涵义，如果超过参数值限制， grpc client(TiDB组件) 会发起一次 Ping 判断 TiKV 节点是否存活   
  - 建议：不做修改  
 
 #### grpc-keepalive-timeout参数
 
- - 涵义：缓存语句的数量    
- - 默认值: 100
+ - 涵义：与 grpc-keepalive-time 对应，在发起 Ping TiKV 活性检查之后的超时时间,单位秒(s)    
+ - 默认值: 3
  - 作用：同涵义   
  - 建议：不做修改  
 
 
 #### commit-timeout参数
 
- - 涵义：缓存语句的数量    
- - 默认值: 100
+ - 涵义：执行事务提交时，最大的超时时间，单位秒(s)    
+ - 默认值: 41s
  - 作用：同涵义   
  - 建议：不做修改  
 
 
 #### max-txn-ttl参数 
 
-max-txn-ttl
+ - 涵义：单个事务持有锁的最长时间，单位毫秒(ms)    
+ - 默认值: 600000ms(10min)
+ - 作用：同涵义，事务锁持有时间超过参数阈值，并在其他事务并发处理锁问题相遇时，肯能被其他事务处理掉   
+ - 建议：不做修改  
+
+
 
 #### max-batch-size参数
 
+ - 涵义：批量发送 rpc 封装的数据包最大数量，使用并发策略减低 rpc 延迟    
+ - 默认值: 128
+ - 作用：同涵义  
+   - n --> 将使用BatchCommands api 向 TiKV 发送请求   
+ - 建议：不建议修改(官方标注)  
+
+
 #### max-batch-wait-time参数
 
+ - 涵义：与 max-batch-size 批量 rpc 对应，等待本参数值规定时间，在此阶段积攒数据直至超过参数阈值，再进行封包 rpc 至 TiKV 节点，单位纳秒 (μs)    
+ - 默认值: 0μs
+ - 作用：同涵义 
+   - 0 --> 默认值，此参数失效  
+   - n --> 该参数有效   
+ - 建议：不建议修改(官方标注)  
 
 
 #### batch-wait-size参数
 
-
-## tikv-client.copr-cache相关参数配置
-
-#### enable参数
-
-
-#### capacity-mb参数
-
-
-#### admission-max-result-mb参数
-
-
-#### admission-min-process-ms参数
-
-
-
-
-
-## txn-local-latches相关参数配置
-
-#### enable参数
-
- - 涵义：缓存语句的数量    
- - 默认值: 100
+ - 涵义：批量向参数 TIKV 发送的封装包最大数量    
+ - 默认值: 8
  - 作用：同涵义   
- - 建议：不做修改  
+   - 0 --> 表示关闭该功能  
+   - n --> 同涵义   
+ - 建议：不建议修改(官方标注)  
 
-#### memory-guard-ratio参数
+#### overload-threshold参数  
 
- - 涵义：防止超过 performance.max-memory 内存使用限制，当超过 max-memory * (1 - prepared-plan-cache.memory-guard-ratio) 会被 LRU 算法剔除 Cache    
- - 默认值: 0.1 
- - 作用：同涵义  
-   - 0 --> 最小值  
-   - 1 --> 最大值  
-   - n --> n 介于 [1~0] 之间  
- - 建议：不做修改  
+ - 涵义：TiKV 负载阈值，如果超过该参数规定阈值，会收集更多的 batch 封包数据，之后再进行封包，然后 rpc，依次来减轻 TiKV rpc 负载    
+ - 默认值: 200  
+ - 作用：同涵义   
+   - 0 --> 表示关闭该功能  
+   - n --> 同涵义   
+ - 建议：不建议修改(官方标注)  
 
+
+#### copr-cache相关参数配置 
+
+ - enable参数
+   - 涵义：是否开启下推计算结果缓存    
+   - 默认值: false  
+   - 作用：同涵义 
+     - false --> 默认值，开启  
+     - true  --> 不开启   
+   - 建议：建议开启
+
+
+ - capacity-mb参数
+   - 涵义：与 enable 参数对应，下推计算结果缓存数据量总大小，当缓存空间占满后，旧缓存条目将会提出 Cache，单位兆(MB),浮点类型(float)    
+   - 默认值: 1000.0
+   - 作用：同涵义 
+   - 建议：不建议修改,可依据具体情况调大  
+
+
+ - admission-max-result-mb参数
+   - 涵义：指定被缓存下推最大结果集大小，单个下推计算在 TiKV 组件 Coprocessor 中返回结果集小于该阈值则被缓存，否则忽略，单位兆(MB),浮点  类型(float)      
+   - 默认值: 10.0
+   - 作用：同涵义，增加缓存层，在缓存命中较大时能有效加快数据处理速度     
+   - 建议：
+     - 调大该值可缓存更多下推请求，也将导致缓存空间容易被占满，具体情况依赖缓存命中情况修改  
+     - 每个下推计算结果集大小一般都会小于 Region 大小，因此将该值设置得远超过 Region 大小没有意义  
+     - 因为 Region 在 TiKV 上不定分布，下推计算一般以 Region 为单位，所以没意义  
+
+
+ - admission-min-process-ms参数
+   - 涵义：控制单个下推计算处理时间阈值，小于该阈值说明处理速度很快，没有缓存优化必要，单位毫秒(ms)    
+   - 默认值: 5
+   - 作用：同涵义 
+   - 建议：不建议修改  
+
+
+#### txn-local-latches相关参数配置
+ - enable参数
+   - 涵义：开启/关闭内存事务锁    
+   - 默认值: false
+   - 作用：同涵义   
+   - 建议：在事务冲突比较严重时，建议开启  
+  
+ - capacity参数
+   - 涵义：Hash 对应的槽位 (solt) 数，会自动上调为 2 的指数倍，每个槽位占 32 Bytes 内存     
+   - 默认值: 2048000 
+   - 作用：同涵义    
+   - 建议：当写入数据范围比较广时(如：导数据时)，设置过小会导致变慢，性能下降   
+
+#### tikv-client相关参数使用 
+
+```
+
+```
 
 
 ## binlog相关参数配置 
 
 
-#### enable参数
+#### enable参数  
 
+ - 涵义：开启/关闭 binlog      
+ - 默认值: false
+ - 作用：同涵义   
+ - 建议：建议开启，可配合 BR 完善增量备份策略  
 
 #### wirite-timeout参数
 
-
+ - 涵义：写 binlog 的超时时间某，单位秒(s)     
+ - 默认值: 15s
+ - 作用：同涵义   
+ - 建议：不做修改  
 
 #### ignore-error参数
 
-
+ - 涵义：开启/关闭 binlog 发生错误时处理      
+ - 默认值: false
+ - 作用：同涵义  
+   - true  --> binlog 发生错误时，TiDB 会停止写入 binlog，并且在监控项 tidb_server_critical_error_total 上计数加 1   
+   - false --> binlog 发生错误时，TiDB 会停止整个实例的服务
+ - 建议：修改为 true   
 
 #### binlog-socket参数
 
-
+ - 涵义：binlog 输出的网络地址      
+ - 默认值: ""
+ - 作用：同涵义  
+ - 建议：有网络存储需求时，可修改该值   
 
 #### strategy参数
 
-
+ - 涵义：输出 binlog 时，选择 pump 进程的策略      
+ - 默认值: "range"
+ - 作用：同涵义，仅提供 range、hash 两中策略选择  
+ - 建议：不做修改   
 
 
 
 ## status相关参数配置
 
+TiDB 服务状态相关配置
 
 #### report-status参数
 
-
+ - 涵义：控制开启 HTTP API 服务的开/关    
+ - 默认值: true
+ - 作用：同涵义   
+ - 建议：不做修改  
 
 #### record-db-qps参数
 
-
+ - 涵义：输出与 database 相关参数的 QPS meterics 到 Promethus 的开关    
+ - 默认值: false
+ - 作用：同涵义   
+ - 建议：不做修改  
 
 ## stmt-summary参数相关配置
 
-
+系统表 events_staement-summary_by_digest 的相关配置
 
 #### max-stmt-count参数 
+
+ - 涵义：events_staement-summary_by_digest 系统表中保存的 SQL 种类的最大数量    
+ - 默认值: 100
+ - 作用：同涵义   
+ - 建议：不做修改 
 
 
 #### max-sql-length参数
 
+ - 涵义：events_staement-summary_by_digest 系统表中 DIGEST_TEXT 和 QUERY_SAMPLE_TEXT 两列的最大显示长度    
+ - 默认值: 4096
+ - 作用：同涵义   
+ - 建议：不做修改 
 
-## pessimistic-txn相关参数配置
+#### pessimistic-txn相关参数配置
 
-#### enable参数
+ - enable参数
+   - 涵义：开启/关闭悲观事务    
+   - 默认值: true
+   - 作用：同涵义   
+   - 建议：结合业务场景和基准测试情况修改  
+  
+ - max-retry-count参数
+   - 涵义：与 enable 参数对应，限制悲观事务的最大重试次数，重试次数超过参数阈值后，该语句执行将会报错     
+   - 默认值: 256
+   - 作用：同涵义    
+   - 建议：不做修改
 
+#### rexperimental参数
 
+ - allow-experssion-index参数
+   - 涵义：用于控制是否能够创建表达式索引     
+   - 默认值: false
+   - 作用：同涵义    
+   - 建议：结合业务场景酌情修改
 
-## max-retry-count参数
-
-
-## experimental相关参数配置
-
-
-## allow-expression-index参数
 
 
 
