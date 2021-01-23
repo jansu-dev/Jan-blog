@@ -20,8 +20,79 @@
 >   - [max-server-connections参数](#max-server-connections参数)  
 >   - [max-index-length参数](#max-index-length参数)  
 > - [log相关配置项](#log相关配置项)   
-> - [log.file日志文件相关配置项 ](#log.file日志文件相关配置项 )  
+>   - [level参数](#level参数)  
+>   - [format参数](#format参数)  
+>   - [enable-timestamp参数](#enable-timestamp参数)  
+>   - [enable-slow-log参数](#enable-slow-log参数)  
+>   - [slow-query-file参数](#slow-query-file参数)  
+>   - [slow-threshold参数](#slow-threshold参数)  
+>   - [record-plan-in-slow-log参数](#record-plan-in-slow-log参数)  
+>   - [expensive-threshold参数](#expensive-threshold参数)  
+>   - [query-log-max-len参数](#query-log-max-len参数) 
+>   - [log相关配置项使用](#log相关配置项使用) 
+> - [log.file日志文件相关配置项](#log.file日志文件相关配置项)  
+>   - [filename参数](#filename参数)  
+>   - [max-size参数](#max-size参数)  
+>   - [max-days参数](#max-days参数)  
+>   - [max-backup参数](#max-backup参数)  
+>   - [log.file日志文件相关配置项使用](#log.file日志文件相关配置项使用)  
+> - [stmt-summary参数相关配置](#stmt-summary参数相关配置)  
+>   - [max-stmt-count参数](#max-stmt-count参数)  
+>   - [max-sql-length参数](#max-sql-length参数)  
+>   - [pessimistic-txn相关参数配置](#pessimistic-txn相关参数配置)   
+>   - [rexperimental参数](#rexperimental参数)   
+> - [security安全相关配置项](#security安全相关配置项)  
+>   - [ssl-ca参数](#ssl-ca参数)  
+>   - [ssl-cert参数](#ssl-cert参数)  
+>   - [ssl-key参数](#ssl-key参数)  
+>   - [cluster-ssl-ca参数 ](#cluster-ssl-ca参数 )  
+>   - [cluster-ssl-cert参数 ](#cluster-ssl-cert参数 )  
+>   - [cluster-ssl-key参数](#cluster-ssl-key参数)   
+> - [performance性能相关配置](#performance性能相关配置)  
+>   - [max-procs参数](#max-procs参数)  
+>   - [max-memory参数](#max-memory参数)  
+>   - [memory-usage-alarm-ratio参数](#memory-usage-alarm-ratio参数)  
+>   - [txn-entry-size-limit参数](#txn-entry-size-limit参数)  
+>   - [txn-total-size-limit参数](#txn-total-size-limit参数)  
+>   - [stmt-count-limit参数](#stmt-count-limit参数)  
+>   - [tcp-keep-alive参数](#tcp-keep-alive参数)  
+>   - [cross-join参数](#cross-join参数)  
+>   - [stats-lease参数](#stats-lease参数) 
+>   - [run-auto-analyze参数](#run-auto-analyze参数) 
+>   - [feedback-probability参数](#feedback-probability参数) 
+>   - [query-feedback-limit参数](#query-feedback-limit参数) 
+>   - [pseudo-estimate-ratio参数](#pseudo-estimate-ratio参数) 
+>   - [force-priority参数](#force-priority参数) 
+>   - [distinct-agg-push-down参数](#distinct-agg-push-down参数)   
 > - [prepared-plan-cache实验参数配置](#prepared-plan-cache实验参数配置)  
+>   - [enabled参数](#enabled参数)  
+>   - [capacity参数](#capacity参数)  
+>   - [memory-guard-ratio参数](#memory-guard-ratio参数)  
+> - [tikv-client相关参数配置](#tikv-client相关参数配置)  
+>   - [grpc-connection-count参数](#grpc-connection-count参数)  
+>   - [grpc-keepalive-time参数](#grpc-keepalive-time参数)  
+>   - [grpc-keepalive-timeout参数](#grpc-keepalive-timeout参数)  
+>   - [commit-timeout参数](#commit-timeout参数)  
+>   - [max-txn-ttl参数](#max-txn-ttl参数)  
+>   - [max-batch-size参数](#max-batch-size参数) 
+>   - [max-batch-wait-time参数](#max-batch-wait-time参数) 
+>   - [batch-wait-size参数](#batch-wait-size参数) 
+>   - [overload-threshold参数](#overload-threshold参数) 
+>   - [tikv-client相关参数使用](#tikv-client相关参数使用)  
+> - [binlog相关参数配置](#binlog相关参数配置)  
+>   - [enable参数](#enable参数)  
+>   - [wirite-timeout参数](#wirite-timeout参数)  
+>   - [ignore-error参数](#ignore-error参数)  
+>   - [binlog-socket参数](#binlog-socket参数)  
+>   - [strategy参数](#strategy参数)   
+> - [status相关参数配置](#status相关参数配置)  
+>   - [report-status参数](#report-status参数)  
+>   - [record-db-qps参数](#record-db-qps参数)  
+> - [stmt-summary参数相关配置](#stmt-summary参数相关配置)  
+>   - [max-stmt-count参数](#max-stmt-count参数)  
+>   - [max-sql-length参数](#max-sql-length参数)  
+>   - [pessimistic-txn相关参数配置](#pessimistic-txn相关参数配置)   
+>   - [rexperimental参数](#rexperimental参数)  
 > - [参考文章](#参考文章)
 
 ## TiDB普通参数限制
@@ -359,6 +430,10 @@
 
 > - [filename参数](#filename参数)  
 > - [max-size参数](#max-size参数)  
+> - [max-days参数](#max-days参数)  
+> - [max-backup参数](#max-backup参数)  
+> - [log.file日志文件相关配置项使用](#log.file日志文件相关配置项使用)  
+
 
 #### fiiename参数
 
@@ -400,16 +475,12 @@
 
 ## security安全相关配置项 
 
-> - [level参数](#level参数)  
-> - [format参数](#format参数)  
-> - [enable-timestamp参数](#enable-timestamp参数)  
-> - [enable-slow-log参数](#enable-slow-log参数)  
-> - [slow-query-file参数](#slow-query-file参数)  
-> - [slow-threshold参数](#slow-threshold参数)  
-> - [record-plan-in-slow-log参数](#record-plan-in-slow-log参数)  
-> - [expensive-threshold参数](#expensive-threshold参数)  
-> - [query-log-max-len参数](#query-log-max-len参数) 
-> - [log相关配置项使用](#log相关配置项使用) 
+> - [ssl-ca参数](#ssl-ca参数)  
+> - [ssl-cert参数](#ssl-cert参数)  
+> - [ssl-key参数](#ssl-key参数)  
+> - [cluster-ssl-ca参数 ](#cluster-ssl-ca参数 )  
+> - [cluster-ssl-cert参数 ](#cluster-ssl-cert参数 )  
+> - [cluster-ssl-key参数](#cluster-ssl-key参数)  
 
 #### ssl-ca参数  
 
@@ -481,13 +552,19 @@
 > - [max-procs参数](#max-procs参数)  
 > - [max-memory参数](#max-memory参数)  
 > - [memory-usage-alarm-ratio参数](#memory-usage-alarm-ratio参数)  
-> - [enable-slow-log参数](#enable-slow-log参数)  
-> - [slow-query-file参数](#slow-query-file参数)  
-> - [slow-threshold参数](#slow-threshold参数)  
-> - [record-plan-in-slow-log参数](#record-plan-in-slow-log参数)  
-> - [expensive-threshold参数](#expensive-threshold参数)  
-> - [query-log-max-len参数](#query-log-max-len参数) 
-> - [log相关配置项使用](#log相关配置项使用) 
+> - [txn-entry-size-limit参数](#txn-entry-size-limit参数)  
+> - [txn-total-size-limit参数](#txn-total-size-limit参数)  
+> - [stmt-count-limit参数](#stmt-count-limit参数)  
+> - [tcp-keep-alive参数](#tcp-keep-alive参数)  
+> - [cross-join参数](#cross-join参数)  
+> - [stats-lease参数](#stats-lease参数) 
+> - [run-auto-analyze参数](#run-auto-analyze参数) 
+> - [feedback-probability参数](#feedback-probability参数) 
+> - [query-feedback-limit参数](#query-feedback-limit参数) 
+> - [pseudo-estimate-ratio参数](#pseudo-estimate-ratio参数) 
+> - [force-priority参数](#force-priority参数) 
+> - [distinct-agg-push-down参数](#distinct-agg-push-down参数) 
+
 
 
 #### max-procs参数  
@@ -847,6 +924,11 @@
 
 ## binlog相关参数配置 
 
+> - [enable参数](#enable参数)  
+> - [wirite-timeout参数](#wirite-timeout参数)  
+> - [ignore-error参数](#ignore-error参数)  
+> - [binlog-socket参数](#binlog-socket参数)  
+> - [strategy参数](#strategy参数)   
 
 #### enable参数  
 
@@ -891,6 +973,10 @@
 
 TiDB 服务状态相关配置
 
+> - [report-status参数](#report-status参数)  
+> - [record-db-qps参数](#record-db-qps参数)  
+
+
 #### report-status参数
 
  - 涵义：控制开启 HTTP API 服务的开/关    
@@ -908,6 +994,10 @@ TiDB 服务状态相关配置
 ## stmt-summary参数相关配置
 
 系统表 events_staement-summary_by_digest 的相关配置
+> - [max-stmt-count参数](#max-stmt-count参数)  
+> - [max-sql-length参数](#max-sql-length参数)  
+> - [pessimistic-txn相关参数配置](#pessimistic-txn相关参数配置)   
+> - [rexperimental参数](#rexperimental参数)   
 
 #### max-stmt-count参数 
 
