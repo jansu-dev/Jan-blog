@@ -17,7 +17,12 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ## 推荐书籍
 
- - [**tidb-in-action**](https://github.com/tidb-incubator/tidb-in-action/blob/master/SUMMARY.md)
+ - [**tidb-in-action**](https://github.com/tidb-incubator/tidb-in-action/blob/master/SUMMARY.md)  
+ - [**How do we build TiDB](https://www.pingcap.com/blog-cn/how-do-we-build-tidb/)  
+ - [**三篇文章了解 TiDB 技术内幕 - 说存储**](https://pingcap.com/blog-cn/tidb-internal-1/)  
+ - [**三篇文章了解 TiDB 技术内幕 - 说计算**](https://pingcap.com/blog-cn/tidb-internal-2/)  
+ - [**三篇文章了解 TiDB 技术内幕 - 谈调度**](https://pingcap.com/blog-cn/tidb-internal-3/)  
+
 
 ## TiDB原理探究
 
