@@ -1,6 +1,19 @@
 # TiDB-Learning-Notes
 
+![image.png](http://cdn.lifemini.cn/dbblog/20210123/5dae983117ea487aafc60162651b254d.png)
+
 That the repository was build is aim to log process of mysql TiDB Learning.
+
+
+> - [推荐书籍](#推荐书籍)  
+> - [TiDB原理探究](#TiDB原理探究)  
+> - [TiDB实施部署](#TiDB实施部署)  
+> - [TiDB周边生态](#TiDB周边生态)  
+> - [TiDB调优相关](#TiDB调优相关)  
+> - [TiDB实践问题归纳](#TiDB实践问题归纳)  
+> - [DEBUG-TiDB](#DEBUG-TiDB)  
+
+
 
 ## 推荐书籍
 
