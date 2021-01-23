@@ -18,19 +18,9 @@
 > - [new_collations_enabled_on_first_bootstrap参数](#new_collations_enabled_on_first_bootstrap参数)  
 > - [max-server-connections参数](#max-server-connections参数)  
 > - [max-index-length参数](#max-index-length参数)  
-> - [log相关配置项](#log相关配置项)  
->   - [level参数](#level参数)  
->   - [format参数](#format参数)  
->   - [enable-timestamp参数](#enable-timestamp参数)  
->   - [enable-slow-log参数](#enable-slow-log参数)  
->   - [slow-query-file参数](#slow-query-file参数)  
->   - [slow-threshold参数](#slow-threshold参数)  
->   - [record-plan-in-slow-log参数](#record-plan-in-slow-log参数)  
->   - [expensive-threshold参数](#expensive-threshold参数)  
->   - [query-log-max-len参数](#query-log-max-len参数)  
+> - [log相关配置项](#log相关配置项)   
 > - [log.file日志文件相关配置项 ](#log.file日志文件相关配置项 )  
->   - [filename参数](#filename参数)  
->   - [max-size参数](#max-size参数)  
+
 
 
 ## split-table参数   
@@ -276,6 +266,17 @@
 
 ## log相关配置项
 
+> - [level参数](#level参数)  
+> - [format参数](#format参数)  
+> - [enable-timestamp参数](#enable-timestamp参数)  
+> - [enable-slow-log参数](#enable-slow-log参数)  
+> - [slow-query-file参数](#slow-query-file参数)  
+> - [slow-threshold参数](#slow-threshold参数)  
+> - [record-plan-in-slow-log参数](#record-plan-in-slow-log参数)  
+> - [expensive-threshold参数](#expensive-threshold参数)  
+> - [query-log-max-len参数](#query-log-max-len参数) 
+> - [log相关配置项使用](#log相关配置项使用) 
+
 #### level参数
 
  - 涵义：指定日志的输出级别   
@@ -352,6 +353,9 @@
 ```
 
 ## log.file日志文件相关配置项   
+
+> - [filename参数](#filename参数)  
+> - [max-size参数](#max-size参数)  
 
 #### fiiename参数
 
