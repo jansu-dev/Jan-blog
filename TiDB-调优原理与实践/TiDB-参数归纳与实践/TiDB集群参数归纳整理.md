@@ -105,7 +105,21 @@
  - 建议：如果创建表的数量特别多，建议将该值设为 false 
  - 使用： 
    ```shell
+    [tidb@tidb01 ~]$ tiup cluster edit-config tidb-test
+    ......
+    server_configs:
+      tidb: 
+        split-table:true  
+    ......
+    Please check change highlight above, do you want to apply the change? [y/N]: y
 
+    [tidb@tidb01 ~]$ tiup cluster reload tidb-test -R tidb
+    ......
+    Reloaded cluster `tidb-test` successfully 
+
+    [root@tidb01 conf]# cd /data/tidb-deploy/tidb-4000/conf
+    [root@tidb01 conf]# tail -1 tidb.toml 
+    split-table = true
    ```  
 
 
