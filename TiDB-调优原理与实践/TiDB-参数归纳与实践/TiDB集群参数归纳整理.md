@@ -19,6 +19,7 @@
 >   - [new_collations_enabled_on_first_bootstrap参数](#new_collations_enabled_on_first_bootstrap参数)  
 >   - [max-server-connections参数](#max-server-connections参数)  
 >   - [max-index-length参数](#max-index-length参数)  
+>   - [TiDB普通参数使用方法](#TiDB普通参数使用方法)
 > - [log相关配置项](#log相关配置项)   
 >   - [level参数](#level参数)  
 >   - [format参数](#format参数)  
@@ -97,46 +98,33 @@
 
 ## TiDB普通参数限制
 
-### split-table参数   
+#### split-table参数   
 
  - 涵义：为每个 table 对象创建单独的 region    
  - 默认值: true
  - 作用：参数开启有利于 PD 对热点表的控制，如果创建的表特别多会出现空 region 特别多的现象，反而不利于调度     
  - 建议：如果创建表的数量特别多，建议将该值设为 false 
- - 使用： 
-   ```shell
-    [tidb@tidb01 ~]$ tiup cluster edit-config tidb-test
-    ......
-    server_configs:
-      tidb: 
-        split-table:true  
-    ......
-    Please check change highlight above, do you want to apply the change? [y/N]: y
+ - 验证： 
+   ```
 
-    [tidb@tidb01 ~]$ tiup cluster reload tidb-test -R tidb
-    ......
-    Reloaded cluster `tidb-test` successfully 
-
-    [root@tidb01 conf]# cd /data/tidb-deploy/tidb-4000/conf
-    [root@tidb01 conf]# tail -1 tidb.toml 
-    split-table = true
-   ```  
+   ```
 
 
-### token-limit参数
+
+#### token-limit参数
 
  - 涵义：可以同时执行请求的 session 个数    
  - 默认值: 1000   
  - 作用：限制 session 的并发度，因为在 tidb 源码中可以看出 conn 函数用于不断监听请求，实际执行命令的是 session 模块，由session模块进行递归构建 AST ，该参数意味着在某段时间内 tidb 处理 session 请求的能力   
  - 建议：可通过内存使用情况、业务需求适当调整
- - 使用：  
-   ```
-  
+ - 验证：  
    ```
 
+   ```
 
 
-### mem-quato-query参数 
+
+#### mem-quato-query参数 
 
  - 涵义：控制单挑 SQL 语句占用内存的最大使用量，以字节(Bytes)为单位  
  - 默认值:   
@@ -145,163 +133,163 @@
  - 作用：因为 TiDB 集群由 Go 语言实现，Go 本身是有内存回收机制的，不加以限制会出现单条 SQL 执行时间过长导致 TiDB 无法及时回收内存占用导致内存溢出(oom-action)的现象，而且 SQL 长时间计算不出结果，直至最后 crash;  
     - 如：单条 SQL 进行大数据量的全表遍历、排序，导致相关数据全部存在 tidb 内存中，数据量大超过 1G 时， TiDB 就会 crash  
  - 建议：初始化 v4.0.9 版本以前集群时，及时调整该参数  
- - 使用：   
+ - 验证：    
    ```
   
    ```
 
 
-### oom-use-tmp-storage参数
+#### oom-use-tmp-storage参数
 
  - 涵义：设置单挑 SQL 占用内存使用超过 mem-quato-query 时，为某些算子启用临时磁盘   
  - 默认值: true
  - 作用：TiDB 源码可得 session 会驱动构建 AST-->Logical Plan-->Physical Plan-->Executer(算子)，最后 Executer 下发算子到 TiKV，启用算子临时磁盘，有利于减少算子部分的内存占用，达到减少 oom-action 的目的 
  - 建议：将该参数开启  
- - 使用：
+ - 验证： 
    ```
 
    ```
 
-### tmp-storage-path参数  
+#### tmp-storage-path参数  
 
  - 涵义：oom-use-tmp-storage 参数对应的临时文件存储路径  
  - 默认值: <操作系统临时文件夹>/<操作系统用户ID>_tidb/hash(<host>:<port>/<statusHost>:<statusPort>)/tmp-storage  
  - 作用：作为 oom-use-tmp-storage 相关参数使用，在 oom-use-tmp-storage 参数不启用时，tmp-storage-path 参数无效  
  - 建议：不做改动  
- - 使用：
+ - 验证： 
    ```
 
    ```
 
 
-### tmp-storage-quota参数
+#### tmp-storage-quota参数
 
  - 涵义：tmp-storage-path 存储使用的限额，单位字节(Bytes)   
  - 默认值: -1    
  - 作用：当 tmp-storage-path 路径下的使用超过限额时，返回错误 out oof global storage quotal! 错误,并取消当前 SQL 操作  
  - 建议：结合操作系统存储容量，适当放大 tmp-storage-quota 限制  
- - 使用：
+ - 验证： 
  ```
 
  ```
-### oom-action
+#### oom-action
 
  - 涵义：设定 SQL 操作内存占用超过 mem-quota-query 限制时，是仅输出日志，还是既取消当前操作并输出日志  
  - 默认值: "log"   
  - 作用：有利于 DBA 定位 SQL 操作出现 OOM 行为的原因;  
  - 建议：将该参数设置为 "cancel";  
- - 使用：  
+ - 验证：   
  ```
 
  ```
 
 
-### lower-case-table-names参数
+#### lower-case-table-names参数
 
  - 涵义：设定 TiDB 对于表名大小写是否敏感，TiDB 当前仅支持该参数设置为 2    
  - 默认值: 2   
  - 作用：参数值为 2 时,按照区分大小写来保存表名,但按照小写的字节序(不区分大小写)来比较;   
  - 建议：不做更改;  
- - 使用：
+ - 验证： 
  ```
 
  ```
 
-### lease参数
+#### lease参数
 
  - 涵义：DDL 租约超时时间，单位秒(s);    
  - 默认值： 45s  
  - 作用：用于限定 DDL 语句的超时时间，在 v3.0.x 之后 TiDB 实现了异步 DDL，就是以 Job 的形式保存在 PD 队列中，由 TiKV 子节点分别执行 DDL 操作，这就涉及到执行时间的问题，该参数用于限制 DDL 操作的执行时间  
  - 建议：不做更改;  
- - 使用：
+ - 验证： 
   ```
 
   ```
 
-### compatible-kill-query参数
+#### compatible-kill-query参数
 
  - 涵义：设置 kill 操作的兼容性 
  - 默认值: false  
  - 作用：在确保 kill 操作所连接 session 正确性的前提下，直接终止先要总之的 SQL 操作  
  - 建议：不做更改;  
- - 使用：
+ - 验证： 
  ```
 
  ```
-### check-mb4-value-in-utf8参数 
+#### check-mb4-value-in-utf8参数 
 
  - 涵义：检验插入字符是否为 utf8 字符;  
  - 默认值: true
  - 作用：开始该参数，当插入utf8mb4字符时，TiDB 会报错,如：emoji 表情;  
  - 建议：更改为 flase，因为 MySQL8 和 TiDB v4.0.x 已将默认字符集更改为 utf8mb4，并且 utf8mb4 是 utf8 的超级，兼容 utf8 字符集  
- - 使用：
+ - 验证： 
  ```
 
  ```
 
 
 
-### treat-olf-version-utf8-as-utf8mb4参数
+#### treat-olf-version-utf8-as-utf8mb4参数
 
  - 涵义：设置是否将原来 TiDB 中 utf8 字符集的数据当作 utf8mb4 字符集来对待   
  - 默认值: true
  - 作用：同涵义; 
  - 建议：将该参数开启;  
- - 使用：
+ - 验证： 
    ```
 
    ```
 
 
-### alter-primary-key参数
+#### alter-primary-key参数
 
  - 涵义：在集群初始化后，是否可以动态添加、删除主键;   
  - 默认值: false
  - 作用：同涵义，但如果原表主键为 int 或 bigint 类型，即使开启该参数也无法动态删除、添加主键 
  - 建议：将该参数开启  
- - 使用：
+ - 验证： 
    ```
 
    ```
 
 
-### server-version参数
+#### server-version参数
 
  - 涵义：设置内置函数 version() 的返回结果;   
  - 默认值: "",默认情况下，TiDB 版本号返回格式为: 5.7.${mysql-lastest-minor-version}-TiDB-${TiDB-version}
  - 作用：同涵义 
  - 建议：不做更改   
- - 使用：
+ - 验证： 
    ```
 
    ```
 
 
-### repair-mode参数
+#### repair-mode参数
 
  - 涵义：是否开启非可信修复模式;   
  - 默认值: false
  - 作用：启动非可信修复模式情况下，可以过滤 repair-table-list 内存表中所列出的坏表加载； 
  - 建议：将该参数开启，默认情况下不支持修复语法，启动时会加载所有表信息；   
- - 使用：
+ - 验证： 
    ```
 
    ```
 
 
-### repair-table-list参数
+#### repair-table-list参数
 
  - 涵义：对应 repair-mode 参数为 true 时，用于在配置文件中列出怀表配置项;   
  - 默认值: []
  - 作用：当repair-mode为true，且[]内表项非空时，TiDB 在启动时不加载 [] 内表信息； 
  - 建议：不开启，结合具体情况使用，紧急情况下拉起数据库  
- - 使用：
+ - 验证： 
    ```
 
    ```
 
 
-### new_collations_enabled_on_first_bootstrap参数
+#### new_collations_enabled_on_first_bootstrap参数
 
  - 涵义：用于开启是否启用新版本的字符集框架;   
  - 默认值:  
@@ -309,48 +297,113 @@
    - 4.0.x版本之前，没有该参数；  
  - 作用：TiDB 在 v4.0.x 之后启动了新的字符集框架，所以新增了该参数，该参数仅在集群初始化阶段可设置，由低于 v4.0.x 之前版本升级过来的 TiDB 改变该参数配置也无法生效； 
  - 建议：将该参数开启  
- - 使用：
+ - 验证： 
    ```
     试一下4.0.x是否可以动态修改
    ```
 
 
 
-### max-server-connections参数
+#### max-server-connections参数
 
  - 涵义：限制 TiDb 同时允许最大客户端连接数;   
  - 默认值: 0
  - 作用：默认情况下，该参数值为 0,表示不限制客户端连接数，大于 0 时，为限制客户端连接数的值（类似于Oracle中的process）； 
  - 建议：将该参数结合内存资源使用、适当调节参数值大小，限制资源使用；   
- - 使用：
+ - 验证： 
    ```
 
    ```
 
 
-### max-index-length参数
+#### max-index-length参数
 
  - 涵义：设置新建索引的长度限制，单位字节Bytes;   
  - 默认值: 3072
  - 作用：该参数值域为[3072,3072*4],从 v3.0.11 版本开始增加 max-index-length 参数，默认值为 3072 字节，目的是为了兼容 MySQL，v3.0.11版本之前，虽然没有该参数调节，但是默认限制也是 3072 字节； 
  - 建议：不做修改   
- - 使用：
+ - 验证： 
    ```
 
    ```
 
 
-### enable-telemetry参数
+#### enable-telemetry参数
 
  - 涵义：是否开启遥测功能;   
  - 默认值: true
  - 作用：遥测用户在 TiDB 使用过程中，PingCap 公司搜集用户使用情况，以便于 TiDB 改进； 
  - 建议：不做修改  
- - 使用：
+ - 验证： 
    ```
 
    ```
 
+
+#### TiDB普通参数使用方法
+
+   ```shell
+    [tidb@tidb01 ~]$ tiup cluster edit-config tidb-test
+    ......
+    server_configs:
+      tidb:
+        alter-primary-key: true
+        check-mb4-value-in-utf8: false
+        compatible-kill-query: false
+        enable-telemetry: false
+        lease: 45s
+        lower-case-table-names: 2
+        max-index-length: 3072
+        max-server-connections: 1000
+        mem-quato-query: 214783648
+        new_collations_enabled_on_first_bootstrap: true
+        oom-action: cancel
+        oom-use-tmp-storage: true
+        repair-mode: false
+        repair-table-list: []
+        server-version: TiDB-${TiDB-version}
+        split-table: true
+        tmp-storage-path: /tmp/test-cluster
+        tmp-storage-quota: 102400
+        token-limit: 1000
+        treat-olf-version-utf8-as-utf8mb4: true
+    ......
+    Please check change highlight above, do you want to apply the change? [y/N]: y
+
+    [tidb@tidb01 ~]$ tiup cluster reload tidb-test -R tidb
+    ......
+    Reloaded cluster `tidb-test` successfully 
+
+    [root@tidb01 conf]# cd /data/tidb-deploy/tidb-4000/conf
+    [root@tidb01 conf]# cat tidb.toml 
+    # WARNING: This file is auto-generated. Do not edit! All your modification will be overwritten!
+    # You can use 'tiup cluster edit-config' and 'tiup cluster reload' to update the configuration
+    # All configuration items you want to change can be added to:
+    # server_configs:
+    #   tidb:
+    #     aa.b1.c3: value
+    #     aa.b2.c4: value
+    alter-primary-key = true
+    check-mb4-value-in-utf8 = false
+    compatible-kill-query = false
+    enable-telemetry = false
+    lease = "45s"
+    lower-case-table-names = 2
+    max-index-length = 3072
+    max-server-connections = 1000
+    mem-quato-query = 214783648
+    new_collations_enabled_on_first_bootstrap = true
+    oom-action = "cancel"
+    oom-use-tmp-storage = true
+    repair-mode = false
+    repair-table-list = []
+    server-version = "TiDB-${TiDB-version}"
+    split-table = true
+    tmp-storage-path = "/tmp/test-cluster"
+    tmp-storage-quota = 102400
+    token-limit = 1000
+    treat-olf-version-utf8-as-utf8mb4 = true
+   ```  
 
 ## log相关配置项
 
@@ -407,7 +460,7 @@
     - 0 --> 关闭 
     - 1 --> 开启 
  - 建议：不做修改  
- - 使用：
+ - 验证： 
    ```
     tidb_record_plan_in_slow_log 
    ```
@@ -617,7 +670,7 @@
    - 最大不超过125829120(120MB)  
    - TiKV 中类似限制为 raft-entry-max-size，默认也为 8MB ，在调整设置时要将两个参数一起调整   
  - 建议：不做修改  
- - 使用：
+ - 验证： 
    ```
 
    ```
@@ -654,7 +707,7 @@
  - 默认值: true
  - 作用：控制资源使用 
  - 建议：不做修改  
- - 使用：
+ - 验证： 
    ```
 
    ```
@@ -674,7 +727,7 @@
      - 包含 mysql.stats_histograms/mysql.stats_buckets/mysql.stats_top_n,不再主动更新统计信息，不再自动 analyze 
      - 包括 mysql.stats_feedback,不再根据查询的数据反馈的部分统计信息更新表和索引的统计信息
  - 建议：不做修改  
- - 使用：
+ - 验证： 
    ```
 
    ```
@@ -684,7 +737,7 @@
  - 默认值: true
  - 作用：即使更新统计信息，确保基于 CBO 的 TiDB 优化器产生正确的执行计划
  - 建议：不做修改  
- - 使用：
+ - 验证： 
    ```
 
    ```
@@ -694,7 +747,7 @@
  - 默认值: 0.05
  - 作用：TiDB 使用动态采样的方法从所有 SQL 操作中，以 feedback-probability 参数值的概率抽取作为反馈，用于更新统计信息
  - 建议：不做修改  
- - 使用：
+ - 验证： 
    ```
 
    ```
@@ -704,7 +757,7 @@
  - 默认值: 1024 
  - 作用：同涵义   
  - 建议：不做修改，如果出现统计信息不准的情况，再定位确实是这个原因时可酌情更改     
- - 使用：
+ - 验证： 
    ```
 
    ```
@@ -717,7 +770,7 @@
    - 0   --> 最小值  
    - 1   --> 最大值   
  - 建议：不做修改  
- - 使用：
+ - 验证： 
    ```
 
    ```
@@ -728,7 +781,7 @@
    - 可选值 NO_PRIORITY, LOW_PRIORITY, HIGH_PRIORITY, DELAYED
  - 作用：  
  - 建议：不做修改  
- - 使用：
+ - 验证： 
    ```
 
    ```
@@ -741,7 +794,7 @@
    - false --> 默认值，作为系统变量 tidb_opt_distinct_agg_push_down 的初始化值  
    - true  --> 优化操作
  - 建议：修改为 true    
- - 使用：
+ - 验证： 
    ```
 
    ```
