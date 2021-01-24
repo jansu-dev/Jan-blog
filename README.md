@@ -114,4 +114,6 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ## DEBUG-TiDB
 
- - [TiDB-Centos构建Debug环境](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB-DEBUG/TiDB-Centos%E6%9E%84%E5%BB%BADebug%E7%8E%AF%E5%A2%83.md)
+ - [TiDB-Centos构建Debug环境](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB-DEBUG/TiDB-Centos%E6%9E%84%E5%BB%BADebug%E7%8E%AF%E5%A2%83.md)  
+
+ - [TiDB-TiDB源码executer部分理解](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB-DEBUG/TiDB-TiDB%E6%BA%90%E7%A0%81executer%E9%83%A8%E5%88%86%E7%90%86%E8%A7%A3.md)
