@@ -147,7 +147,7 @@
    [tidb@tidb01 ~]$ sysbench /usr/share/sysbench/oltp_read_write.lua --mysql-user=root --mysql-port=4000 --mysql-host=192.168.169.41 --mysql-db=jan --tables=3 --table-size=100000 --threads=32 --events=100000 --report-interval=5 prepare
 
    # 验证新表 region_ID,已经为 sbtest3 表建立了新的 region_ID 
-   # 可以看到之前的两个表的 region_ID 已经在上一个阶段被 merge 到了一起
+   # 可以看到之前的两个表(sbtest1、sbtest2)的 region_ID 已经在上一个阶段被 merge 到了一起,变成了 4005
    MySQL [jan]> show table sbtest3 regions\G
    *************************** 1. row ***************************
               REGION_ID: 2
