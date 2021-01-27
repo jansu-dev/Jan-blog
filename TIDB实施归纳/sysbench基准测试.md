@@ -24,6 +24,7 @@ sysbench安装步骤如下所示，主要分为依赖安装、软件部署、验
 yum -y install  make automake libtool pkgconfig libaio-devel vim-common
 
 # sysbench安装
+yum install -y epel-release
 yum list
 yum install sysbench
 
