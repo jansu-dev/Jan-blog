@@ -10,7 +10,7 @@
 > - [Server](#Server)
 >   - [ConnectionCount](#ConnectionCount)  
 >   - [GetTokenDuration](#GetTokenDuration)  
-> - [executer](#executer)
+> - [Executer](#executer)
 >   - [ParseDuration](#ParseDuration)  
 >   - [CompileDuration](#ParseDuration)  
 > - [PDClient](#PDClient)
@@ -43,7 +43,7 @@
 涵义: SQL 每秒的select、update、insert、show等不同类型SQL语句的执行数量；    
 作用: 判断当前业务是写多，还是读多，便于处理性能问题  
 
-![image.png](./tidb-overview-pic/duration.png)
+![image.png](./tidb-overview-pic/commandOPS.png)
 
 #### CPS 
 涵义: 判断 SQL 命令每秒的执行情况  
