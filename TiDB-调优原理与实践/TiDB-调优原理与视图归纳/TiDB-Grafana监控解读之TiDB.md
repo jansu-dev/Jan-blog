@@ -2,7 +2,7 @@
 时间：2020-01-16
 
 ## Summary  
-延迟部分 
+ - **延迟部分** 
 > - [Query-Summary](#Query-Summary)  
 >   - [Duration](#Duration) 
 >   - [StatementsOPS](#StatementsOPS)  
@@ -17,7 +17,7 @@
 >   - [PDTsoWaitDuration](#PDTsoWaitDuration)  
 >   - [PDTsoRpcDuration](#PDTsoRpcDuration)  
 
-错误部分   
+ - **错误部分**   
 > - [Query-Summary](#Query-Summary)  
 >     - [FaildQueryOPM](#FaildQueryOPM)  
 > - [KVErrors](#KVErrors)
