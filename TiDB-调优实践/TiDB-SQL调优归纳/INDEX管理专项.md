@@ -106,8 +106,10 @@ Effect: show the information about index of all the database
 Limit:    
 Example:   
 ```sql
-select * from information_schema.tidb_indexes where table_schema
-='test' and table_name="t";
+select *
+  from information_schema.tidb_indexes
+ where table_schema = 'test'
+   and table_name = "t";
 ```
 
 ### 索引Hint  
