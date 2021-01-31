@@ -93,7 +93,8 @@
 >   - [max-stmt-count参数](#max-stmt-count参数)  
 >   - [max-sql-length参数](#max-sql-length参数)  
 >   - [pessimistic-txn相关参数配置](#pessimistic-txn相关参数配置)   
->   - [rexperimental参数](#rexperimental参数)  
+>   - [experimental参数](#experimental参数)  
+>   - [experimental使用](#experimental使用)  
 > - [参考文章](#参考文章)
 
 ## TiDB普通参数限制
@@ -1176,7 +1177,7 @@ TiDB 服务状态相关配置
    - 作用：同涵义    
    - 建议：结合业务场景酌情修改
 
-#### 使用  
+#### experimental使用  
 ```
 tiup cluster edit-config tidb-test
 
