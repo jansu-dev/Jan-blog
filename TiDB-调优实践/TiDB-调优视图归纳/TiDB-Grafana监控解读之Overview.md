@@ -30,7 +30,7 @@
 #### Network Traffic 网络流量
 涵义:  
 作用: 评估当前每台服务器的网络情况
-标准: 当前网络带宽不要被打满，如果是万兆网卡(10000Mbps)也就是每秒下载速度为1250M/s,[参考万兆网卡查询方法](../../TIDB部署实践/TiDB-集群部署前环境检测.md)   
+标准: 当前网络带宽不要被打满，如果是万兆网卡(10000Mbps)也就是每秒下载速度为1250M/s,[参考万兆网卡查询方法](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB-%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/TiDB-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E5%89%8D%E7%8E%AF%E5%A2%83%E6%A3%80%E6%B5%8B.md)   
 
 ![image.png](./tidb-overview-pic/network_traffic.png)
 
