@@ -86,6 +86,7 @@ Limit:
   1. alter-primary-key = false 
   2. primary key must be a single integer column (TiDB 4.0)
   3. primary key maybe support char and decimal column (TiDB 5.0)    
+
 Example:   
 ```sql
 create table cluster_t(a char(10) primary key,b int,c int);  
