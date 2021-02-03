@@ -112,6 +112,8 @@ That the repository was build is aim to log process of mysql TiDB Learning.
     - [TiDB-TiKV集群参数归纳整理](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB-%E8%B0%83%E4%BC%98%E5%AE%9E%E8%B7%B5/TiDB-%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E5%BD%92%E7%BA%B3/TiKV%E9%9B%86%E7%BE%A4%E5%8F%82%E6%95%B0%E5%BD%92%E7%BA%B3%E6%95%B4%E7%90%86.md)    
     - [TiDB-PD集群参数归纳整理]()    
 
+ - TiDB-CASE解决方案  
+   - [SQL Duration 升高现象问题排查](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB-%E8%B0%83%E4%BC%98%E5%AE%9E%E8%B7%B5/TiDB-CASE%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/SQL%20Duration%20%E5%8D%87%E9%AB%98%E7%8E%B0%E8%B1%A1%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5.md#tikv-raftio)
 
 ## TiDB实践问题归纳
 
