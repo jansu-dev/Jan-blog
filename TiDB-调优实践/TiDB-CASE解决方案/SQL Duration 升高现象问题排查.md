@@ -77,7 +77,7 @@
          - 定位原因后通过 Hint 或 Index 优化慢 SQL
 
    - 排查结果  
-     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;案例中 TiDB 集群共有4台 TiDB 实例，分别是 IP88、IP89、IP91、IP93，在四个台 TiDB 实例上分别取问题时间段半小时的 Slow Query 情况，发现并没有慢 SQL 执行次数多到足够影响整个集群的 Duration 升高。
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;案例中 TiDB 集群共有4台 TiDB 实例，分别是 IP88、IP89、IP91、IP93，在四个台 TiDB 实例上分别取问题时间段半小时的 Slow Query 情况，发现并没有慢 SQL 执行次数多到足够影响整个集群的 Duration 升高。   
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，慢 SQL 导致 Duration 的方向锁定问题原因的思路被排除。
   
    - 案例 Top SQL 截图  
