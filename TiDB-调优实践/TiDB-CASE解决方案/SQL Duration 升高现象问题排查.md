@@ -101,7 +101,7 @@
      - QPS：指标折线图显示问题时段 QPS 与正常时段无差异，说明 Client 请求没有增多；  
      - Statement OPS：指标显示 select、Insert 操作居多，update、delete 极少，因为已经排除慢 SQL 问题，所以更倾向于怀疑 Insert CMD 导致 Duration 升高；    
 
-     - 组件关系图
+     - 组件关系图，参考[官方问文档 Performance-map](https://download.pingcap.com/images/docs-cn/performance-map.png) 总结
     ![组件关系图](./check-report-pic/ComponentsOverview.png)  
     
   
