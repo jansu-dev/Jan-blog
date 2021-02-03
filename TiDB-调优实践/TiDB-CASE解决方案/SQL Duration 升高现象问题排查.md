@@ -143,8 +143,6 @@
 
 
 
-### TiKV部分组件排查
-
 #### TiDB-DistSQL
 
  - 排查思路   
@@ -157,6 +155,7 @@
  - 案例 Metrics  
  ![7](./check-report-pic/7.png)   
  ![18](./check-report-pic/18.png)   
+
 
 #### TiDB-KV  
 
@@ -172,6 +171,10 @@
  - 案例 Metrics   
  ![8](./check-report-pic/8.png)   
  ![9](./check-report-pic/9.png)   
+
+
+
+### TiKV部分组件排查
 
 #### TiKV-gRPC  
 
