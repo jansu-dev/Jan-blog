@@ -13,8 +13,8 @@
 > - [排查细节](#排查细节)    
 >   - [Query-Summary](#Query-Summary)   
 >   - [TiDB部分组件排查](#TiDB部分组件排查)   
->     - [TiDB-DistSQL](#TiDB-DistSQL)   
 >     - [TiDB-Executer](#TiDB-Executer)   
+>     - [TiDB-DistSQL](#TiDB-DistSQL)   
 >     - [TiDB-KV](#TiDB-KV)   
 >   - [TiKV部分组件排查](#TiDB部分组件排查)   
 >     - [TiKV-gRPC](#TiKV-gRPC)   
@@ -128,20 +128,6 @@
 
 ### TiDB部分组件排查
 
-
-#### TiDB-DistSQL
-
- - 排查思路   
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DistSQL 并行处理各 SQL 下推到各 TiKV 节点的 Coprocessor 处理操作，IP91 虽然较高，但峰值 23ms 的 Duration 并不能说明问题；    
-
- - 排查结果  
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TiDB 在 DistSQL 处理阶段不存在性能问题；  
-
- - 案例 Metrics  
- ![7](./check-report-pic/7.png)   
- ![18](./check-report-pic/18.png)   
-
-
 #### TiDB-Executer  
 
  - 排查思路     
@@ -157,6 +143,18 @@
 
 
 ### TiKV部分组件排查
+
+#### TiDB-DistSQL
+
+ - 排查思路   
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DistSQL 并行处理各 SQL 下推到各 TiKV 节点的 Coprocessor 处理操作，IP91 虽然较高，但峰值 23ms 的 Duration 并不能说明问题；    
+
+ - 排查结果  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TiDB 在 DistSQL 处理阶段不存在性能问题；  
+
+ - 案例 Metrics  
+ ![7](./check-report-pic/7.png)   
+ ![18](./check-report-pic/18.png)   
 
 #### TiDB-KV  
 
