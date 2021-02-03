@@ -131,11 +131,12 @@
 #### TiDB-Executer  
 
  - 排查思路     
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Distsql Duration 主要并行处理 SQL 命令，将 Coprocessor 方面的聚合需求交给 TiKV Client 去执行；  
-   - **DistSQL Duration 有小幅度升高**，说明此时可能存在汇总查询类的慢 SQL，在 TOP SQL 方向排查过程中也可以看到 IP91 节点存在一条执行两次的平均执行时间 SQL 达 26s 的慢SQL；     
-   - **Coprocessor Seconds 0.999 分位数**，四台 TiDB 实例均幅度不等升高；  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executer 主要职责为 AST --> Logical Plan --> Physcial Plan 执行链路上的转换与优化操作；  
+   - Parse Duration 与正常阶段相比无明显异常；      
+   - Compile Duration 与正常阶段相比无明显异常；   
+
  - 排查结果   
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;综上所述，基本排除 TiDB 层组件瓶颈问题导致的 SQL Duration 升高;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本排除 TiDB Executer 层组件瓶颈问题导致的 SQL Duration 升高；但 Execution Duration 有明显抖动，需深挖原因；  
 
  - 案例 Metrics   
  ![6](./check-report-pic/6.png) 
@@ -148,9 +149,10 @@
 
  - 排查思路   
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DistSQL 并行处理各 SQL 下推到各 TiKV 节点的 Coprocessor 处理操作，IP91 虽然较高，但峰值 23ms 的 Duration 并不能说明问题；    
-
+   - **DistSQL Duration 有小幅度升高**，说明此时可能存在汇总查询类的慢 SQL，在 TOP SQL 方向排查过程中也可以看到 IP91 节点存在一条执行两次的平均执行时间 SQL 达 26s 的慢SQL，但不足以影响真个集群 SQL Duration；     
+   - **Coprocessor Seconds 0.999 分位数**，四台 TiDB 实例均幅度不等升高；  
  - 排查结果  
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TiDB 在 DistSQL 处理阶段不存在性能问题；  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TiDB 在 DistSQL 处理阶段不存在性能问题；综上所述，基本排除 TiDB 层存在性能问题的情况；     
 
  - 案例 Metrics  
  ![7](./check-report-pic/7.png)   
