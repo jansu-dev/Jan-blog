@@ -49,15 +49,15 @@
 
 
 ## 排查思路  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;依据 TiDB 各组件间关系、SQL 执行流程等体系知识，把握 Promethus 核心监控指标，自定向下逐层深挖各组件影响性能最大的因素。  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，对可能引起 SQL Duration 抖动原因进行分类，追一排查否定不可能因素，直至定位根本原因；    
 
- - 案例排查思路  
+ - 案例排查思路分类  
    1. 网络延迟抖动性升高，导致 Duration 上升；
    2. 慢 SQL 导致的 Duration 上升；   
    3. 集群组件性能问题导致的 Duration 上升；
 
 
-#### 网络延迟抖动性方向排查  
+### 网络延迟抖动性方向排查  
    - 排查思路  
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网络延迟可能导致 RPC 消息传输慢，进而导致 SQL CMD 执行出现 Duration 的现象。  
      - PingLatency：指标记录网络延迟情况，问题时段并未出现网络异常现象；  
@@ -68,7 +68,7 @@
    - 案例 Top SQL 截图  
    ![11](./check-report-pic/11.png)   
 
-#### TOP_SQL方向排查
+### TOP_SQL方向排查
    - 排查思路   
      1. 通过 slow_query 系统信息表相应字段分组排序，查出巡检时间内所需的 Top SQL 信息；   
      2. 如果断定 SQL 是引起 Duration 升高的主要原因，可通过 Slow Query File 进一步分析；  
@@ -95,9 +95,10 @@
    
 
 
-#### 集群组件性能问题排查方向
+### 集群组件性能问题排查方向
    - 排查思路   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;导致 SQL Duration 的原因也可能是集群组件出现问题导致的，排查思路为依据集群组件关系、Metrics 监控项排查瓶颈点
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;导致 SQL Duration 的原因也可能是集群组件出现问题导致的，依据 TiDB 各组件间关系、SQL 执行流程等体系知识，把握 Promethus 核心监控指标，自定向下逐层深挖各组件影响性能最大的因素。
+   
      - 组件关系图
     ![组件关系图](./check-report-pic/ComponentsOverview.png)  
     
