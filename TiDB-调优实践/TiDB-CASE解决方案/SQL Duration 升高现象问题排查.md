@@ -95,15 +95,18 @@
    
 
 
-### 集群组件性能问题方向排查
+### 集群组件性能问题方向排查  
+
+ - 组件关系图，参考[官方问文档 Performance-map](https://download.pingcap.com/images/docs-cn/performance-map.png) 总结
+    ![组件关系图](./check-report-pic/ComponentsOverview.png)  
+    
+
    - 排查思路   
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;导致 SQL Duration 的原因也可能是集群组件出现问题导致的，排查思路为依据 TiDB 各组件间关系、SQL 执行流程等体系知识，把握 Promethus 核心监控指标，自定向下逐层深挖各组件影响性能最大的因素。   
      - QPS：指标折线图显示问题时段 QPS 与正常时段无差异，说明 Client 请求没有增多；  
      - Statement OPS：指标显示 select、Insert 操作居多，update、delete 极少，因为已经排除慢 SQL 问题，所以更倾向于怀疑 Insert CMD 导致 Duration 升高；    
 
-     - 组件关系图，参考[官方问文档 Performance-map](https://download.pingcap.com/images/docs-cn/performance-map.png) 总结
-    ![组件关系图](./check-report-pic/ComponentsOverview.png)  
-    
+
   
    - 排查结果  
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL Duration 抖动的原因，从 Metrics 中推断更可能是 INSERT 导致的且 Client 端请求没有增加，佐证了可能是集群中组件出现性能瓶颈导致 Duration 抖动；   
