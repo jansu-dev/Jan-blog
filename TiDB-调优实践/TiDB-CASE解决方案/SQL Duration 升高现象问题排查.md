@@ -12,8 +12,8 @@
 >   - [集群组件性能问题排查方向](#集群组件性能问题排查方向)   
 > - [排查细节](#排查细节)   
 >   - [TiDB部分组件排查](#TiDB部分组件排查)   
->     - [TiDB-Executer](#TiDB-Executer)   
 >     - [TiDB-DistSQL](#TiDB-DistSQL)   
+>     - [TiDB-Executer](#TiDB-Executer)   
 >     - [TiDB-KV](#TiDB-KV)   
 >   - [TiKV部分组件排查](#TiDB部分组件排查)   
 >     - [TiKV-gRPC](#TiKV-gRPC)   
@@ -38,10 +38,15 @@
 #### 核心指标
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本次仅介绍在排查问题过程中涉及到的指标    
 
- - Duration  
- - QPS  
- - Statement QPS
- - Slow Query
+ - PingLatency  
+ - Parse Duration、Compile Duration、Execution Duration、Distsql Duration  
+ - Coprocessor Seconds  
+ - KV Request OPS、KV Request Duration 99 by store、KV Request Duration 99 by type  
+ - gRPC poll CPU、Scheduler worker CPU、Raft store CPUAsync aapply CPU  
+ - Scheduler writing bytes、Scheduler pending commands  
+ - Propose wait duration per server、Apply wait duration per server  
+ - Append log duration per server、Apply log per server、Commit log duration per server  
+ - Disk Lantency、Disk Load、Disk IOps  
 
 
 ## 排查思路  
@@ -127,6 +132,18 @@
 ### TiDB部分组件排查
 
 
+#### TiDB-DistSQL
+
+ - 排查思路   
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DistSQL 并行处理各 SQL 下推到各 TiKV 节点的 Coprocessor 处理操作，IP91 虽然较高，但峰值 23ms 的 Duration 并不能说明问题；    
+
+ - 排查结果  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TiDB 在 DistSQL 处理阶段不存在性能问题；  
+
+ - 案例 Metrics  
+![18](./check-report-pic/18.png)   
+
+
 #### TiDB-Executer  
 
  - 排查思路     
@@ -139,17 +156,6 @@
  - 案例 Metrics   
  ![7](./check-report-pic/7.png)   
 
-
-#### TiDB-DistSQL
-
- - 排查思路   
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DistSQL 并行处理各 SQL 下推到各 TiKV 节点的 Coprocessor 处理操作，IP91 虽然较高，但峰值 23ms 的 Duration 并不能说明问题；    
-
- - 排查结果  
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TiDB 在 DistSQL 处理阶段不存在性能问题；  
-
- - 案例 Metrics  
-![18](./check-report-pic/18.png)   
 
 
 ### TiKV部分组件排查
