@@ -147,7 +147,7 @@
 
  - 排查思路   
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DistSQL 并行处理各 SQL 下推到各 TiKV 节点的 Coprocessor 处理操作，IP91 虽然较高，但峰值 23ms 的 Duration 并不能说明问题；    
-   - **DistSQL Duration 有小幅度升高**，说明此时可能存在汇总查询类的慢 SQL，在 TOP SQL 方向排查过程中也可以看到 IP91 节点存在一条执行两次的平均执行时间 SQL 达 26s 的慢SQL，但不足以影响真个集群 SQL Duration；     
+   - **DistSQL Duration 有小幅度升高**，说明此时可能存在汇总查询类的慢 SQL，在 TOP SQL 方向排查过程中也可以看到 IP91 节点存在一条执行两次的平均执行时间 SQL 达 26s 的慢SQL，但不足以影响整个集群 SQL Duration；     
    - **Coprocessor Seconds 0.999 分位数**，四台 TiDB 实例均幅度不等升高，并不能说明问题；  
  - 排查结果  
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TiDB 在 DistSQL 处理阶段不存在性能问题；综上所述，基本排除 TiDB 层存在性能问题的情况；     
@@ -193,8 +193,8 @@
 #### TiKV-Scheduler  
 
  - 排查思路   
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scheduler 阶段负责处理发往 TiKV 阶段的写请求，依据此阶段按进一步佐证在 gRPC 阶段得出的 kv_prewrite-IP92:270172 节点写请求出现性能问题的结论，并通过 IP:Port 所启动的进程查出具体的 Store；  
-   - Scheduler writing bytes：指标显示 IP92、IP100 在问题时间等待写于的数据存在明显增长，极有可能存在数据积压，未能及时将数据写入到 RaftStore 中的情况；   
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scheduler 阶段负责处理发往 TiKV 阶段的写请求，依据此阶段 Metrics 进一步佐证在 gRPC 阶段得出的 kv_prewrite-IP92:270172 节点写请求出现性能问题的结论，并通过 IP:Port 所启动的进程查出具体的 Store；  
+   - Scheduler writing bytes：指标显示 IP92、IP100 在问题时段等待写入的数据量存在明显增长，极有可能存在数据积压，未能及时将数据写入到 RaftStore 中的情况；   
    - Scheduler pending commands：指标显示 IP92 在问题时间待处理的命令出现积压，**进一步佐证 IP92 写入出现问题**；  
  - 排查结果  
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本确定 IP92:270172 对应的 Store 出现了性能问题，需查看问题时段 Disk-Performance 最终发掘问题根本；  
