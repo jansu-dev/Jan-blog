@@ -11,7 +11,8 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 > - [TiDB周边生态](#TiDB周边生态)  
 > - [TiDB调优相关](#TiDB调优相关)  
 > - [TiDB实践问题归纳](#TiDB实践问题归纳)  
-> - [DEBUG-TiDB](#DEBUG-TiDB)  
+> - [DEBUG-TiDB](#DEBUG-TiDB)     
+> - [DEBUG-TiKV](#DEBUG-TiKV)     
 
 
 
