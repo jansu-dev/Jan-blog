@@ -8,7 +8,22 @@
 
 show global binding;
 
-CREATE GLOBAL BINDING FOR SELECT * FROM md_meter_plan_record_info mpri use index (idx_mmpri_mcid)   WHERE mpri.meter_code_id='88aae1be19614cafa3a87dbb01445301'   AND mpri.del_flag=0 AND mpri.meter_read_reason != '09'        AND mpri.city_id=241            AND mpri.city_code=350800           ORDER BY mpri.create_time DESC LIMIT 1;
+CREATE GLOBAL BINDING FOR 
+SELECT  * FROM md_meter_plan_record_info mpri
+WHERE mpri.meter_code_id='88aae1be19614cafa3a87dbb01445301'
+    AND mpri.del_flag=0
+    AND mpri.meter_read_reason != '09'
+    AND mpri.city_id=241
+    AND mpri.city_code=350800
+ORDER BY mpri.create_time DESC LIMIT 1
+USING 
+SELECT  * FROM md_meter_plan_record_info mpri use index (idx_mmpri_mcid)
+WHERE mpri.meter_code_id='88aae1be19614cafa3a87dbb01445301'
+    AND mpri.del_flag=0
+    AND mpri.meter_read_reason != '09'
+    AND mpri.city_id=241
+    AND mpri.city_code=350800
+ORDER BY mpri.create_time DESC LIMIT 1;
 ```
 
 
