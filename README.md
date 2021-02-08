@@ -132,6 +132,7 @@ That the repository was build is aim to log process of mysql TiDB Learning.
  TiDB 由 go 语言实现，在阅读 TiDB 源码之前需具备一定 go 语言编程基础；
 
  - [词法与语法解析概念、goyacc实践](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB-DEBUG/Lex%20%26%20Yacc%20concept%20and%20goyacc%20practice.md)   
+ lex & yacc 是流行的词法解析器及句法分析器，goyacc 是 go 语言官方支持的、稳定的库模块。TiDB 使用 goyacc 实现将 SQL 语句的解析转换为 AST，进行后续处理，理解相关概念十分必要；  
 
  - [TiDB-Centos构建Debug环境](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB-DEBUG/TiDB-Centos%E6%9E%84%E5%BB%BADebug%E7%8E%AF%E5%A2%83.md)  
 
