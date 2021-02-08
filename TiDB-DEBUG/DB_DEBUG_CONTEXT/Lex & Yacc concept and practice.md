@@ -5,9 +5,6 @@ time: 2020-02-09
 
 > - [The_concept_of_Lex_and_Yacc](#The_concept_of_Lex_and_Yacc)     
 > - [The_example_of_Lex_and_Yacc_of_Go](#The_example_of_Lex_and_Yacc_of_Go)     
-> - [The_concept_of_Lex_and_Yacc](#The_concept_of_Lex_and_Yacc)     
-> - [The_concept_of_Lex_and_Yacc](#The_concept_of_Lex_and_Yacc)     
-
 
 
 
