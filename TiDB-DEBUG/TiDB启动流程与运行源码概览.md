@@ -62,3 +62,27 @@ type Domain struct {
 }
 
 ```
+
+
+
+
+## Blog_Recommand
+ - [TiDB源码阅读（二） 简单理解一下 Lex & Yacc](https://segmentfault.com/a/1190000023464340)   
+
+ - [TIDB Salparse源码解析 -1](https://www.cnblogs.com/ivy-blogs/p/13032292.html)   
+ - [tidb源码学习之auto_increment](https://mccxj.github.io/blog/20171030_tidb-auto-increment.html)    
+
+ - [tidb源码学习之ast包](https://mccxj.github.io/blog/20171004_tidb-ast-source.html)  
+
+ - [tidb源码学习之错误管理](https://mccxj.github.io/blog/20170927_tidb-errors.html)  
+
+  - [tidb源码学习之测试框架](https://mccxj.github.io/blog/20170921_tidb-testcase.html)  
+
+  - [TiDB的入口-Mysql协议](https://segmentfault.com/a/1190000023464293)      
+
+  - [TiDB show processlist命令源码分析](https://www.cnblogs.com/mantu/p/10721122.html)    
+
+  - [TiDB源码阅读笔记（三） TiDB 的在线 DDL](https://segmentfault.com/a/1190000023514267)   
+
+  - [TiDB 源码阅读（二.1）TiDB 中 的 Kill Query](https://segmentfault.com/a/1190000023464409)   
+ 
