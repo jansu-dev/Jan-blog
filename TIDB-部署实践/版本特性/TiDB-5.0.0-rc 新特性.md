@@ -40,9 +40,9 @@
 | 主键只有一列 | 无 |
 
  - 关闭 clustered_index 特性（同 4.0.x 部分主键聚簇索引特性一样）：   
- 仅支持主键为 INTEGER 或 BIGINT、主键只有一列的聚簇索引，当条件不满足时，便采用一个 64 位 handle 值代替主键组织数据；
+ 仅支持主键为 INTEGER 或 BIGINT、主键只有一列的聚簇索引，当条件不满足时，便采用一个 64 位 handle 值代替主键组织数据，也就是 _row_id；下列 demo 中 t1 表的查询行为表现为从 TiKV 获取解压的 KV 数据在 TiDB 中直接筛选过滤便获得结果，而 t2 表的查询行为表现为 TiDB 先从 TiKV 中获得主键索引页子节点中 guid 列的 _row_id 值，再从 TiKV 中获取改行数据对应数据；
 ```sql
--- 表 t1 为索引组织表、表 t2 为   
+-- 表 t1 为索引组织表、表 t2 为普通表   
 -- 聚簇索引组织表
 MySQL [jan]> create database jan;
 
