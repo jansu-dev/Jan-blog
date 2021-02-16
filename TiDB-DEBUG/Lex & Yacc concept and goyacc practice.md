@@ -1,6 +1,6 @@
 # Lex & Yacc concept and practice   
 time: 2020-02-09   
-
+TiDB 版本：4.0.9
 
 ## Summary
 

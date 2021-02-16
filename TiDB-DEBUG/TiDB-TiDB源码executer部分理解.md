@@ -1,6 +1,8 @@
 # TiDB-TiDB源码executer部分理解  
 
 
+TiDB 版本：4.0.9
+
 ## Executer 接口  
 
 每一个接口都会实现一个 Executer 的接口，   

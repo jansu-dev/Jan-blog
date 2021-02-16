@@ -77,6 +77,9 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
     - [TiDB-TiSpark依靠TiUP工具协助部署集群](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TIDB-%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/TiDB-TiSpark%E4%BE%9D%E9%9D%A0TiUP%E5%B7%A5%E5%85%B7%E5%8D%8F%E5%8A%A9%E9%83%A8%E7%BD%B2%E9%9B%86%E7%BE%A4.md)
 
+ - TiDB版本特性
+    - [5.0.0-rc新特性]()
+
 ## TiDB周边生态
 
  - TiUP 工具套件

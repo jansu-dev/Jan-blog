@@ -1,6 +1,6 @@
 # TiDB-Session Component Debugging and Notes  
 time:2021-02-06   
-
+TiDB 版本：4.0.9
 
 ## Session_Interface
 

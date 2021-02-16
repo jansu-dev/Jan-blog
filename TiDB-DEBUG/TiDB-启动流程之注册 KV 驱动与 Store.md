@@ -1,10 +1,13 @@
 # TiDB-启动流程之注册 KV驱动与 Store 
 
 时间：2021-02-13   
+TiDB 版本：4.0.9
 
 
+## TiDB-Package-main
 
-## TiDB-main层注册store启动入口  
+
+层注册store启动入口  
 
 [main() 源代码路径](https://github.com/pingcap/tidb/blob/d6a2b9a372edd3638c0ed88e1d2a5e6b702a69ed/tidb-server/main.go#L166)
 
@@ -35,7 +38,10 @@ kvstore.Register 方法属于 github.com/pingcap/tidb/store，store 是对 TiKV 
 在 registerStores() 中将 tikv 层内容注册给 kvstore 
 
 
-## TiKV-store层注册驱动
+## TiKV-Package-store
+
+
+层注册驱动
 
 
 [源代码路径](https://github.com/pingcap/tidb/blob/d6a2b9a372edd3638c0ed88e1d2a5e6b702a69ed/store/store.go#L30)
@@ -61,15 +67,38 @@ Register 函数为每一个 KV 存储（store）注册一个唯一的名字及�
 
 
 
-## TiDB-store-tikv 
-Package tikv provides tcp connection to kvserver.
+## TiDB-Package-kv 
+[源代码路径](https://github.com/pingcap/tidb/blob/d6a2b9a372edd3638c0ed88e1d2a5e6b702a69ed/kv/kv.go#L457)
+```go
+type Driver interface {
+	Open(path string) (Storage, error)
+}
+
+type Storage interface {
+	Begin() (Transaction, error)
+	BeginWithStartTS(startTS uint64) (Transaction, error)
+	GetSnapshot(ver Version) (Snapshot, error)
+	GetClient() Client
+	Close() error
+	UUID() string
+	CurrentVersion() (Version, error)
+	GetOracle() oracle.Oracle
+	SupportDeleteRange() (supported bool)
+	Name() string
+	Describe() string
+	ShowStatus(ctx context.Context, key string) (interface{}, error)
+}
+```
+Driver interface 是一个必须被实现的接口定义  
+path 定义了连接路径的指定格式    
+Storage interface 定义了隔离级别至少为 SI 快照隔离界别存储模式的接口  
 
 
-[源代码路径](https://github.com/pingcap/tidb/blob/631dbfdc3215a6c448b3e50ed57952f072681cb3/store/tikv/kv.go#L54)
+## TiDB-Package-tikv  
+
+[源代码路径：store/tikv/kv.go](https://github.com/pingcap/tidb/blob/631dbfdc3215a6c448b3e50ed57952f072681cb3/store/tikv/kv.go#L54)
 
 
-
-#### TiDB-store-tikv-kv
 ```go
 // Open opens or creates an TiKV storage with given path.
 // Path example: tikv://etcd-node1:port,etcd-node2:port?cluster=1&disableGC=false
@@ -143,30 +172,3 @@ Open opens or creates an TiKV storage with given path.
 Path example: tikv://etcd-node1:port,etcd-node2:port?cluster=1&disableGC=false
 
 
-
-
-## TiDB-tikv 
-[源代码路径](https://github.com/pingcap/tidb/blob/d6a2b9a372edd3638c0ed88e1d2a5e6b702a69ed/kv/kv.go#L457)
-```go
-type Driver interface {
-	Open(path string) (Storage, error)
-}
-
-type Storage interface {
-	Begin() (Transaction, error)
-	BeginWithStartTS(startTS uint64) (Transaction, error)
-	GetSnapshot(ver Version) (Snapshot, error)
-	GetClient() Client
-	Close() error
-	UUID() string
-	CurrentVersion() (Version, error)
-	GetOracle() oracle.Oracle
-	SupportDeleteRange() (supported bool)
-	Name() string
-	Describe() string
-	ShowStatus(ctx context.Context, key string) (interface{}, error)
-}
-```
-Driver interface 是一个必须被实现的接口定义  
-path 定义了连接路径的指定格式    
-Storage interface 定义了隔离级别至少为 SI 快照隔离界别存储模式的接口  

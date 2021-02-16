@@ -27,6 +27,11 @@
 
 [root@tiup-tidb41 ~]# passwd tidb
 
+[root@tidb-tidb41 ~]# visudo
+
+[root@tidb-tidb41 ~]# tail -1 /etc/sudoers
+tidb ALL=(ALL) NOPASSWD: ALL
+
 [root@tiup-tidb41 ~]# su - tidb
 
 [tidb@tiup-tidb44 ~]$ curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh
@@ -35,8 +40,9 @@
  23 8697k   23 2015k    0     0   303k      0  0:00:28  0:00:06  0:00:22  417k
 ```
 
-```
-[tidb@tiup-tidb44 ~]$ tiup mirror clone tidb-community-server-v4.0.2-linux-amd64 ${version} --os=linux --arch=amd64
+```shell
+# ${version} 替换为需要下载的版本名称，如：v4.0.2、v5.0.0-rc等
+[tidb@tiup-tidb44 ~]$ tiup mirror clone tidb-community-server-${version}-linux-amd64 ${version} --os=linux --arch=amd64
 
 Start to clone mirror, targetDir is tidb-community-server-v4.0.2-linux-amd64, selectedVersions are []
 If this does not meet expectations, please abort this process, read `tiup mirror clone --help` and run again
@@ -53,31 +59,10 @@ drwxr-xr-x. 3 tidb tidb 172 Jan  9 11:40 tidb-community-server-v4.0.2-linux-amd6
 [tidb@tiup-tidb44 ~]$ cd tidb-community-server-v4.0.2-linux-amd64/
 
 [tidb@tiup-tidb44 tidb-community-server-v4.0.2-linux-amd64]$ ll
-total 8732
--rw-r--r--. 1 tidb tidb    1246 Jan  9 11:40 1.index.json
--rw-r--r--. 1 tidb tidb    5221 Jan  9 11:40 1.root.json
-drwxr-xr-x. 2 tidb tidb     257 Jan  9 11:39 keys
--rwxr-xr-x. 1 tidb tidb    2086 Jan  9 11:40 local_install.sh
--rw-r--r--. 1 tidb tidb    5221 Jan  9 11:40 root.json
--rw-r--r--. 1 tidb tidb     641 Jan  9 11:40 snapshot.json
--rw-r--r--. 1 tidb tidb     818 Jan  9 11:40 timestamp.json
--rw-r--r--. 1 tidb tidb 8906707 Jan  9 11:40 tiup-linux-amd64.tar.gz
 
 [tidb@tiup-tidb44 tidb-community-server-v4.0.2-linux-amd64]$ ./local_install.sh 
-Set mirror to /home/tidb/tidb-community-server-v4.0.2-linux-amd64 success
-Detected shell: bash
-Shell profile:  /home/tidb/.bash_profile
-Installed path: /home/tidb/.tiup/bin/tiup
-===============================================
-1. source /home/tidb/.bash_profile
-2. Have a try:   tiup playground
-===============================================
 
 [tidb@tiup-tidb44 ~]$ tar -cvf tidb-community-server-v4.0.2-linux-amd64.tar.gz tidb-community-server-v4.0.2-linux-amd64
-tidb-community-server-v4.0.2-linux-amd64/
-......
-......
-tidb-community-server-v4.0.2-linux-amd64/local_install.sh
 
 [tidb@tiup-tidb44 ~]$ ll -lrth
 total 1.5G
