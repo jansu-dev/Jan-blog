@@ -148,13 +148,13 @@
  开启聚簇索引后，主键代替64 位的 handle 值 _row_id 代表每一行，可能会导致存储空间的上升，尤其是表中存在许多二级索引时；   
  如下表 demo 表 t1 主键的类型为 char(32)，那么索引大约需要 8+32 = 40 （b 列宽 + 主键列宽）个字节，如果是普通索引仅需 8 + 8 = 16 （b 列宽 + _row_id 列宽）个字节；   
     - demo
-    ```sql
-     CREATE TABLE t1 (
-      guid CHAR(32) NOT NULL PRIMARY KEY,
-      b BIGINT,
-      INDEX(b)
-     );
-    ```
+       ```sql
+        CREATE TABLE t1 (
+         guid CHAR(32) NOT NULL PRIMARY KEY,
+         b BIGINT,
+         INDEX(b)
+        );
+       ```
  - 聚簇索引的优点   
     - 插入数据时会减少一次从网络写入索引数据，因为主键索引就是表结构，与普通索引不同，减少了主键索引的写次数；   
     - 等值条件查询仅涉及主键时会减少一次从网络读取数据，因为主键代替了 _row_id 作为内部行指针，避免了二次回表的网络操作；      
@@ -165,17 +165,17 @@
 ## 开启异步提交事务功能  
 
  - 使用  
-  ```sql   
-   MySQL [(none)]> show variables like 'tidb_enable_async_commit';
-   +--------------------------+-------+
-   | Variable_name            | Value |
-   +--------------------------+-------+
-   | tidb_enable_async_commit | ON    |
-   +--------------------------+-------+
-   
-   MySQL [(none)]> set global tidb_enable_async_commit=1;
-   
-  ```
+    ```sql   
+     MySQL [(none)]> show variables like 'tidb_enable_async_commit';
+     +--------------------------+-------+
+     | Variable_name            | Value |
+     +--------------------------+-------+
+     | tidb_enable_async_commit | ON    |
+     +--------------------------+-------+
+     
+     MySQL [(none)]> set global tidb_enable_async_commit=1;
+     
+    ```
 
 ## 优化EXPLAIN功能
 
@@ -186,13 +186,13 @@ DBA 调试和选择相对最优的索引时，可以通过 SQL 语句将某个�
     - “不可见” 是仅仅对优化器而言的，不可见索引仍然可以被修改或删除，也就是当插入删除数据时改索引也为同时维护着；  
     - 与 MySQL 类似，TiDB 不允许将主键索引设为不可见；   
     - MySQL 中提供的优化器开关 use_invisible_indexes=on 可将所有的不可见索引重新设为可见。该功能在 TiDB 中不可用；   
-    ```sql
-     MySQL [jan]> show variables like 'use_invisible_indexes';
-     Empty set (0.00 sec)
-     
-     MySQL [jan]> set use_invisible_indexes=1;
-     ERROR 1193 (HY000): Unknown system variable 'use_invisible_indexes'
-    ``` 
+      ```sql
+       MySQL [jan]> show variables like 'use_invisible_indexes';
+       Empty set (0.00 sec)
+       
+       MySQL [jan]> set use_invisible_indexes=1;
+       ERROR 1193 (HY000): Unknown system variable 'use_invisible_indexes'
+      ``` 
 
  - 操作可见索引不可见    
  查询只能先走全报表扫描；  
