@@ -164,7 +164,29 @@
 
 ## 开启异步提交事务功能  
 
- - 使用  
+ - 异步提交解决的问题    
+ TiDB 在很多情况下，一个事务中含有很多条 SQL 语句，而业务又要求 TPS 的延迟维持在 100ms 以下。因此，出于性能考虑给出了异步提交事务的解决方案；  
+ 即：内部原理为 2PC 的 prewrite 完成，TiDB 便可发牛给客户端结果，而后 Commit 阶段采用 async 异步的方式提交； 
+
+ - 异步提交存在的问题  
+ 截图链接：[Github：Async Commit ](https://github.com/tikv/tikv/issues/8316#issuecomment-664108977)   
+ ![5rc-async-commit01.png](./release-feature-pic/5rc-async-commit01.png)
+
+
+| session 1 | session 2 |
+| - | - |
+| begin; |  |
+| insert into t1 values (2,'test_2'); |  |
+|  | begin; |
+|  | select * from t1 where t1.id=2; |
+|  | update t1 set name='change_test_2' where t1.id=2; |
+| commit; |  |
+|  | select * from t1 where t1.id=2; |
+|  | commit; |
+
+ - 异步提交存在的解决方案     
+
+ - 异步提交存在的使用   
     ```sql   
      MySQL [(none)]> show variables like 'tidb_enable_async_commit';
      +--------------------------+-------+
