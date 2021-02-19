@@ -172,7 +172,7 @@
      
 
 
- - 异步提交存在的外部不一致性问题  
+ - 异步提交存在的外部不一致问题  
   截图链接：[Github：Async Commit ](https://github.com/tikv/tikv/issues/8316#issuecomment-664108977)   
   ![5rc-async-commit01.png](./release-feature-pic/5rc-async-commit01.png)
    对于上面提出的问题，链接中的 Issue 使用 recovery procedure 解决，**“so only clients who try to read before that message happens will go through the recovery procedure”** 指出普遍情况下，发起 2PC 经历过 prewrite 后会很快提交，所以只有想要读取消息（含有 commit_ts 的事务提交消息）发生之前的客户端会处于 recovery procedure，也就是内部的不断重试；这里的 recovery procedure **应该** 指在获取 commit_ts 之前，如果有其他 session 想要获取数据时只能以 txn 未结束的 TSO 参考 MVCC 获取数据；   
@@ -251,7 +251,12 @@
     ```
 
 ## 优化EXPLAIN功能
-
+ - 扩展统计信息功能，收集多列 NDV、多列顺序依赖性、多列函数依赖性等信息，帮助优化器选择相对较优的索引。
+ - 重构统计信息模块，帮助优化器选择相对较优的索引。
+    - 从 CMSKetch 中删除 TopN 值。
+    - 重构 TopN 搜索逻辑。
+    - 从直方图中删除 TopN 信息，建立直方图的索引，方便维护 Bucket NDV
+ 详情参考 [官方文档](https://docs.pingcap.com/zh/tidb/v5.0/release-5.0.0-rc#%E6%8F%90%E5%8D%87%E4%BC%98%E5%8C%96%E5%99%A8%E9%80%89%E6%8B%A9%E7%B4%A2%E5%BC%95%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%AE%9E%E9%AA%8C%E7%89%B9%E6%80%A7)
 
 ## 引入不可见索引功能  
 DBA 调试和选择相对最优的索引时，可以通过 SQL 语句将某个索引设置成 Visible 或者 Invisible，修改后优化器会根据索引的可见性决定是否将此索引加入到索引列表中。    
