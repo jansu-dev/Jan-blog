@@ -172,7 +172,7 @@
      
 
 
- - 异步提交存在的问题  
+ - 异步提交存在的外部不一致性问题  
   截图链接：[Github：Async Commit ](https://github.com/tikv/tikv/issues/8316#issuecomment-664108977)   
   ![5rc-async-commit01.png](./release-feature-pic/5rc-async-commit01.png)
    对于上面提出的问题，链接中的 Issue 使用 recovery procedure 解决，**“so only clients who try to read before that message happens will go through the recovery procedure”** 指出普遍情况下，发起 2PC 经历过 prewrite 后会很快提交，所以只有想要读取消息（含有 commit_ts 的事务提交消息）发生之前的客户端会处于 recovery procedure，也就是内部的不断重试；这里的 recovery procedure **应该** 指在获取 commit_ts 之前，如果有其他 session 想要获取数据时只能以 txn 未结束的 TSO 参考 MVCC 获取数据；   
@@ -203,7 +203,23 @@
 
 
  - 异步提交存在的解决方案     
+   ```sql
+    MySQL [(none)]> show variables like 'tidb_guarantee_external_consistency';
+    +-------------------------------------+-------+
+    | Variable_name                       | Value |
+    +-------------------------------------+-------+
+    | tidb_guarantee_external_consistency | OFF   |
+    +-------------------------------------+-------+
 
+    MySQL [(none)]> set global tidb_guarantee_external_consistency=1;  
+
+    MySQL [(none)]> show variables like 'tidb_guarantee_external_consistency';
+    +-------------------------------------+-------+
+    | Variable_name                       | Value |
+    +-------------------------------------+-------+
+    | tidb_guarantee_external_consistency | ON    |
+    +-------------------------------------+-------+
+   ```
   
 
  - 异步提交存在的使用   
