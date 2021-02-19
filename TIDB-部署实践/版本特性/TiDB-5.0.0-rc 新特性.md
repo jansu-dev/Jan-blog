@@ -203,23 +203,28 @@
 
 
  - 异步提交存在的解决方案     
-   ```sql
-    MySQL [(none)]> show variables like 'tidb_guarantee_external_consistency';
-    +-------------------------------------+-------+
-    | Variable_name                       | Value |
-    +-------------------------------------+-------+
-    | tidb_guarantee_external_consistency | OFF   |
-    +-------------------------------------+-------+
+    - 注意：   
+       - 关闭时，如果两个事务修改的内容没有交集，其他事务观测到它们的提交顺序可能与它们实际的提交顺序不一致；       
+       - 在不使用 Async Commit 特性时，无论该选项是否开启，都能保证外部一致性；详情参考--[官方文档：tidb_guarantee_external_consistency 参数](https://docs.pingcap.com/zh/tidb/v5.0/system-variables#tidb_guarantee_external_consistency-%E4%BB%8E-v500-rc-%E7%89%88%E6%9C%AC%E5%BC%80%E5%A7%8B%E5%BC%95%E5%85%A5)   
 
-    MySQL [(none)]> set global tidb_guarantee_external_consistency=1;  
-
-    MySQL [(none)]> show variables like 'tidb_guarantee_external_consistency';
-    +-------------------------------------+-------+
-    | Variable_name                       | Value |
-    +-------------------------------------+-------+
-    | tidb_guarantee_external_consistency | ON    |
-    +-------------------------------------+-------+
-   ```
+    - 使用：
+       ```sql
+        MySQL [(none)]> show variables like 'tidb_guarantee_external_consistency';
+        +-------------------------------------+-------+
+        | Variable_name                       | Value |
+        +-------------------------------------+-------+
+        | tidb_guarantee_external_consistency | OFF   |
+        +-------------------------------------+-------+
+    
+        MySQL [(none)]> set global tidb_guarantee_external_consistency=1;  
+    
+        MySQL [(none)]> show variables like 'tidb_guarantee_external_consistency';
+        +-------------------------------------+-------+
+        | Variable_name                       | Value |
+        +-------------------------------------+-------+
+        | tidb_guarantee_external_consistency | ON    |
+        +-------------------------------------+-------+
+       ```
   
 
  - 异步提交存在的使用   
