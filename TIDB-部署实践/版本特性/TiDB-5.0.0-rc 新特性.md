@@ -175,7 +175,7 @@
  - 异步提交存在的问题  
   截图链接：[Github：Async Commit ](https://github.com/tikv/tikv/issues/8316#issuecomment-664108977)   
   ![5rc-async-commit01.png](./release-feature-pic/5rc-async-commit01.png)
-   对于上面提出的问题，链接中的 Issue 使用 recovery procedure 解决，**“so only clients who try to read before that message happens will go through the recovery procedure”** 指出普遍情况下，发起 2PC 经历过 prewrite 后会很快提交，所以只有想要读取消息（含有 commit_ts 的事务提交消息）发生之前的客户端会处于 recovery procedure，也就是内部的不断重试；这里的 recovery procedure **应该** 指在获取 commit_ts 之前，如果有其他 session 想要获取数据时只能以 txn 未结束的数据状态参考 MVCC 获取数据；   
+   对于上面提出的问题，链接中的 Issue 使用 recovery procedure 解决，**“so only clients who try to read before that message happens will go through the recovery procedure”** 指出普遍情况下，发起 2PC 经历过 prewrite 后会很快提交，所以只有想要读取消息（含有 commit_ts 的事务提交消息）发生之前的客户端会处于 recovery procedure，也就是内部的不断重试；这里的 recovery procedure **应该** 指在获取 commit_ts 之前，如果有其他 session 想要获取数据时只能以 txn 未结束的 TSO 参考 MVCC 获取数据；   
      - 流程说明   
        | session 1 | session 2 | 备注 |
        | - | - | - |
@@ -187,18 +187,18 @@
        |  | begin; |  |
        | update t1_A set money=money-10 where name='A'; |  |  |
        | update t2_B set money=money+10 where name='B'; |  |  |
-       | commit; |  | 随着 session 1 的提交命令敲出后，session 2 在未获取 commit_ts 之前相对于开启 Async commit 特性的 session 1 是 txn 已结束的；|
-       |  | select money from t1_A where id=1; | session 2 在 session 1 未获取 commit_ts 之前，意味着 txn 对 session 1 是未结束只能取 txn 结束前的数据；**money 可能还是 50** |
-       |  | select money from t1_B where id=2; | session 2 在 session 1 未获取 commit_ts 之前，意味着 txn 对 session 1 是未结束只能取 txn 结束前的数据；**money 可能还是 50** |
+       | commit; |  | 随着 session 1 的提交命令敲出后，session 1 在未获取 commit_ts 之前相对于开启 Async commit 特性的 session 1 是 txn 已结束的；|
+       |  | select money from t1_A where id=1; | session 2 在 session 1 未 commit success 之前，意味着 txn 对 session 1 是未结束只能取 txn 结束前的数据；**money 可能还是 50** |
+       |  | select money from t1_B where id=2; | session 2 在 session 1 未 commit success 之前，意味着 txn 对 session 1 是未结束只能取 txn 结束前的数据；**money 可能还是 50** |
        |  | commit; |  |
-
-   当 Client 尝试获取数据时被锁，可能对应超时、提交、回滚 3种状态；    
-    |    
-    |— — 提交：提交后事务结束，锁消失；   
-    |— — 回滚：回滚后事务结束，锁消失；   
-    |— — 超时：如果出现处理超时，TiDB 自动进入恢复过程（也就是重试）直到事务提交或回滚为止；     
-    ![5rc-async-commit03.png](./release-feature-pic/5rc-2pc-03.png)        
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**注意：这里的重试不是最后在命令行回显的超时，如下图："ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction"，而是存在于 TiDB 内部的重试，可以通过 max-retry-count 参数控制悲观事务中单个语句最大重试次数**，详情参考[官方文档-TiDB参数 ：max-retry-count](https://docs.pingcap.com/zh/tidb/v5.0/tidb-configuration-file#max-retry-count)；    
+     - 注意事项   
+       当 Client 尝试获取数据时被锁，可能对应超时、提交、回滚 3种状态；    
+         |    
+         |— — 提交：提交后事务结束，锁消失；   
+         |— — 回滚：回滚后事务结束，锁消失；   
+         |— — 超时：如果出现处理超时，TiDB 自动进入恢复过程（也就是重试）直到事务提交或回滚为止；     
+         ![5rc-async-commit03.png](./release-feature-pic/5rc-2pc-03.png)        
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**注意：这里的重试不是最后在命令行回显的超时，如下图："ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction"，而是存在于 TiDB 内部的重试，可以通过 max-retry-count 参数控制悲观事务中单个语句最大重试次数**，详情参考[官方文档-TiDB参数 ：max-retry-count](https://docs.pingcap.com/zh/tidb/v5.0/    tidb-configuration-file#max-retry-count)；    
     
 
 
