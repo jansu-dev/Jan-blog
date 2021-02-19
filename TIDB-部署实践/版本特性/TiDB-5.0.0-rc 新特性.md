@@ -168,36 +168,36 @@
     - 问题场景：TiDB 在很多情况下，一个事务中含有很多条 SQL 语句，而业务又要求 TPS 的延迟维持在 100ms 以下。因此，出于性能考虑在 TiDB 5.0.0-rc 给出了异步提交事务的解决方案；  
     - 交互过程：回顾一下 2PC 的发起时间与交互过程，详情参考文章 [官方文档：TiDB 锁冲突问题处理](https://docs.pingcap.com/zh/tidb/stable/troubleshoot-lock-conflicts#tidb-%E9%94%81%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86) 讲解的 TiDB 悲观锁、乐观锁 2PC 过程；  
     ![悲观锁于乐观锁2PC.png](./release-feature-pic/悲观锁于乐观锁2PC.png)  
-    内部原理为只要 2PC 的 prewrite 完成，TiDB 便可返回给客户端结果，而后 Commit 阶段采用 async 异步的方式提交,对应图中的 Async commit change phase（以后简称：ACCP）；可以看到在 “commit 阶段” 之前还没有从 PD 获取 commit_ts,也就意味着有可能出现相对于发起 txn 的 session 在 ACCP 是完成的，相对于其他 session 在 ACCP 是没有完成；   
+    Async commit 内部原理为只要 2PC 的 prewrite 完成，TiDB 便可返回给客户端结果，而后 Commit 阶段采用 async 异步的方式提交,对应图中的 Async commit change phase（以后简称：ACCP）；可以看到在 “commit 阶段” 之前还没有从 PD 获取 commit_ts,也就意味着有可能出现相对于发起 txn 的 session 在 ACCP 是完成的，相对于其他 session 在 ACCP 是没有完成；   
      
 
 
  - 异步提交存在的问题  
   截图链接：[Github：Async Commit ](https://github.com/tikv/tikv/issues/8316#issuecomment-664108977)   
   ![5rc-async-commit01.png](./release-feature-pic/5rc-async-commit01.png)
-   对于上面提出的问题，链接中的 Issue 使用 recovery procedure 解决，**“o only clients who try to read before that message happens will go through the recovery procedure”** 指出仅在     
+   对于上面提出的问题，链接中的 Issue 使用 recovery procedure 解决，**“so only clients who try to read before that message happens will go through the recovery procedure”** 指出普遍情况下，发起 2PC 经历过 prewrite 后会很快提交，所以只有想要读取消息（含有 commit_ts 的事务提交消息）发生之前的客户端会处于 recovery procedure，也就是内部的不断重试；这里的 recovery procedure **应该**指在获取 commit_ts 之前，如果有其他 session 想要获取数据时只能以 txn 未结束的数据状态参考 MVCC 获取数据； 
+     | session 1 | session 2 | 备注 |
+     | - | - | - |
+     | create table t1_A (id int,name varchar(20),money int); |  |  |
+     | create table t2_B (id int,name varchar(20),money int); |  |  |
+     | insert into t1_A values(1,'A',50); |  |  |
+     | insert into t2_B values(1,'B',50); |  |  |
+     | begin; |  |  |
+     |  | begin; |  |
+     | update t1_A set money=money-10 where name='A'; |  |  |
+     | update t2_B set money=money+10 where name='B'; |  |  |
+     | commit; |  | 随着 session 1 的提交， session 2 在未超过悲观锁内部重试最大限制次数前提下，获取 id=2 行的数据；|
+     |  | select * from t1 where id=2 for update; | session 2 的查询语句 hang 住，因为 session 1 加了行锁； |
+     |  | commit; |  |
+
    当 Client 尝试获取数据时被锁，可能对应超时、提交、回滚 3种状态；    
     |    
     |— — 提交：提交后事务结束，锁消失；   
     |— — 回滚：回滚后事务结束，锁消失；   
-    |__  __ 超时：如果出现处理超时，TiDB 自动进入恢复过程（也就是重试）直到事务提交或回滚为止；普遍情况下，发起 2PC 后，经历过 prewrite 后会很快提交，所以只有想要读取消息（事务加锁消息）发生之前的客户端会处于恢复过程，也就是内部的不断重试；        
+    |— — 超时：如果出现处理超时，TiDB 自动进入恢复过程（也就是重试）直到事务提交或回滚为止；     
     ![5rc-async-commit03.png](./release-feature-pic/5rc-2pc-03.png)        
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**注意：这里的重试不是最后在命令行回显的超时，如下图："ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction"，而是存在于 TiDB 内部的重试，可以通过 max-retry-count 参数控制悲观事务中单个语句最大重试次数**，详情参考[官方文档-TiDB参数 ：max-retry-count](https://docs.pingcap.com/zh/tidb/v5.0/tidb-configuration-file#max-retry-count)；    
     
-   - 操作步骤  
-     | session 1 | session 2 | 备注 |
-     | - | - | - |
-     | create table (id int,name varchar(20)); |  |  |
-     | insert into t1 values (2,'test_2'); |  |  |
-     | begin; |  |  |
-     |  | begin; |  |
-     | select * from t1 where id=2 for update; |  |  |
-     |  | select * from t1 where id=2 for update; | session 2 的查询语句 hang 住，因为 session 1 加了行锁； |
-     | commit; |  | 随着 session 1 的提交， session 2 在未超过悲观锁内部重试最大限制次数前提下，获取 id=2 行的数据；|
-     |  | commit; |  |
- 
-   - 效果图
-     ![5rc-async-commit02.png](./release-feature-pic/5rc-2pc-02.png)
 
 
  - 异步提交存在的解决方案     
