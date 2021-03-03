@@ -98,6 +98,9 @@ That the repository was build is aim to log process of mysql TiDB Learning.
     - [TiDB-基于RBAC的权限管理](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB-%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86/TiDB-%E5%9F%BA%E4%BA%8ERBAC%E7%9A%84%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86.md)
     - [TiDB-TLS加密传输安全协议原理与应用](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB-%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86/TiDB-TLS%E5%8A%A0%E5%AF%86%E4%BC%A0%E8%BE%93%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8.md)
 
+ - 周边组件  
+
+  - [Etcd原理与使用](https://github.com/jansu-dev/TiDB-Learning-Notes/blob/master/TiDB-%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93/Component-Etcd%E5%8E%9F%E7%90%86%E4%B8%8E%E4%BD%BF%E7%94%A8.md#etcdctl%E5%8F%82%E6%95%B0%E5%AE%9E%E8%B7%B5)
 
 ## TiDB调优相关
 
