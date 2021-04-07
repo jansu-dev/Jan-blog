@@ -34,116 +34,46 @@ MySQL [jan]> create table jan_test_table(id int,name varchar(20));
 
 MySQL [jan]> insert into jan_test_table values (1,'jan_value_1');
 
-MySQL [jan]> show table jan_test_table regions;
-+-----------+-----------+---------+-----------+-----------------+---------+------------+---------------+------------+----------------------+------------------+
-| REGION_ID | START_KEY | END_KEY | LEADER_ID | LEADER_STORE_ID | PEERS   | SCATTERING | WRITTEN_BYTES | READ_BYTES | APPROXIMATE_SIZE(MB) | APPROXIMATE_KEYS |
-+-----------+-----------+---------+-----------+-----------------+---------+------------+---------------+------------+----------------------+------------------+
-|         2 | t_69_     |         |         3 |               1 | 3, 6, 7 |          0 |         26582 |       3324 |                    1 |             2334 |
-+-----------+-----------+---------+-----------+-----------------+---------+------------+---------------+------------+----------------------+------------------+
-1 row in set (0.04 sec)
+MySQL [(none)]> show table jan.jan_test_table regions\G
+*************************** 1. row ***************************
+           REGION_ID: 7570
+           START_KEY: t_394_
+             END_KEY: 
+           LEADER_ID: 7572
+     LEADER_STORE_ID: 1003
+               PEERS: 7571, 7572, 7573
+          SCATTERING: 0
+       WRITTEN_BYTES: 791
+          READ_BYTES: 0
+APPROXIMATE_SIZE(MB): 1
+    APPROXIMATE_KEYS: 0
+1 row in set (0.00 sec)
+
 ```
 
 
 查找当前所有的 store_id  
 ```shell
-[tidb@tidb-51-pd bin]$ ./pd-ctl -u 192.168.169.51:2379 store |grep "id" |grep -v deploy_path
-        "id": 1,
-        "id": 4,
-        "id": 5,
+[tidb@tidb-51-pd ~]$ tiup ctl pd -u 192.168.1.61:2379 store |grep -E "id" |grep -v "deploy_path"
+Starting component `ctl`: /home/tidb/.tiup/components/ctl/v5.0.0-rc/ctl pd -u 192.168.1.61:2379 store
+        "id": 1007,
+        "id": 1003,
+        "id": 1001,
+[tidb@tidb-51-pd ~]$ tiup ctl tikv --host 192.168.1.61:20160 region-properties -r 7570
+Starting component `ctl`: /home/tidb/.tiup/components/ctl/v5.0.0-rc/ctl tikv --host 192.168.1.61:20160 region-properties -r 7570
+mvcc.min_ts: 18446744073709551615
+mvcc.max_ts: 0
+mvcc.num_rows: 0
+mvcc.num_puts: 0
+mvcc.num_deletes: 0
+mvcc.num_versions: 0
+mvcc.max_row_versions: 0
+num_entries: 0
+num_deletes: 0
+num_files: 0
+sst_files: 
+middle_key_by_approximate_size: 
 
-[tidb@tidb-51-pd bin]$ ./pd-ctl -u 192.168.169.51:2379 store
-{
-  "count": 3,
-  "stores": [
-    {
-      "store": {
-        "id": 4,
-        "address": "192.168.169.52:20160",
-        "version": "5.0.0-rc",
-        "status_address": "192.168.169.52:20180",
-        "git_hash": "901f62d0ebe67db5d59402b31603b9aa903eb3e1",
-        "start_timestamp": 1614826388,
-        "deploy_path": "/data/tidb-deploy/tikv-20160/bin",
-        "last_heartbeat": 1614851412185271431,
-        "state_name": "Up"
-      },
-      "status": {
-        "capacity": "49.69GiB",
-        "available": "43.49GiB",
-        "used_size": "33.83MiB",
-        "leader_count": 0,
-        "leader_weight": 1,
-        "leader_score": 0,
-        "leader_size": 0,
-        "region_count": 2,
-        "region_weight": 1,
-        "region_score": 16.371531365002888,
-        "region_size": 2,
-        "start_ts": "2021-03-03T21:53:08-05:00",
-        "last_heartbeat_ts": "2021-03-04T04:50:12.185271431-05:00",
-        "uptime": "6h57m4.185271431s"
-      }
-    },
-    {
-      "store": {
-        "id": 5,
-        "address": "192.168.169.53:20160",
-        "version": "5.0.0-rc",
-        "status_address": "192.168.169.53:20180",
-        "git_hash": "901f62d0ebe67db5d59402b31603b9aa903eb3e1",
-        "start_timestamp": 1614826388,
-        "deploy_path": "/data/tidb-deploy/tikv-20160/bin",
-        "last_heartbeat": 1614851412166475069,
-        "state_name": "Up"
-      },
-      "status": {
-        "capacity": "46.54GiB",
-        "available": "42.06GiB",
-        "used_size": "33.81MiB",
-        "leader_count": 0,
-        "leader_weight": 1,
-        "leader_score": 0,
-        "leader_size": 0,
-        "region_count": 2,
-        "region_weight": 1,
-        "region_score": 17.31060590187915,
-        "region_size": 2,
-        "start_ts": "2021-03-03T21:53:08-05:00",
-        "last_heartbeat_ts": "2021-03-04T04:50:12.166475069-05:00",
-        "uptime": "6h57m4.166475069s"
-      }
-    },
-    {
-      "store": {
-        "id": 1,
-        "address": "192.168.169.51:20160",
-        "version": "5.0.0-rc",
-        "status_address": "192.168.169.51:20180",
-        "git_hash": "901f62d0ebe67db5d59402b31603b9aa903eb3e1",
-        "start_timestamp": 1614826387,
-        "deploy_path": "/data/tidb-deploy/tikv-20160/bin",
-        "last_heartbeat": 1614851410934574688,
-        "state_name": "Up"
-      },
-      "status": {
-        "capacity": "49.69GiB",
-        "available": "39.61GiB",
-        "used_size": "33.78MiB",
-        "leader_count": 2,
-        "leader_weight": 1,
-        "leader_score": 2,
-        "leader_size": 2,
-        "region_count": 2,
-        "region_weight": 1,
-        "region_score": 17.560142638796684,
-        "region_size": 2,
-        "start_ts": "2021-03-03T21:53:07-05:00",
-        "last_heartbeat_ts": "2021-03-04T04:50:10.934574688-05:00",
-        "uptime": "6h57m3.934574688s"
-      }
-    }
-  ]
-}
 ```
 
 API获取表属性信息   
