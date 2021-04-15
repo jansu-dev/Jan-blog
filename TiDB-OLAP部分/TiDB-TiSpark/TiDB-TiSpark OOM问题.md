@@ -23,3 +23,6 @@ executor对应一个jvm
 
 executor-memory executor-core代表每个jvm的参数
 num-executor代表多少个jvm
+
+
+![whaleCode](./TIDB-TiSparkOOM问题/whaleCode.jpg)

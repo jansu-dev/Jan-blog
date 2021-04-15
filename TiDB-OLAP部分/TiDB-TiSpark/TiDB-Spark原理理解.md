@@ -2,8 +2,7 @@
 时间:2021-03-25
 
 
-
-
+![whaleCode](./TIDB-TiSpark\ OOM问题/whaleCode.jpg)
 一.ThriftServer介绍
 ThriftServer是一个JDBC/ODBC接口，用户可以通过JDBC/ODBC连接ThriftServer来访问SparkSQL的数据。ThriftServer在启动的时候，会启动了一个sparkSQL的应用程序，而通过JDBC/ODBC连接进来的客户端共同分享这个sparkSQL应用程序的资源，也就是说不同的用户之间可以共享数据；ThriftServer启动时还开启一个侦听器，等待JDBC客户端的连接和提交查询。所以，在配置ThriftServer的时候，至少要配置ThriftServer的主机名和端口，如果要使用hive数据的话，还要提供hive metastore的uris。
 
@@ -63,3 +62,9 @@ https://gist.github.com/mbonaci/e92a2bc690e002f461c1
 考虑一种极端查询：Select month_id,sum(sales) from T group by month_id;
 这个查询只有一次shuffle操作，此时，也许Hive HQL的运行时间也许比Spark还快。
 结论：Spark快不是绝对的，但是绝大多数，Spark都比Hadoop计算要快。这主要得益于其对mapreduce操作的优化以及对JVM使用的优化。
+
+
+使用 jstack -l 线程号
+
+
+
