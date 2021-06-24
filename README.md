@@ -128,6 +128,7 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
    - [CASE-网卡带宽打满导致Duration升高问题](./TiDB-调优实践/TiDB-CASE解决方案/CASE-网卡带宽打满导致Duration升高问题.md)
 
+   - [CASE-导入100万左右数据中断问题](./TiDB-调优实践/TiDB-CASE解决方案/CASE-导入100万左右数据中断问题.md)
 
 ## TiDB实践问题归纳
 
