@@ -126,6 +126,8 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
    - [CASE-SQLBinding修正优化器不稳定问题](./TiDB-调优实践/TiDB-CASE解决方案/CASE-SQLBinding修正优化器不稳定问题.md)  
 
+   - [CASE-网卡带宽打满导致Duration升高问题](./TiDB-调优实践/TiDB-CASE解决方案/CASE-网卡带宽打满导致Duration升高问题.md)
+
 
 ## TiDB实践问题归纳
 
