@@ -26,7 +26,7 @@
 观察网络流量，发现 IP15 节点的 Inbound 达到 1G，同时其他 TiKV 节点的 Outbound 升高，说明IP15 可能被打满，进而影响整个集群性能。
   ![05.jpg](./images/CASE-网卡带宽打满导致Duration升高问题/05.jpg)    
 1.3 网卡带宽
-国寿财为万兆网卡；
+该生产集群为万兆网卡；
 
 ```Shell
 [tidb@ip-9-23-3-15 log]$ ethtool bond0 
