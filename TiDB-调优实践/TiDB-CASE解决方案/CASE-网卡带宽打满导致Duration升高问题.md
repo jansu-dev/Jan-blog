@@ -15,8 +15,8 @@
 1.1 客户反馈问题
 据客户反馈，在 13:30 左右出现 SQL 整体变慢的现象，询问原因及解决方案。
 1.2 Grafana 监控
-首先，一句观察确实存在 Duration 整体升高的现象；
-  ![01.jpg](./images/CASE-网卡带宽打满导致Duration升高问题/01.jpg)    
+首先，一句观察确实存在 Duration 整体升高的现象；    
+  ![01.jpg](./images/CASE-网卡带宽打满导致Duration升高问题/01.jpg)      
 但是，该时段的 SQL OPS 却未升高，说明此时段并未出现应用暴增大量 SQL 情况；  
   ![02.jpg](./images/CASE-网卡带宽打满导致Duration升高问题/02.jpg)    
 观察内存变化，发现 TIDB 节点（IP15、IP16）中，IP15 节点内存使用明显升高，可能问题出在传送到该节点的 SQL 出现异常；  
