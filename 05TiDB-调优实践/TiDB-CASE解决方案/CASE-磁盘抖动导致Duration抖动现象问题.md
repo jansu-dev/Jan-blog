@@ -30,7 +30,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在客户 TiDB 生产库进行巡检，发现 SQL Duration 存在突然小幅度升高后又回落的现象，需分析导致此现象的具体原因，以规避潜在风险。
 
  - Metrics 中反映的问题现象  
- ![0](./check-report-pic/0.png)   
+ ![0](./images/check-report-pic/0.png)   
 
 
 
@@ -69,7 +69,7 @@
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;排除网络原因导致的 SQL Duration 升高的原因；  
 
    - 案例 Top SQL 截图  
-   ![11](./check-report-pic/11.png)   
+   ![11](./images/check-report-pic/11.png)   
 
 ### TOP_SQL方向排查
    - 排查思路   
@@ -85,23 +85,23 @@
   
    - 案例 Top SQL 截图  
      - IP88  
-     ![2](./check-report-pic/2.png)   
+     ![2](./images/check-report-pic/2.png)   
   
      - IP89  
-     ![3](./check-report-pic/3.png)   
+     ![3](./images/check-report-pic/3.png)   
 
      - IP91  
-     ![4](./check-report-pic/4.png)   
+     ![4](./images/check-report-pic/4.png)   
 
      - IP93  
-     ![5](./check-report-pic/5.png)  
+     ![5](./images/check-report-pic/5.png)  
    
 
 
 ### 集群组件性能问题方向排查  
 
  - 组件关系图，参考[官方问文档 Performance-map](https://download.pingcap.com/images/docs-cn/performance-map.png) 总结
-    ![组件关系图](./check-report-pic/ComponentsOverview.png)  
+    ![组件关系图](./images/check-report-pic/ComponentsOverview.png)  
     
 
  - 排查思路   
@@ -120,7 +120,7 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL Duration 抖动的原因，从 Metrics 中推断更可能是 INSERT 导致的且 Client 端请求没有增加，佐证了可能是集群中组件出现性能瓶颈导致 Duration 抖动；
   
  - 案例 Metrics  
- ![1](./check-report-pic/1.png)
+ ![1](./images/check-report-pic/1.png)
 
 
 ## 排查细节
@@ -140,7 +140,7 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本排除 TiDB Executer 层组件瓶颈问题导致的 SQL Duration 升高；但 Execution Duration 有明显抖动，需深挖原因；  
 
  - 案例 Metrics   
- ![6](./check-report-pic/6.png) 
+ ![6](./images/check-report-pic/6.png) 
 
 
 
@@ -154,8 +154,8 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TiDB 在 DistSQL 处理阶段不存在性能问题；综上所述，基本排除 TiDB 层存在性能问题的情况；     
 
  - 案例 Metrics  
- ![7](./check-report-pic/7.png)   
- ![18](./check-report-pic/18.png)   
+ ![7](./images/check-report-pic/7.png)   
+ ![18](./images/check-report-pic/18.png)   
 
 
 #### TiDB-KV  
@@ -170,8 +170,8 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本判断在 Prewrite 阶段出现了问题，接下来判断是哪个或那几个节点在 Prewrite 阶段出现了问题； 
 
  - 案例 Metrics   
- ![8](./check-report-pic/8.png)   
- ![9](./check-report-pic/9.png)   
+ ![8](./images/check-report-pic/8.png)   
+ ![9](./images/check-report-pic/9.png)   
 
 
 
@@ -187,8 +187,8 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本判断 IP92:270172 出现问题。接下来深挖问题原因，大概率与 Prewrite 阶段 I/O 问题有关。
 
  - 案例 Metrics   
- ![10](./check-report-pic/10.png)   
- ![19](./check-report-pic/19.png)   
+ ![10](./images/check-report-pic/10.png)   
+ ![19](./images/check-report-pic/19.png)   
 
 
 #### TiKV-Scheduler  
@@ -202,8 +202,8 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过第二张图片，锁定对应 Store 为 /dev/sdc 磁盘；  
 
  - 案例 Metrics   
- ![12](./check-report-pic/12.png)   
- ![13](./check-report-pic/13.png)   
+ ![12](./images/check-report-pic/12.png)   
+ ![13](./images/check-report-pic/13.png)   
 
 
 #### TiKV-RaftIO
@@ -217,7 +217,7 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;推测可能大量 RaftStore 数据存在于 RaftStore 线程池的 channel 中，未能及时被相应处理线程消费写入 rocksDB raft 中，**此时因为 CPU 未被打满，所以更加怀疑磁盘性能问题**；   
 
  - 案例 Metrics    
- ![17](./check-report-pic/17.png)   
+ ![17](./images/check-report-pic/17.png)   
 
 
 
@@ -232,7 +232,7 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IP92:270172 对应 Store 上进行的 Append、Apply、Commit 操作均出现延迟现象，需要查看 apply 阶段 IP92:270172 Store 磁盘的写入情况，进一步佐证了磁盘性能出现问题的猜想；    
 
  - 案例 Metrics    
- ![16](./check-report-pic/16.png)   
+ ![16](./images/check-report-pic/16.png)   
 
 
 #### Disk-Performance
@@ -247,8 +247,8 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查看 Store 问题时段状态，发现磁盘延时、负载高出正常水平，但 IOps 却极低，说明问题时段出现了磁盘性能抖动。
 
  - 案例 Metrics    
- ![14](./check-report-pic/14.png)   
- ![15](./check-report-pic/15.png)   
+ ![14](./images/check-report-pic/14.png)   
+ ![15](./images/check-report-pic/15.png)   
 
 
 ## 问题解决
