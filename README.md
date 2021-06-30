@@ -27,10 +27,11 @@ That the repository was build is aim to log process of mysql TiDB Learning.
         - [5-3 监控信息](#5-3-监控信息)
         - [5-4 生产案例](#5-4-生产案例)
     - [06 TiDB-生态工具](#06-tidb-生态工具)
-        - [6-1 TiDB-Binlog](#6-1-tidb-binlog)
-        - [6-2 TiDB-DM](#6-2-tidb-dm)
-        - [6-3 TiDB-Dumpling](#6-3-tidb-dumpling)
-        - [6-4 TiDB-Lightning](#6-4-tidb-lightning)
+        - [6-1 Dumpling](#6-1-dumpling)
+        - [6-2 TiDB-Lightning](#6-2-tidb-lightning)
+        - [6-3 TiDB-Binlog](#6-3-tidb-binlog)
+        - [6-4 DM](#6-4-dm)
+        - [6-5 TiCDC](#6-5-ticdc)
         - [6-5 TiSpark](#6-5-tispark)
     - [07 TiDB-解决方案](#07-tidb-解决方案)
         - [7-1 TiDB-Binlog读写分离方案](#7-1-tidb-binlog读写分离方案)
@@ -126,21 +127,22 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ## 06 TiDB-生态工具
 
+### 6-1 Dumpling
+[TiDB-Dumpling原理与使用](./06TiDB-生态工具/TiDB-Dumpling原理与使用.md)  
 
+### 6-2 TiDB-Lightning
+[TiDB-Lightning原理与使用](./06TiDB-生态工具/TiDB-Lightning原理与使用.md)  
 
-### 6-1 TiDB-Binlog  
+### 6-3 TiDB-Binlog  
 
 [Binlog及Reparo原理与使用](./06TiDB-生态工具/TiDB-Binlog及Reparo原理与使用.md)   
 
-### 6-2 TiDB-DM
+### 6-4 DM
 [TiDB-BR工具原理简介与使用](./06TiDB-生态工具/TiDB-BR工具原理与使用.md)  
 [TiDB-DM工具原理与使用](./06TiDB-生态工具/TiDB-DM工具原理与使用.md)  
 
-### 6-3 TiDB-Dumpling
-[TiDB-Dumpling原理与使用](./06TiDB-生态工具/TiDB-Dumpling原理与使用.md)  
+### 6-5 TiCDC
 
-### 6-4 TiDB-Lightning
-[TiDB-Lightning原理与使用](./06TiDB-生态工具/TiDB-Lightning原理与使用.md)  
 
 ### 6-5 TiSpark  
 [TiDB-Spark工作原理](./06TiDB-生态工具/TiDB-TiSpark/TiDB-Spark工作原理.md)  
