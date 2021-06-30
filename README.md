@@ -51,7 +51,13 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 [Paper Spanner 学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperSpanner学习笔记.md)
 
+[Paper Isolation Levels学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperIsolationLevels学习笔记.md)
+
+
 [Paper Raft 学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperRaft学习笔记.md)
+
+[Paper LSM Tree学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperLSMTree学习笔记.md)
+
 
 ### 1-2 特性摘要
 
