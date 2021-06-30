@@ -150,7 +150,8 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ### 7-3 迁移MyCat至TiDB方案
 
-[某 OLAP 为主 OLTP 为辅的 MyCAT 系统下迁 TiDB](./07TiDB-解决方案/迁移MyCat至TiDB方案/某系统OLAP为主OLTP为辅系统下迁TiDB.md)   
+[某 OLAP 为主 OLTP 为辅的 MyCAT 系统下迁 TiDB](./07TiDB-解决方案/迁移MyCat至TiDB方案/某系统OLAP为主OLTP为辅系统下迁TiDB.md)    
+[TiChange Shell 脚本转换 csv 文件适配 tidb-lightning](./07TiDB-解决方案/迁移MyCat至TiDB方案/TiChange-Shell脚本转换csv文件适配tidb-lightning.md)
 
 ### 7-4 迁移Oracle至TiDB方案
 
