@@ -51,17 +51,25 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 [Paper Spanner 学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperSpanner学习笔记.md)
 
-[Paper Isolation Levels学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperIsolationLevels学习笔记.md)
+[Paper Isolation Levels 学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperIsolationLevels学习笔记.md)
 
 
 [Paper Raft 学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperRaft学习笔记.md)
 
-[Paper LSM Tree学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperLSMTree学习笔记.md)
+[Paper LSM Tree 学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperLSMTree学习笔记.md)
 
 
 ### 1-2 特性摘要
 
+[TiDB存储引擎下MPP优劣](./01TiDB-原理总结/1-2特性摘要/TiDB存储引擎下MPP优劣.md)   
+[TiDB存储模型的实现](01TiDB-原理总结/1-2特性摘要/TiDB存储模型的实现.md)  
+[TiDB悲观锁实现原理](01TiDB-原理总结/1-2特性摘要/TiDB悲观锁实现原理.md)  
+[TiKVRegion实现原理](01TiDB-原理总结/1-2特性摘要/TiKVRegion实现原理.md)  
+
+
 ### 1-3 组件原理
+[Component-Etcd原理与使用](./01TiDB-原理总结/1-3组件原理/Component-Etcd原理与使用.md)  
+[gRPC协议原理](./01TiDB-原理总结/1-3组件原理/gRPC协议原理.md)  
 
 ### 1-4 存储引擎
 
