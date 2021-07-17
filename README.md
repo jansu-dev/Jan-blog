@@ -187,3 +187,4 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ## 08 TiDB-源码阅读
 
+[tidb_projection_concurrency 设置过大，较大高并发下是否会把 CPU 打满](https://asktug.com/t/topic/94978)
