@@ -1,7 +1,7 @@
 # Percolator paper 学习笔记
 
 
-## 论文摘要
+## 一、论文摘要
 
 Google 以往依靠离线计算的 “网页索引服务” 存在处理时延问题，当新的文档索引矩阵更新后，需要 MapReduce 和 Batch 批处理计算新的结果。使用 Percolator 组件替换基于 batch 离线处理体系，每天相同处理文档量前提下，平均文档年龄降低 50%，主要原因便是 Percolator 的增量分布式事务处理模型。
 
@@ -17,7 +17,7 @@ Google 以往依靠离线计算的 “网页索引服务” 存在处理时延�
 
 
 
-## TSO 一致性设计
+## 二、Percolator 模型设计
 
 原有的 MapReduce 离线计算机制自动限制并发顺序，当切换到 Percolator 控制并发时，便涉及控制并发计算的结果正确性。经典例子：PageRank 算法优化 Google 网页索引重要性服务，出于简述原理目的便不赘述，详解可阅读 [知乎文章](https://zhuanlan.zhihu.com/p/197877312)。
 1. 当爬虫爬取新的网页到存储库中，原离线模型使用 MapReduce 子任务不计算成功，总任务便无法汇总计算。  
@@ -25,7 +25,7 @@ Google 以往依靠离线计算的 “网页索引服务” 存在处理时延�
 
 ![02](./PaperPercolator学习笔记/PageRank.svg)
 
-Percolator 通过 ACID Transaction 、 observers 、timestamp oracle、lightweight lock 四个抽象解决上述问题  
+Percolator 通过 ACID Transaction 、 observers 、timestamp oracle、lightweight lock 四个抽象解决上述问题。执行流入大致如下：  
 1. Observers 链接用于扫描 Bigtable 的数据改变 (“notifications”) 的 Percolator worker；   
 2. Observers 发起事务，发送读写 RPC 消息给 Bigtable tablet servers；   
 3. Bigtable tablet servers 发送读写 RPC 消息给 GFS chunkservers；    
@@ -37,15 +37,21 @@ Percolator 通过 ACID Transaction 、 observers 、timestamp oracle、lightweig
 
 
 
-## BigTable 概览
+### 2.1 BigTable 概览
 
 BigTable 是以 （row, column, timestamp） 元组为 key 存储的多维存储库，提供行级 lookup 和 update 的原子读写操作，以集群形式处理 PB 级数据量。
 
-BigTable 处理流程简述：    
-1. 
 
 
+### 2.2 事务模块设计
 
+快照隔离级别以 start timestamp 为起点读，以 commit timestamp 为事务终点。   
+
+![](./PaperPercolator学习笔记/isolation_tso.svg)
+
+1. txn 1 在 txn 2 开启后，如果 txn 2 不 commit 则不会看到 txn1 写的数据；   
+2. txn 1 和 txn 2 并行执行，如果存在相同 必会有其中一个 txn 执行失败；   
+3. txn 3 即会看到 txn 1 ,也会看到 txn 2；   
 
 
 
