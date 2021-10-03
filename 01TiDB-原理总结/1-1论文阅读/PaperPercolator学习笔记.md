@@ -7,7 +7,7 @@ Google 以往依靠离线计算的 “网页索引服务” 存在处理时延�
 
 ![03](./PaperPercolator学习笔记/01.jpg)  
 
-Percolator 增量处理的优缺点：
+Percolator 增量处理的优缺点：   
 **优点：**  
 1. 增量处理，用带 Timestamp Oracle 的类 Mvcc 机制实现版本隔离；
 2. 高容量扩展，TSO 机制和延迟清锁机制，允许集群扩展至上千台机器；   
