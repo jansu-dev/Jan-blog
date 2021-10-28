@@ -465,6 +465,3 @@ mysql> commit;
 # session 1
 mysql> select * from jan_isolation_test;
 ```
-
-
-## TiDB验证REPEATABLE-READ
