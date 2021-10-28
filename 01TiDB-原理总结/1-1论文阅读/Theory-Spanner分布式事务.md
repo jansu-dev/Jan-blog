@@ -1,8 +1,3 @@
----
-title: Theory--Spanner分布式事务
-sidebar_position: 501
----
-
 Author : Jan   
 Time : 2021-10-19   
 Type : DB Theory

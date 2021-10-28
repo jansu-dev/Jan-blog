@@ -1,8 +1,3 @@
----
-title: Theory--Percolator分布式事务
-sidebar_position: 500
----
-
 Author : Jan   
 Time : 2021-10-02   
 Type : DB Theory   
