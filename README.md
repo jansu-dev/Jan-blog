@@ -110,7 +110,6 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 ## 06 TiDB-生态工具
 
 ### 6-1 Dumpling
-[TiDB-Dumpling原理与使用](./06TiDB-生态工具/TiDB-Dumpling原理与使用.md)  
 
 ### 6-2 TiDB-Lightning
 [TiDB-Lightning原理与使用](./06TiDB-生态工具/TiDB-Lightning原理与使用.md)  
@@ -138,8 +137,6 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ### 7-1 TiDB-Binlog读写分离方案
 
-[TiDB Binlog 潜在风险](./07TiDB-解决方案/TiDB-Binlog读写分离方案/binlog潜在风险.md)
-
 ### 7-2 两地三中心高可用方案
 
 [TiDB 容灾部署知识点归纳](./07TiDB-解决方案/两地三中心高可用方案/TiDB-容灾部署知识点归纳.md)
@@ -155,10 +152,6 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ### 7-5 Oracle 下迁 TiDB 或 MySQL 工具
 
-[KWC](https://github.com/jansu-dev/kwc)  
-[Kettle](https://github.com/jansu-dev/kwc)  
-[Oracle GoldenGate](https://github.com/jansu-dev/kwc)  
-
 ## 08 TiDB-源码阅读
-
-[tidb_projection_concurrency 设置过大，较大高并发下是否会把 CPU 打满](https://asktug.com/t/topic/94978)
+1. [TiDB 内核-源码解读 Point_Get 点查的一生](./08TiDB-源码阅读/TiDB/01-TiDB内核-源码解读Point_Get点查的一生.md)  
+2. [TiDB-lightning 的 tidb_projection_concurrency 设置过大，较大高并发下是否会把 CPU 打满](https://asktug.com/t/topic/94978)
