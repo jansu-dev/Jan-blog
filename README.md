@@ -50,11 +50,11 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ### 1-1 论文阅读
 
-[Paper Percolator 学习笔记](./01TiDB-原理总结/1-1论文阅读/Theory-Percolator分布式事务.md)    
-[Paper Spanner 学习笔记](./01TiDB-原理总结/1-1论文阅读/Theory-Spanner分布式事务.md)    
-[Paper Isolation Levels 学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperIsolationLevels学习笔记.md)  
-[Paper Paxos 学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperPaxos学习笔记.md)  
-[Paper LSM Tree 学习笔记](./01TiDB-原理总结/1-1论文阅读/Theory-LSMTree存储.md)
+1. [Paper Percolator 学习笔记](./01TiDB-原理总结/1-1论文阅读/Theory-Percolator分布式事务.md)    
+2. [Paper Spanner 学习笔记](./01TiDB-原理总结/1-1论文阅读/Theory-Spanner分布式事务.md)    
+3. [Paper Isolation Levels 学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperIsolationLevels学习笔记.md)  
+4. [Paper Paxos 学习笔记](./01TiDB-原理总结/1-1论文阅读/PaperPaxos学习笔记.md)  
+5. [Paper LSM Tree 学习笔记](./01TiDB-原理总结/1-1论文阅读/Theory-LSMTree存储.md)
 
 ### 1-2 特性摘要
 
@@ -66,18 +66,18 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 ## 02 TiDB-部署实践
 
 ### 2-1 软硬件环境监测
-[TiDB 集群部署前环境检测](./02TIDB-部署实践/2-1软硬件环境检测/TiDB-集群部署前环境检测.md)
+1. [TiDB 集群部署前环境检测](./02TIDB-部署实践/2-1软硬件环境检测/TiDB-集群部署前环境检测.md)
 
 ### 2-2 Ansible部署实践
 
-[Ansible 工具介绍与 TiDB 集群部署](./02TIDB-部署实践/2-1Ansible部署实践/TiDB-Ansible部署工具简介与TiDB集群部署.md)  
-[Ansible TiDB 集群扩缩容及注意事项](./02TIDB-部署实践/2-1Ansible部署实践/TiDB-Ansible部署工具简介与TiDB集群部署.md)   
+1. [Ansible 工具介绍与 TiDB 集群部署](./02TIDB-部署实践/2-1Ansible部署实践/TiDB-Ansible部署工具简介与TiDB集群部署.md)  
+2. [Ansible TiDB 集群扩缩容及注意事项](./02TIDB-部署实践/2-1Ansible部署实践/TiDB-Ansible部署工具简介与TiDB集群部署.md)   
  
 
 ### 2-3 TiUP部署实践  
 
-[Tiup 工具原理与目录结构解析](./02TIDB-部署实践/2-1Ansible部署实践/TiDB-Ansible部署工具简介与TiDB集群部署.md)   
-[Tiup 工具扩缩容及升级操作流程与注意事项](./02TIDB-部署实践/2-1Ansible部署实践/TiDB-Ansible部署工具简介与TiDB集群部署.md)  
+1. [Tiup 工具原理与目录结构解析](./02TIDB-部署实践/2-1Ansible部署实践/TiDB-Ansible部署工具简介与TiDB集群部署.md)   
+2. [Tiup 工具扩缩容及升级操作流程与注意事项](./02TIDB-部署实践/2-1Ansible部署实践/TiDB-Ansible部署工具简介与TiDB集群部署.md)  
 
 ## 03 TiDB-运维管理
 
