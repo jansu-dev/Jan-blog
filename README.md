@@ -156,6 +156,10 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ### 6-5 TiCDC
 
+[TiCDC-01-简述使用背景](./06TiDB-生态工具/TiCDC/TiCDC-01-简述使用背景.md)   
+[TiCDC-02-剖析架构模型](./06TiDB-生态工具/TiCDC/TiCDC-02-剖析架构模型.md)   
+[TiCDC-03-CDC组件解析](./06TiDB-生态工具/TiCDC/TiCDC-03-CDC组件解析.md)   
+[TiCDC-04-监控原理解析](./06TiDB-生态工具/TiCDC/TiCDC-04-监控原理解析.md)   
 
 ### 6-5 TiSpark  
 [TiDB-Spark工作原理](./06TiDB-生态工具/TiDB-TiSpark/TiDB-Spark工作原理.md)  
