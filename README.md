@@ -58,15 +58,7 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ### 1-2 特性摘要
 
-[TiDB存储引擎下MPP优劣](./01TiDB-原理总结/1-2特性摘要/TiDB存储引擎下MPP优劣.md)   
-[TiDB存储模型的实现](01TiDB-原理总结/1-2特性摘要/TiDB存储模型的实现.md)  
-[TiDB悲观锁实现原理](01TiDB-原理总结/1-2特性摘要/TiDB悲观锁实现原理.md)  
-[TiKVRegion实现原理](01TiDB-原理总结/1-2特性摘要/TiKVRegion实现原理.md)  
-
-
 ### 1-3 组件原理
-[Component-Etcd原理与使用](./01TiDB-原理总结/1-3组件原理/Component-Etcd原理与使用.md)  
-[gRPC协议原理](./01TiDB-原理总结/1-3组件原理/gRPC协议原理.md)  
 
 ### 1-4 存储引擎
 
@@ -91,43 +83,21 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ### 3-1 基础运维管理
 
-[TiDB TLS 加密传输安全协议原理与应用](./03TiDB-运维管理/3-1基础运维管理/TiDB-TLS加密传输安全协议原理与应用.md)    
-[TiDB 基于 RBAC 的权限管理](./03TiDB-运维管理/3-1基础运维管理/TiDB-基于RBAC的权限管理.md)  
-[TiDB 字符集相关信息摘要](./03TiDB-运维管理/3-1基础运维管理/TiDB-基于RBAC的权限管理.md)  
-
 ### 3-2 常规备份恢复
 
 ### 3-3 非常规恢复
 
 ## 04 TiDB-版本特性 
 
-[TiDB v4.0.0 大事务处理机制改变原理]()   
-[TiDB v5.0.0 新特性 MPP 原理与使用]()   
-[TiDB v5.0.0 新特性 LOCAL TSO 原理与使用]()   
-
 ## 05 TiDB-调优实践
-
-[TiDB v4.0.0 大事务处理机制改变原理]()   
-[TiDB v5.0.0 新特性 MPP 原理与使用]()   
-[TiDB v5.0.0 新特性 LOCAL TSO 原理与使用]()   
-
 
 ### 5-1 监控信息
 
-[Grafana 定位 TiDB实例状态](./05TiDB-调优实践/5-1TiDB-监控信息/TiDB-Grafana定位TiDB实例状态.md)
-
 ### 5-2 参数调优 
-
-[TiDB 最优参数推荐配置](05TiDB-调优实践/5-2TiDB-参数调优/TiDB集群TiDB配置文件推荐设置.md)
-[TiKV 最优参数推荐配置](05TiDB-调优实践/5-2TiDB-参数调优/TiDB集群TiKV配置文件推荐设置.md)
-[PD 最优参数推荐配置](05TiDB-调优实践/5-2TiDB-参数调优/TiDB集群PD配置文件推荐设置.md)
-[系统变量最优参数推荐配置](05TiDB-调优实践/5-2TiDB-参数调优/TiDB集群PD配置文件推荐设置.md)
-
 
 ### 5-3 SQL调优
 
 ### 5-4 生产案例  
-[SQLBinding修正优化器不稳定问题](./05TiDB-调优实践/TiDB-生产案例/CASE-SQLBinding修正优化器不稳定问题.md)  
 [导入100万左右数据中断问题](05TiDB-调优实践/TiDB-生产案例/CASE-导入100万左右数据中断问题.md)  
 [TiDB 热点问题识别与解决方案](./05TiDB-调优实践/TiDB-生产案例/CASE-热点问题识别与解决方案.md)  
 [磁盘抖动导致 Duration 抖动现象问题](./05TiDB-调优实践/TiDB-生产案例/CASE-磁盘抖动导致Duration抖动现象问题.md)  
