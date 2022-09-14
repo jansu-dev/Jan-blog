@@ -98,11 +98,11 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 ### 5-3 SQL调优
 
 ### 5-4 生产案例  
-[导入100万左右数据中断问题](./05TiDB-调优实践/5-4TiDB-生产案例/CASE-导入100万左右数据中断问题.md)  
-[TiDB 热点问题识别与解决方案](./05TiDB-调优实践/5-4TiDB-生产案例/CASE-热点问题识别与解决方案.md)  
-[磁盘抖动导致 Duration 抖动现象问题](./05TiDB-调优实践/5-4TiDB-生产案例/CASE-网卡带宽打满导致Duration升高问题.md)  
-[网卡带宽打满导致 Duration 升高问题](./05TiDB-调优实践/5-4TiDB-生产案例/CASE-网卡带宽打满导致Duration升高问题.md)  
-[非SSD磁盘性能引发 txnLockNotFound 问题](./05TiDB-调优实践/5-4TiDB-生产案例/CASE-非SSD磁盘性能引发txnLockNotFound问题.md)
+1. [导入100万左右数据中断问题](./05TiDB-调优实践/5-4TiDB-生产案例/CASE-导入100万左右数据中断问题.md)  
+2. [TiDB 热点问题识别与解决方案](./05TiDB-调优实践/5-4TiDB-生产案例/CASE-热点问题识别与解决方案.md)  
+3. [磁盘抖动导致 Duration 抖动现象问题](./05TiDB-调优实践/5-4TiDB-生产案例/CASE-网卡带宽打满导致Duration升高问题.md)  
+4. [网卡带宽打满导致 Duration 升高问题](./05TiDB-调优实践/5-4TiDB-生产案例/CASE-网卡带宽打满导致Duration升高问题.md)  
+5. [非SSD磁盘性能引发 txnLockNotFound 问题](./05TiDB-调优实践/5-4TiDB-生产案例/CASE-非SSD磁盘性能引发txnLockNotFound问题.md)
 
 ### 5-5 常见错误
 
@@ -117,8 +117,6 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ### 6-3 TiDB-Binlog  
 
-[Binlog及Reparo原理与使用](./06TiDB-生态工具/TiDB-Binlog及Reparo原理与使用.md)   
-
 ### 6-4 DM
 [TiDB-BR工具原理简介与使用](./06TiDB-生态工具/TiDB-BR工具原理与使用.md)  
 [TiDB-DM工具原理与使用](./06TiDB-生态工具/TiDB-DM工具原理与使用.md)  
@@ -131,15 +129,12 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 [TiCDC-04-监控原理解析](./06TiDB-生态工具/TiCDC/TiCDC-04-监控原理解析.md)   
 
 ### 6-5 TiSpark  
-[TiDB-Spark工作原理](./06TiDB-生态工具/TiDB-TiSpark/TiDB-Spark工作原理.md)  
 
 ## 07 TiDB-解决方案
 
 ### 7-1 TiDB-Binlog读写分离方案
 
 ### 7-2 两地三中心高可用方案
-
-[TiDB 容灾部署知识点归纳](./07TiDB-解决方案/两地三中心高可用方案/TiDB-容灾部署知识点归纳.md)
 
 ### 7-3 迁移MyCat至TiDB方案
 
