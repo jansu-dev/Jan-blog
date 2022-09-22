@@ -114,21 +114,21 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 ### 6-1 Dumpling
 
 ### 6-2 TiDB-Lightning
-[TiDB-Lightning原理与使用](./06TiDB-生态工具/TiDB-Lightning原理与使用.md)  
-[TIDB–不容易发现的 lightning tidb-backend 模式导入优化](06TiDB-生态工具/TIDB–不容易发现的lightning-tidb-backend模式导入优化.md)
+1. [TiDB-Lightning原理与使用](./06TiDB-生态工具/TiDB-Lightning原理与使用.md)  
+2. [TiChange Shell 脚本转换 csv 文件适配 tidb-lightning](https://tidb.net/blog/48ec279c)
 
 ### 6-3 TiDB-Binlog  
 
 ### 6-4 DM
-[TiDB-BR工具原理简介与使用](./06TiDB-生态工具/TiDB-BR工具原理与使用.md)  
-[TiDB-DM工具原理与使用](./06TiDB-生态工具/TiDB-DM工具原理与使用.md)  
+1. [TiDB-BR工具原理简介与使用](./06TiDB-生态工具/TiDB-BR工具原理与使用.md)  
+21. [TiDB-DM工具原理与使用](./06TiDB-生态工具/TiDB-DM工具原理与使用.md)  
 
 ### 6-5 TiCDC
 
-[TiCDC-01-简述使用背景](./06TiDB-生态工具/TiCDC/TiCDC-01-简述使用背景.md)   
-[TiCDC-02-剖析架构模型](./06TiDB-生态工具/TiCDC/TiCDC-02-剖析架构模型.md)   
-[TiCDC-03-CDC组件解析](./06TiDB-生态工具/TiCDC/TiCDC-03-CDC组件解析.md)   
-[TiCDC-04-监控原理解析](./06TiDB-生态工具/TiCDC/TiCDC-04-监控原理解析.md)   
+1. [TiCDC-01-简述使用背景](./06TiDB-生态工具/TiCDC/TiCDC-01-简述使用背景.md)   
+2. [TiCDC-02-剖析架构模型](./06TiDB-生态工具/TiCDC/TiCDC-02-剖析架构模型.md)   
+3. [TiCDC-03-CDC组件解析](./06TiDB-生态工具/TiCDC/TiCDC-03-CDC组件解析.md)   
+4. [TiCDC-04-监控原理解析](./06TiDB-生态工具/TiCDC/TiCDC-04-监控原理解析.md)   
 
 ### 6-5 TiSpark  
 
@@ -140,15 +140,16 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ### 7-3 迁移MyCat至TiDB方案
 
-[某 OLAP 为主 OLTP 为辅的 MyCAT 系统下迁 TiDB](./07TiDB-解决方案/迁移MyCat至TiDB方案/某系统OLAP为主OLTP为辅系统下迁TiDB.md)    
-[TiChange Shell 脚本转换 csv 文件适配 tidb-lightning](./07TiDB-解决方案/迁移MyCat至TiDB方案/TiChange-Shell脚本转换csv文件适配tidb-lightning.md)
 
 ### 7-4 迁移Oracle至TiDB方案
 
-[Oracle 到 TiDB 的 OGG 部署方案](./07TiDB-解决方案/迁移Oracle至TiDB方案/Oracle到TiDB的OGG部署方案.md)
+1. [Oracle 到 TiDB 的 OGG 部署方案](./07TiDB-解决方案/迁移Oracle至TiDB方案/Oracle到TiDB的OGG部署方案.md)
 
 ### 7-5 Oracle 下迁 TiDB 或 MySQL 工具
 
 ## 08 TiDB-源码阅读
 1. [TiDB 内核-源码解读 Point_Get 点查的一生](./08TiDB-源码阅读/TiDB/01-TiDB内核-源码解读Point_Get点查的一生.md)  
 2. [TiDB-lightning 的 tidb_projection_concurrency 设置过大，较大高并发下是否会把 CPU 打满](https://asktug.com/t/topic/94978)
+3. [TiDB 如何获取集群创建时间](https://tidb.net/blog/654fa1be)
+4. [PD 如何调度 Region](https://tidb.net/blog/133f127f)
+5. [TiDB run and debug on M1](https://tidb.net/blog/b12d2b24)
