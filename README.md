@@ -87,6 +87,8 @@ That the repository was build is aim to log process of mysql TiDB Learning.
 
 ### 3-3 非常规恢复
 
+1. [TiDB Cluster 重建 PD](./03TiDB-运维管理/3-3非常规恢复/重建PD.md)
+
 ## 04 TiDB-版本特性 
 
 ## 05 TiDB-调优实践
