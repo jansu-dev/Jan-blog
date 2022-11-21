@@ -110,22 +110,59 @@ const sqlServerDocSideBar = [{
 }
 ]
 
+const languageDropDown = {
+    text: "Languages",
+    items: [
+      { text: "简体中文", link: "/zh/" },
+      { text: "English", link: "/en/" }
+    ]
+  }
+
 export default {
-    title: 'Jan-Blog',
-    description: 'Just playing around.',
+    locales: {
+        '/': {
+            lang: 'en-US', // this will be set as the lang attribute on <html>
+            title: 'Jan-Blog-US',
+        },
+        '/zh/': {
+            lang: 'zh-CN',
+            title: 'Jan-Blog-CN',
+        }
+    },
     themeConfig: {
-        nav: [
-            { text: '首页', link: '/'},
-            { text: '主人简介', link: '/about/contact'},
-            { text: 'TiDB 笔记资料', link: '/tidb/index'},
-            { text: 'Oracle 笔记资料', link: '/oracle/index'},
-            { text: 'SQL Server 笔记资料', link: '/sqlserver/index'},
-            { text: 'Github', link: 'https://github.com/jansu-dev/Jan-Blog'}
-        ],
-        sidebar: {
-            '/tidb/': tidbDocSideBar,
-            '/oracle/': oracleDocSideBar,
-            '/sqlserver/': sqlServerDocSideBar
+        locales: {
+            '/': {
+                nav: [
+                    { text: 'Home', link: '/en/'},
+                    { text: 'Resume', link: '/en/about/contact'},
+                    { text: 'TiDB Notes', link: '/en/tidb/index'},
+                    { text: 'Oracle Notes', link: '/en/oracle/index'},
+                    { text: 'SQL Server Notes', link: '/en/sqlserver/index'},
+                    { text: 'Github', link: 'https://github.com/jansu-dev/Jan-Blog'},
+                    languageDropDown
+                    ],
+                sidebar: {
+                      '/en/tidb/': tidbDocSideBar,
+                      '/en/oracle/': oracleDocSideBar,
+                      '/en/sqlserver/': sqlServerDocSideBar
+                  },
+            },
+            '/zh/': {
+                nav: [
+                    { text: '首页', link: '/'},
+                    { text: '主人简介', link: '/zh/about/contact'},
+                    { text: 'TiDB 笔记资料', link: '/zh/tidb/index'},
+                    { text: 'Oracle 笔记资料', link: '/zh/oracle/index'},
+                    { text: 'SQL Server 笔记资料', link: '/sqlserver/index'},
+                    { text: 'Github', link: 'https://github.com/jansu-dev/Jan-Blog'},
+                    languageDropDown
+                ],
+                sidebar: {
+                    '/zh/tidb/': tidbDocSideBar,
+                    '/zh/oracle/': oracleDocSideBar,
+                    '/zh/sqlserver/': sqlServerDocSideBar
+                },
+            }
         }
     }
 }
