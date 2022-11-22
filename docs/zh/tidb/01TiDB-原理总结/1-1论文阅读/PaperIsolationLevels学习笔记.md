@@ -1,15 +1,6 @@
 # 事务的隔离级别
 时间：2021-01-14
 
-> - [隔离级别理论简介](#隔离级别理论简介)  
-> - [PostgreSQL事务隔离级别实验](#PostgreSQL事务隔离级别实验)  
->    - [READ-UNCOMMITTED读已经提交CASE实验](#READ-UNCOMMITTED读已经提交CASE实验)  
->    - [READ-COMMITTED读已经提交CASE实验](#READ-COMMITTED读已经提交CASE实验)  
->    - [REPEATABLE-READ可重复读CASE实验](#REPEATABLE-READ可重复读CASE实验)  
->    - [SERIALIZABLE序列化CASE实验](#SERIALIZABLE序列化CASE实验)  
-> - [MySQL验证REPEATABLE-READ](#MySQL验证REPEATABLE-READ)  
-> - [TiDB验证REPEATABLE-READ](#TiDB验证REPEATABLE-READ)  
-
 ## 隔离级别理论简介
 
 |事务隔离级别	| 脏读	| 不可重复读	| 幻读 | 备注 |
