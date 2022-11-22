@@ -216,6 +216,21 @@ const languageDropDown = {
     ]
   }
 
+  const englishENDocSidebar = [{
+    text: '02oral_english',
+    items: [
+        { text: '2-1scenario_speedfriending', link: '/en/english/02oral_english/2-1scenario_speedfriending.md' },
+        { text: '2-2scenario_celebrity', link: '/en/english/02oral_english/2-2scenario_celebrity' },
+    ]
+}]
+
+const englishCNDocSidebar = [{
+    text: '02英语口语',
+    items: [
+        { text: '2-2场景_名人', link: '/zh/english/02英语口语/2-2场景_名人.md' },
+    ]
+}]
+
 export default {  
     locales: {
         '/': {
@@ -237,6 +252,7 @@ export default {
                     { text: 'TiDB Notes', link: '/en/tidb/index'},
                     { text: 'Oracle Notes', link: '/en/oracle/index'},
                     { text: 'SQL Server Notes', link: '/en/sqlserver/index'},
+                    { text: 'English Notes', link: '/en/english/index'},
                     languageDropDown
                     ],
                 socialLinks: [
@@ -247,7 +263,8 @@ export default {
                 sidebar: {
                       '/en/tidb/': tidbDocSideBar,
                       '/en/oracle/': oracleDocSideBar,
-                      '/en/sqlserver/': sqlServerDocSideBar
+                      '/en/sqlserver/': sqlServerDocSideBar,
+                      '/en/english': englishENDocSidebar
                   },
             },
             '/zh/': {
@@ -257,6 +274,7 @@ export default {
                     { text: 'TiDB 笔记资料', link: '/zh/tidb/index'},
                     { text: 'Oracle 笔记资料', link: '/zh/oracle/index'},
                     { text: 'SQL Server 笔记资料', link: '/zh/sqlserver/index'},
+                    { text: '英语学习笔记', link: '/zh/english/index'},
                     languageDropDown
                 ],
                 socialLinks: [
@@ -267,7 +285,8 @@ export default {
                 sidebar: {
                     '/zh/tidb/': tidbDocSideBar,
                     '/zh/oracle/': oracleDocSideBar,
-                    '/zh/sqlserver/': sqlServerDocSideBar
+                    '/zh/sqlserver/': sqlServerDocSideBar,
+                    '/zh/english/': englishCNDocSidebar
                 },
             }
         }
