@@ -148,62 +148,11 @@ const tidbDocSideBar = [
     ] }
 ]
 
-const oracleDocSideBar = [{
-    text: '体系架构',
-    items: [
-        { text: 'Item A', link: '/' },
-        { text: 'Item B', link: '/' },
-]
-},
-{
-    text: '部署实践',
-    items: [
-      { text: 'Item C', link: '/item-c' },
-      { text: 'Item D', link: '/item-d' },
-    ]
-  },
-  {
-    text: '版本特性',
-    items: [
-      { text: 'Item C', link: '/item-c' },
-      { text: 'Item D', link: '/item-d' },
-    ]
-  },
-  {
-    text: '调优实践',
-    items: [
-      { text: 'Item C', link: '/item-c' },
-      { text: 'Item D', link: '/item-d' },
-    ]
-  },
-  {
-    text: '生态工具',
-    items: [
-      { text: 'Item C', link: '/item-c' },
-      { text: 'Item D', link: '/item-d' },
-    ]
-  },
-  {
-    text: '解决方案',
-    items: [
-      { text: 'Item C', link: '/item-c' },
-      { text: 'Item D', link: '/item-d' },
-    ]
-  },
-  {
-    text: '源码阅读',
-    items: [
-      { text: 'Item C', link: '/item-c' },
-      { text: 'Item D', link: '/item-d' },
-    ]
-  }
-]
 
-const sqlServerDocSideBar = [{
-    text: '原理总结',
+const sqlServerZHDocSideBar = [{
+    text: '高可用部署',
     items: [
-        { text: 'Item A', link: '/' },
-        { text: 'Item B', link: '/' },
+        { text: 'Always on 部署', link: '/zh/sqlserver/AlwaysOn集群部署.md' },
 ]
 }
 ]
@@ -224,12 +173,34 @@ const languageDropDown = {
     ]
 }]
 
-const englishCNDocSidebar = [{
+const englishZHDocSidebar = [{
     text: '02英语口语',
     items: [
         { text: '2-2场景_名人', link: '/zh/english/02英语口语/2-2场景_名人.md' },
     ]
 }]
+
+const oracleZHDocSidebar = [{
+    text: '镜像地址',
+    items: [
+        { text: '所有镜像', link: '/zh/oracle/Summary-历史镜像梳理.md' },
+    ]
+},
+{
+    text: '搭建部署',
+    items: [
+        { text: 'Oracle Rac 11g', link: '/zh/oracle/Start-OracleRAC.md' },
+        { text: 'Oracle DG 11g', link: '/zh/oracle/Start-DG.md' },
+        { text: '单机 ASM 静默安装 11g', link: '/zh/oracle/Start-Oracle单实例ASM部署.md' },
+    ]
+},
+{
+    text: '理论概念',
+    items: [
+        { text: 'DG 概念简介', link: '/zh/oracle/Theory-Oracle DG.md' },
+    ]
+}
+]
 
 export default {  
     locales: {
@@ -248,7 +219,7 @@ export default {
             '/': {
                 nav: [
                     { text: 'Home', link: '/en/index'},
-                    { text: 'Resume', link: '/en/about/contact'},
+                    { text: 'Introduction', link: '/en/about/contact'},
                     { text: 'TiDB Notes', link: '/en/tidb/index'},
                     { text: 'Oracle Notes', link: '/en/oracle/index'},
                     { text: 'SQL Server Notes', link: '/en/sqlserver/index'},
@@ -262,8 +233,6 @@ export default {
                 ],
                 sidebar: {
                       '/en/tidb/': tidbDocSideBar,
-                      '/en/oracle/': oracleDocSideBar,
-                      '/en/sqlserver/': sqlServerDocSideBar,
                       '/en/english': englishENDocSidebar
                   },
             },
@@ -272,8 +241,8 @@ export default {
                     { text: '首页', link: '/zh/index'},
                     { text: '主人简介', link: '/zh/about/contact'},
                     { text: 'TiDB 笔记资料', link: '/zh/tidb/index'},
-                    { text: 'Oracle 笔记资料', link: '/zh/oracle/index'},
-                    { text: 'SQL Server 笔记资料', link: '/zh/sqlserver/index'},
+                    { text: 'Oracle 笔记资料', link: '/zh/oracle/Summary-历史镜像梳理.md'},
+                    { text: 'SQL Server 笔记资料', link: '/zh/sqlserver/AlwaysOn集群部署.md'},
                     { text: '英语学习笔记', link: '/zh/english/index'},
                     languageDropDown
                 ],
@@ -284,9 +253,9 @@ export default {
                 ],
                 sidebar: {
                     '/zh/tidb/': tidbDocSideBar,
-                    '/zh/oracle/': oracleDocSideBar,
-                    '/zh/sqlserver/': sqlServerDocSideBar,
-                    '/zh/english/': englishCNDocSidebar
+                    '/zh/oracle/': oracleZHDocSidebar,
+                    '/zh/sqlserver/': sqlServerZHDocSideBar,
+                    '/zh/english/': englishZHDocSidebar
                 },
             }
         }
