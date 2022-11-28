@@ -4,7 +4,7 @@
 
 
 
-```yml
+```yaml
 
 ## 数据块元信息的内存 cache 大小限制，通常不需要修改
 mark_cache_size = 5368709120
@@ -25,7 +25,7 @@ minmax_index_cache_size = 5368709120
 ```
 
 
-```yml
+```yaml
     mark_cache_size = 5368709120
     minmax_index_cache_size = 5368709120
     profiles.default.max_memory_usage = 0

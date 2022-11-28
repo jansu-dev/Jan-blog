@@ -35,7 +35,7 @@
 
   - Config文件启动   
   [etcd.conf.yml.sample](https://github.com/etcd-io/etcd/blob/release-3.4/etcd.conf.yml.sample)   
-  ```yml
+  ```yaml
    # This is the configuration file for the etcd server.
    # Human-readable name for this member.
    name: 'jan-1'

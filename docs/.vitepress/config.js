@@ -170,6 +170,7 @@ const languageDropDown = {
     items: [
         { text: '2-1scenario_speedfriending', link: '/en/english/02oral_english/2-1scenario_speedfriending.md' },
         { text: '2-2scenario_celebrity', link: '/en/english/02oral_english/2-2scenario_celebrity' },
+        { text: '2-3scernaio_comment', link: '/en/english/02oral_english/2-3scernaio_comment.md' },
     ]
 }]
 
@@ -177,6 +178,7 @@ const englishZHDocSidebar = [{
     text: '02英语口语',
     items: [
         { text: '2-2场景_名人', link: '/zh/english/02英语口语/2-2场景_名人.md' },
+        { text: '2-3场景_备注', link: '/zh/english/02英语口语/2-3场景_备注.md' },
     ]
 }]
 

@@ -46,9 +46,9 @@
 
 ## Technical articles
 
-- [SQL PointGet's life: TiDB point to check how to pass the mysql protocol, parser, compile, executor, the scheduler module processing] (https://tidb.net/blog/d6444c63)
-- [TiCDC series share: background and using situation] (https://tidb.net/blog/70588c4c)
-- [TiCDC series sharing: to analyze the synchronization model and the basic architecture] (https://tidb.net/blog/9568ace1)
+- [SQL PointGet's life: TiDB point to check how to pass the mysql protocol, parser, compile, executor, the scheduler module processing](https://tidb.net/blog/d6444c63)
+- [TiCDC series share: background and using situation](https://tidb.net/blog/70588c4c)
+- [TiCDC series sharing: to analyze the synchronization model and the basic architecture](https://tidb.net/blog/9568ace1)
 
 
 

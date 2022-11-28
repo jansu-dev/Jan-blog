@@ -4,7 +4,7 @@
 
 
 
-```log
+```yaml
 [2021/06/15 22:26:33.176 +08:00] [INFO] [conn.go:800] ["command dispatched failed"] [conn=12438] [connInfo="id:12438, addr:9.1.200.60:56644 status:10, collation
 :utf8_general_ci, user:uasuser"] [command=Query] [status="inTxn:0, autocommit:1"] [sql="load data local infile \"/data/shfile/zip/15000205_4100#20210520114016.DAT\" into table risk_factor FIELDS TERMINATED BY '||' LINES TERMINATED BY '\\n'\n(@`POLNO`,\n@`SALESMANNO`,
 
