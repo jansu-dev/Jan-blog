@@ -1,3 +1,1 @@
 # TiDB
-
-It is being constructed ...
