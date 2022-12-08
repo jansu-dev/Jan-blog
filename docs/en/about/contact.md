@@ -6,7 +6,7 @@
 
 
 
-- Bilibili: [JanDBNest] (https://space.bilibili.com/318184941?spm_id_from=333.1007.0.0)
+- Bilibili: [JanDBNest](https://space.bilibili.com/318184941?spm_id_from=333.1007.0.0)
 - technology blog: http://www.dbnest.net/docs/DB-TIDB/Internal-Point_Get%E7%9A%84%E4%B8%80%E7%94%9F
 - Github: https://github.com/jansu-dev
 - Email: jan-su-dev@outlook.com
