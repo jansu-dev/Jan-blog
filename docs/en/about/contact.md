@@ -3,7 +3,7 @@
 ![header](./images/header.jpg)
 
 - Bilibili: [JanDBNest](https://space.bilibili.com/318184941?spm_id_from=333.1007.0.0)
-- technology blog: <http://www.dbnest.net/docs/DB-TIDB/Internal-Point_Get%E7%9A%84%E4%B8%80%E7%94%9F>
+- technology blog: [The lifetime of TiDB Point_Get](http://www.dbnest.net/zh/tidb/07TiDB-%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/8-1TiDB/02TiDB%20Point_Get%20%E7%82%B9%E6%9F%A5%E7%9A%84%E4%B8%80%E7%94%9F.html)
 - Github: <https://github.com/jansu-dev>
 - Email: jan-su-dev@outlook.com
 - Wechat: xh9836 `(Please state your purpose and where get my info)`
@@ -36,7 +36,6 @@
 
 ## Video speech
 
-- 2022 TiDB DevCon: [Community moderators Call](https://tidb.net/blog)
 
 ---
 
