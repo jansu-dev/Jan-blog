@@ -25,5 +25,6 @@ export default englishDocEnSideBar = [
             { text: "scenario_celebrity", link: "/en/english/03vantage_english/3-2scenario_celebrity.md"},
             { text: "scenario_comment", link: "/en/english/03vantage_english/3-3scenario_comment.md"},
             { text: "scenario_stories", link: "/en/english/03vantage_english/3-4scenario_stories.md"},
+            { text: "scenario_workinglives", link: "/en/english/03vantage_english/3-5scenario_workinglives.md"},
     ] }
 ]

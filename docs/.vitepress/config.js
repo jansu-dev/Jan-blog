@@ -1,5 +1,7 @@
 import tidbDocZhSideBar from './sidebar_tidb_zh.js';
+import tidbDocEnSideBar from './sidebar_tidb_en.js';
 import englishDocEnSideBar from './sidebar_english_en.js';
+import englishDocZhSideBar from './sidebar_english_zh.js';
 
 const sqlServerZHDocSideBar = [{
     text: '高可用部署',
@@ -38,14 +40,6 @@ const languageDropDown = {
         { text: '2-4scernaio_stories', link: '/en/english/02oral_english/2-4scernaio_stories.md' }
     ]}
 ]
-
-const englishZHDocSidebar = [{
-    text: '02英语口语',
-    items: [
-        { text: '2-2场景_名人', link: '/zh/english/02英语口语/2-2场景_名人.md' },
-        { text: '2-3场景_备注', link: '/zh/english/02英语口语/2-3场景_备注.md' },
-    ]
-}]
 
 const oracleZHDocSidebar = [{
     text: '镜像地址',
@@ -99,7 +93,7 @@ export default {
                     { icon: "youtube", link: "https://space.bilibili.com/318184941?spm_id_from=333.788.0.0"}
                 ],
                 sidebar: {
-                      '/en/tidb/': tidbDocZhSideBar,
+                      '/en/tidb/': tidbDocEnSideBar,
                       '/en/english/': englishDocEnSideBar
                   },
             },
@@ -122,7 +116,7 @@ export default {
                     '/zh/tidb/': tidbDocZhSideBar,
                     '/zh/oracle/': oracleZHDocSidebar,
                     '/zh/sqlserver/': sqlServerZHDocSideBar,
-                    '/zh/english/': englishZHDocSidebar
+                    '/zh/english/': englishDocZhSideBar
                 },
             }
         }
