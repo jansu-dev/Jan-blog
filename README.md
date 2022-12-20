@@ -1,6 +1,8 @@
 # Jan's Blog
 
-<img src="images/blog_logo.png" alt="drawing" width="200" href="http://www.dbnest.net/"/>
+<a href="http://www.dbnest.net/">
+    <img src="images/blog_logo.png" alt="drawing" width="200" />
+</a>
 
 [![LICENSE](https://img.shields.io/github/license/jansu-dev/mbr.svg)](https://github.com/jansu-dev/Jan-Blog/master/LICENSE)
 [![Language](https://img.shields.io/badge/Language-nodejs-blue.svg)](https://golang.org/)
