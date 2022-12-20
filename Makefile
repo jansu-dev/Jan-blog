@@ -5,5 +5,5 @@ build:
 	yarn docs:build
 
 push:
-	git push blog master
+	git push origin master
 	
