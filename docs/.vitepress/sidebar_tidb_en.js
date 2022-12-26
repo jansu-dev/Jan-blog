@@ -6,6 +6,7 @@ export default tidbDocZhSideBar = [
                 { text: "PaperPaxos Note", link: "/en/tidb/01TiDB-Principle/1-1Papre Reading/03PaperPaxos Note.md"},
                 { text: "LSMTree Storage", link: "/en/tidb/01TiDB-Principle/1-1Papre Reading/04LSMTree Storage.md"},
                 { text: "Database Isolation", link: "/en/tidb/01TiDB-Principle/1-1Papre Reading/05Database Isolation.md"},
+                { text: "What is TiDB", link: "/en/tidb/01TiDB-Principle/1-1Papre Reading/06What is TiDB.md"},
             ] },
             { text: "TiDB Optimizer", items: [
                 { text: "Logical Optimizing in TiDB", link: "/en/tidb/01TiDB-Principle/1-2TiDB Optimizer/01Logical Optimizing in TiDB.md"},
