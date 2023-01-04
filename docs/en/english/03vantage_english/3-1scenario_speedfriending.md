@@ -1,16 +1,11 @@
-
-
+# Sceranrio speed friending
 
 ## First of all
 
-
 ## About grammar
 
-
-## About content 
-
+## About content
 
 ## New words
-
 
 ## New Phrases

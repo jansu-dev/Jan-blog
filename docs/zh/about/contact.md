@@ -33,6 +33,7 @@
 
 ## 视频演讲
 
+1. [【2022年】TiDB 社区年度总结 - 版主 - 苏志鹏（jansu-dev）](https://asktug.com/t/topic/998896#h-2)
 
 ---
 
