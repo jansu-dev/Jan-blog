@@ -26,7 +26,7 @@ export default englishDocEnSideBar = [
             { text: "scenario_comment", link: "/en/english/03vantage_english/3-3scenario_comment.md"},
             { text: "scenario_stories", link: "/en/english/03vantage_english/3-4scenario_stories.md"},
             { text: "scenario_workinglives", link: "/en/english/03vantage_english/3-5scenario_workinglives.md"},
-            { text: "scenario_challenges", link: "/en/english/03vantage_english/3-6scernario_challenges.md"},
-            { text: "scenario_intothefuture", link: "/en/english/03vantage_english/3-7scernario_intothefuture.md"},
+            { text: "scenario_challenges", link: "/en/english/03vantage_english/3-6scenario_challenges.md"},
+            { text: "scenario_intothefuture", link: "/en/english/03vantage_english/3-7scenario_intothefuture.md"},
     ] }
 ]

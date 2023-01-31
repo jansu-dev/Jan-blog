@@ -53,6 +53,7 @@
 2. I suppose there's no point in doing somthing
 3. last-minute panic
 4. time from now --> 20 years from now
+5. vending machine
 
 ## Necessary sentences
 
@@ -61,3 +62,4 @@
 3. someone's gonna be doing
 4. someone won't be doing somthing/won't do somthing
 5. someone'll probably be doing something
+6. I just don't have any change
