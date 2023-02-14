@@ -21,6 +21,7 @@ export default englishDocEnSideBar = [
             { text: "scenario_worldclutures", link: "/en/english/02threshold_english/2-9scenario_worldclutures.md"},
     ] },
     {text: "vantage_english", items: [
+            { text: "scenario_success+happiness", link: "/en/english/03vantage_english/3-10scenario_success+happiness.md"},
             { text: "scenario_speedfriending", link: "/en/english/03vantage_english/3-1scenario_speedfriending.md"},
             { text: "scenario_celebrity", link: "/en/english/03vantage_english/3-2scenario_celebrity.md"},
             { text: "scenario_comment", link: "/en/english/03vantage_english/3-3scenario_comment.md"},
@@ -28,5 +29,7 @@ export default englishDocEnSideBar = [
             { text: "scenario_workinglives", link: "/en/english/03vantage_english/3-5scenario_workinglives.md"},
             { text: "scenario_challenges", link: "/en/english/03vantage_english/3-6scenario_challenges.md"},
             { text: "scenario_intothefuture", link: "/en/english/03vantage_english/3-7scenario_intothefuture.md"},
+            { text: "scenario_getalong", link: "/en/english/03vantage_english/3-8scenario_getalong.md"},
+            { text: "scenario_agreatread", link: "/en/english/03vantage_english/3-9scenario_agreatread.md"},
     ] }
 ]

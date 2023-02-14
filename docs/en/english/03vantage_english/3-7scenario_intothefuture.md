@@ -1,7 +1,5 @@
 # scernario into the future
 
-## First of all
-
 ## About grammar
 
 1. Use a continuous form after be going to, will, may, and might for events you expect to be in progress at a future time.  
@@ -11,8 +9,6 @@
     d. e.g. : Every cell phone will(probably) have a chip.  
     e. use the present form in `if` or time clauses that refer to the future.  
     f. e.g. : if we use cards, what are kids going to do?
-
-## About content
 
 ## Problem of mine  
 

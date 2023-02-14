@@ -1,7 +1,5 @@
 # scernario challenge
 
-## First of all
-
 ## About grammar
 
 1. the + adj == people who have adjectival characteristics
@@ -24,8 +22,6 @@
 4. `what if` clauses are the most common of these expressions, which is mostly used in follow-up questions. It's doesn't usually start a conversation.  
     a. e.g. : what if I adopted a polar bear for him?  
 5. You can use `I suppose` to show another person;s idea is right, like `I suppose you it is` means what you said maybe right.  
-
-## About content
 
 ## Problem of mine  
 
