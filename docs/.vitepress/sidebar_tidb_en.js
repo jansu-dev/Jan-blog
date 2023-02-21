@@ -11,6 +11,7 @@ export default tidbDocZhSideBar = [
             { text: "TiDB Optimizer", items: [
                 { text: "Logical Optimizing in TiDB", link: "/en/tidb/01TiDB-Principle/1-2TiDB Optimizer/01Logical Optimizing in TiDB.md"},
                 { text: "Physical Optimizing in TiDB", link: "/en/tidb/01TiDB-Principle/1-2TiDB Optimizer/02Physical Optimizing in TiDB.md"},
+                { text: "How to build logical plan", link: "/en/tidb/01TiDB-Principle/1-2TiDB Optimizer/03How to build logical plan.md"},
             ] },
     ] }
 ]

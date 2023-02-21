@@ -47,6 +47,22 @@
     a. Avocado may prevent / stop your skin (from) aging.  
     b. Kiwis are said to keep your eyesight from deteriorating.  
 
+9. How to use expressions like these below.  
+    a. As far as (success) is concerned, ...  
+    c. As far as (careers) go, ...  
+    d. When it comes to happiness / being happy, ...  
+    e. ... in terms of ...  
+
+10. In conversation, we can use expressions below to express `In my opinion`.  
+    a. As far as I'm concerned(frequency == 🌟🌟🌟)  
+    b. As far as I know(frequency == 🌟🌟)  
+    c. As far as I can tell(frequency == 🌟)  
+
+11. Adding information(-ing form)  
+    a. An -ing form can be a reduced relative clause. Like: There are some people digging for clams.  
+    b. An -ing form can describe one event that happens at the same time as another. Notice the commas. Like: We'd run around, playing in the sand, not caring ...  
+    c. An -ing form can come before or after be. It can be the subject or object of a verb. Like: My happinest moments were playing on this beach. Or, being successful is good. Or, I remember sitting outside.  
+
 ## New words
 
 1. pursue/seek/devote oneself to
@@ -55,6 +71,9 @@
 4. culinary/cooked
 5. setback/suffering
 6. deteriorate/getting worse
+7. joint（conjunct(adj.)/collaborate(v.)）
+8. cohesion（suffering）
+9. torture（suffering）
 
 ## New Phrases
 

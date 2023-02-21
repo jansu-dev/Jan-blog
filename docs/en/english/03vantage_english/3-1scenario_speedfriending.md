@@ -1,10 +1,8 @@
-# Sceranrio speed friending
-
-## First of all
-
-## About grammar
+# Sceranrio of going places
 
 ## About content
+
+## About grammar
 
 ## New words
 

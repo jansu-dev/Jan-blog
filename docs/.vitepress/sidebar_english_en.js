@@ -22,6 +22,7 @@ export default englishDocEnSideBar = [
     ] },
     {text: "vantage_english", items: [
             { text: "scenario_success+happiness", link: "/en/english/03vantage_english/3-10scenario_success+happiness.md"},
+            { text: "scenario_goingplaces", link: "/en/english/03vantage_english/3-11scenario_goingplaces.md"},
             { text: "scenario_speedfriending", link: "/en/english/03vantage_english/3-1scenario_speedfriending.md"},
             { text: "scenario_celebrity", link: "/en/english/03vantage_english/3-2scenario_celebrity.md"},
             { text: "scenario_comment", link: "/en/english/03vantage_english/3-3scenario_comment.md"},
