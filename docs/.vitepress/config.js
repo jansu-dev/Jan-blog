@@ -84,6 +84,7 @@ export default {
                     { text: 'TiDB Notes', link: '/en/tidb/index'},
                     { text: 'Oracle Notes', link: '/en/oracle/index'},
                     { text: 'SQL Server Notes', link: '/en/sqlserver/index'},
+                    { text: 'Community', link: 'http://forum.dbnest.net'},
                     { text: 'English Notes', link: '/en/english/index'},
                     languageDropDown
                     ],
@@ -104,6 +105,7 @@ export default {
                     { text: 'TiDB 笔记资料', link: '/zh/tidb/index'},
                     { text: 'Oracle 笔记资料', link: '/zh/oracle/Summary-历史镜像梳理.md'},
                     { text: 'SQL Server 笔记资料', link: '/zh/sqlserver/AlwaysOn集群部署.md'},
+                    { text: 'DB 讨论区', link: 'http://forum.dbnest.net/categories'},
                     { text: '英语学习笔记', link: '/zh/english/index'},
                     languageDropDown
                 ],

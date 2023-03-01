@@ -27,6 +27,14 @@
     a. "Can you lend me a flashlight?" --> My sister asked me to lend her a flashlight.  
     b. "Don't use hotel shampoo." --> A friend told/advised me not to use hotel shampoo.  
 
+7. You can use `in what way?` to ask for more details about someone's ideas or opinions.
+
+8. How to draw conclusions from what the other one says using expressions like these.  
+    a. (So) you're saying (that) ...  
+    b. (So) what you're saying is ...  
+    c. (so) I guess ... (then)  
+    d. you mean  
+
 ## Problems I have to overcome  
 
 1. distinguish pronunciation and meaning of words below:  
@@ -49,8 +57,16 @@
 11. galaxy/milky way
 12. frightening/awful
 13. prospect/view/possiblity/investigate
+14. sensation/feeling
+15. floating/weightless
+16. voyage
+17. fantasy
+18. roller coasters
 
 ## New Phrases
 
 1. It energizes you(though it's a sentence)
 2. someone could live longer lives(though it's a sentence)
+3. Weird in what way?
+4. upside down
+5. blast off/take off
