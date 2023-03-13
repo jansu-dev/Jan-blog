@@ -25,7 +25,6 @@ export default englishDocEnSideBar = [
             { text: "scenario_goingplaces", link: "/en/english/03vantage_english/3-11scenario_goingplaces.md"},
             { text: "scenario_culture", link: "/en/english/03vantage_english/3-12scenario_culture.md"},
             { text: "scenario_speedfriending", link: "/en/english/03vantage_english/3-1scenario_speedfriending.md"},
-            { text: "scenario_123123", link: "/en/english/03vantage_english/3-20scenario_123123.md"},
             { text: "scenario_celebrity", link: "/en/english/03vantage_english/3-2scenario_celebrity.md"},
             { text: "scenario_comment", link: "/en/english/03vantage_english/3-3scenario_comment.md"},
             { text: "scenario_stories", link: "/en/english/03vantage_english/3-4scenario_stories.md"},

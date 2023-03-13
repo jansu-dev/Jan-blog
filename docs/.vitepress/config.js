@@ -11,35 +11,41 @@ const sqlServerZHDocSideBar = [{
 }
 ]
 
-const languageDropDown = {
+const languageEnDropDown = {
     text: "Languages",
     items: [
-      { text: "简体中文", link: "/zh/index" },
-      { text: "English", link: "/en/index" }
+      { text: "English", link: "/en/index" },
+      { text: "简体中文", link: "/zh/index" }
     ]
   }
 
-  const englishENDocSidebar = [{
-    text: '01basic_english',
+  const languageZhDropDown = {
+    text: "简体中文",
     items: [
-        { text: '1-1scenario_lives', link: '/en/english/01basic_english/1-1scenario_lives.md' },
-        { text: '1-2scenario_socializing', link: '/en/english/01basic_english/1-2scenario_socializing.md' },
-        { text: '1-3scenario_materialworld', link: '/en/english/01basic_english/1-3scenario_materialworld.md' },
-        { text: '1-4scenario_trends', link: '/en/english/01basic_english/1-4scenario_trends.md' },
-        { text: '1-5scernaio_problemsolving', link: '/en/english/01basic_english/1-5scernaio_problemsolving.md' },
-        { text: '1-6scenario_behavior', link: '/en/english/01basic_english/1-6scenario_behavior.md' },
-        { text: '1-7scenario_careers', link: '/en/english/01basic_english/1-7scenario_careers.md' },
+      { text: "English", link: "/en/index" },
+      { text: "简体中文", link: "/zh/index" }
     ]
-    },
-    {
-    text: '02oral_english',
+  }
+
+const DocEnDropDown = {
+    text: "Docs",
     items: [
-        { text: '2-1scenario_speedfriending', link: '/en/english/02oral_english/2-1scenario_speedfriending.md' },
-        { text: '2-2scenario_celebrity', link: '/en/english/02oral_english/2-2scenario_celebrity' },
-        { text: '2-3scernaio_comment', link: '/en/english/02oral_english/2-3scernaio_comment.md' },
-        { text: '2-4scernaio_stories', link: '/en/english/02oral_english/2-4scernaio_stories.md' }
-    ]}
-]
+      { text: "TiDB Series", link: "/en/tidb/index" },
+      { text: "Oracle Series", link: "/en/oracle/index" },
+      { text: "SQL Server Series", link: "/en/sqlserver/index" },
+      { text: "English Learning Series", link: "/en/english/index" },
+    ]
+  }
+
+const DocZhDropDown = {
+    text: "文档笔记",
+    items: [
+      { text: "TiDB 系列", link: "/zh/tidb/index" },
+      { text: "Oracle 系列", link: "/zh/oracle/index" },
+      { text: "SQL Server 系列", link: "/zh/sqlserver/index" },
+      { text: "英语学习系列", link: "/zh/english/index" },
+    ]
+  }
 
 const oracleZHDocSidebar = [{
     text: '镜像地址',
@@ -80,13 +86,9 @@ export default {
             '/': {
                 nav: [
                     { text: 'Home', link: '/en/index'},
-                    { text: 'Introduction', link: '/en/about/contact'},
-                    { text: 'TiDB Notes', link: '/en/tidb/index'},
-                    { text: 'Oracle Notes', link: '/en/oracle/index'},
-                    { text: 'SQL Server Notes', link: '/en/sqlserver/index'},
+                    DocEnDropDown,
                     { text: 'Community', link: 'http://forum.dbnest.net'},
-                    { text: 'English Notes', link: '/en/english/index'},
-                    languageDropDown
+                    languageEnDropDown
                     ],
                 socialLinks: [
                     { icon: "github", link: "https://github.com/jansu-dev/Jan-Blog" },
@@ -101,13 +103,9 @@ export default {
             '/zh/': {
                 nav: [
                     { text: '首页', link: '/zh/index'},
-                    { text: '主人简介', link: '/zh/about/contact'},
-                    { text: 'TiDB 笔记资料', link: '/zh/tidb/index'},
-                    { text: 'Oracle 笔记资料', link: '/zh/oracle/Summary-历史镜像梳理.md'},
-                    { text: 'SQL Server 笔记资料', link: '/zh/sqlserver/AlwaysOn集群部署.md'},
-                    { text: 'DB 讨论区', link: 'http://forum.dbnest.net/categories'},
-                    { text: '英语学习笔记', link: '/zh/english/index'},
-                    languageDropDown
+                    DocZhDropDown,
+                    { text: '社区', link: 'http://forum.dbnest.net/categories'},
+                    languageZhDropDown
                 ],
                 socialLinks: [
                     { icon: "github", link: "https://github.com/jansu-dev/Jan-Blog" },

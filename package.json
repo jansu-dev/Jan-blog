@@ -13,5 +13,5 @@
     "docs:serve": "vitepress serve docs"
   },
   "repository": "git@github.com:jansu-dev/Jan-Blog.git",
-  "author": "jansu-dev <jan-su-dev@outlook.com>"
+  "author": "Jan"
 }
