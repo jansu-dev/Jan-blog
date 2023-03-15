@@ -34,6 +34,21 @@
     | A friend sent | a gift | to my monther |
     | I bought / made | something / one | for his monther |
 
+3. We use words below soften our comments using expressions.  
+    a. kind of, a(little) bit, not really, sort of, slightly, not quite, a little, somewhat  
+    b. Kind of, a little and sort of are the most common expressions.  
+    c. Somewhat and slightly are more common in formal speaking.  
+    d. People often use not quite with sure, right, true, clear and certain.  
+
+4. Use `Yeah, no` to agress with someone and then make a comment of your own.  
+    a. Yeah : you're talking/ I agree with you.  
+    b. no : no, that's not good.
+
+## Problem of mine
+
+1. Notice pronounication of words below:  
+    a. two special words : 20th and 30th
+
 ## New words
 
 1. fortune-teller
@@ -50,6 +65,9 @@
 12. groomsmen
 13. exchange vows
 14. obliged
+15. punch you
+16. bizarre/eccentric
+17. costume/clothe
 
 ## New Phrases
 
@@ -57,3 +75,4 @@
 2. walks down the aisle
 3. parents of the groom host a dinner
 4. tear off
+5. out of tune(with)/weird/odd
