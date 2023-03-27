@@ -54,16 +54,19 @@
 2. TiDB PTCP(chinese version)
 ![tidb_ptcp_chinest](../../images/tidb_ptcp_chinest.jpg)
 
-3. TiDB PTCA(english/global version)
+3. TiDB PTCA(english/global version 6)
 ![tidb_ptca_global](../../images/tidb_ptca_global.jpg)
 
-4. PostgreSQL PGCA
+4. TiDB PTCP(english/global version 6)
+![tidb_ptcp_global](../../images/tidb_ptcp_global.jpg)
+
+5. PostgreSQL PGCA
 ![pg_pgca](../../images/pg_pgca.jpg)
 
-5. PostgreSQL PGCE
+6. PostgreSQL PGCE
 ![pg_pgce](../../images/pg_pgce.jpg)
 
-6. AskTUG MVA: [related link](https://asktug.com/t/topic/273501)
+7. AskTUG MVA: [related link](https://asktug.com/t/topic/273501)
 ![asktug_mva](../../images/asktug_mva.jpg)
 
 ---

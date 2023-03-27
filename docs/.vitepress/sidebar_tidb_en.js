@@ -13,5 +13,10 @@ export default tidbDocZhSideBar = [
                 { text: "Physical Optimizing in TiDB", link: "/en/tidb/01TiDB-Principle/1-2TiDB Optimizer/02Physical Optimizing in TiDB.md"},
                 { text: "How to build logical plan", link: "/en/tidb/01TiDB-Principle/1-2TiDB Optimizer/03How to build logical plan.md"},
             ] },
+    ] },
+    {text: "TiDB-EcosystematicTools", items: [
+            { text: "DM", items: [
+                { text: "DB-DM syncer", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/TiDB-DM syncer.md"},
+            ] },
     ] }
 ]
