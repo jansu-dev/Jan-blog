@@ -1,9 +1,5 @@
-all: build push
+all: build
 
 build:
 	python3 make_sidebar.py
 	yarn docs:build
-
-push:
-	git push origin master
-	
