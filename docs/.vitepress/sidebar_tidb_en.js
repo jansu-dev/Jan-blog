@@ -14,9 +14,16 @@ export default tidbDocZhSideBar = [
                 { text: "How to build logical plan", link: "/en/tidb/01TiDB-Principle/1-2TiDB Optimizer/03How to build logical plan.md"},
             ] },
     ] },
+    {text: "TiDB-Maintaining", items: [
+            { text: "Metrics", items: [
+                { text: "TiDB-Prometheus", link: "/en/tidb/03TiDB-Maintaining/3-1Metrics/01TiDB-Prometheus.md"},
+            ] },
+    ] },
     {text: "TiDB-EcosystematicTools", items: [
             { text: "DM", items: [
-                { text: "DB-DM syncer", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/TiDB-DM syncer.md"},
+                { text: "TiDB-DM syncer", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/01TiDB-DM syncer.md"},
+                { text: "TiDB-DM SourceWorker", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/02TiDB-DM SourceWorker.md"},
+                { text: "TiDB-DM Metrics", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/03TiDB-DM Metrics.md"},
             ] },
     ] }
 ]
