@@ -31,6 +31,8 @@
     **b. Colculation** : 1
 
 4. **binlog file gap between master and syncer**  
+    **a. Meaning** : The number of binlog files in binlog replication unit that are behind the master.  
+    **b. Colculation** : **For `master`**,
 
 5. **binlog file gap between relay and syncer**  
 
