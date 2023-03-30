@@ -15,96 +15,96 @@
 1. 如果不使用自建 pv，可以忽略以下创建步骤，因为 tidb-cluster 对应的 pvc 会使用 hostPath 方式创建 pv。
 2. 如果想要自建 pv，除 apply 以下 pv 外，还要更改 storage
 
-```yaml
-jan@Jan-M1-Pro tidb-config % cat tidb-pvs.yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: local-ssd
-spec:
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storage
-  local:
-    path: /Users/jan/Database/k8s/data_tidb/ssd
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - localhost
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: local-sharedssd
-spec:
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storage
-  local:
-    path: /Users/jan/Database/k8s/data_tidb/sharedssd
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - localhost
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: local-backup
-spec:
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storage
-  local:
-    path: /Users/jan/Database/k8s/data_tidb/backup
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - localhost
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: local-monitoring
-spec:
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storage
-  local:
-    path: /Users/jan/Database/k8s/data_tidb/monitoring
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - localhost
-```
+  ```yaml
+  jan@Jan-M1-Pro tidb-config % cat tidb-pvs.yaml
+  apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    name: local-ssd
+  spec:
+    capacity:
+      storage: 5Gi
+    accessModes:
+      - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    local:
+      path: /Users/jan/Database/k8s/data_tidb/ssd
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - localhost
+  ---
+  apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    name: local-sharedssd
+  spec:
+    capacity:
+      storage: 5Gi
+    accessModes:
+      - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    local:
+      path: /Users/jan/Database/k8s/data_tidb/sharedssd
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - localhost
+  ---
+  apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    name: local-backup
+  spec:
+    capacity:
+      storage: 5Gi
+    accessModes:
+      - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    local:
+      path: /Users/jan/Database/k8s/data_tidb/backup
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - localhost
+  ---
+  apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    name: local-monitoring
+  spec:
+    capacity:
+      storage: 5Gi
+    accessModes:
+      - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    local:
+      path: /Users/jan/Database/k8s/data_tidb/monitoring
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - localhost
+  ```
 
 ## 三、部署指引
 
