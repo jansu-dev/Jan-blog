@@ -71,46 +71,32 @@ const oracleZHDocSidebar = [{
 
 export default {  
     locales: {
-        '/': {
-            lang: 'en-US',
+        root: {
+            lang: 'en',
             title: 'Jan-Blog-EN',
-        },
-        '/zh/': {
-            lang: 'zh-CN',
-            title: 'Jan-Blog-CN',
-        }
-    },
-    themeConfig: {
-        logo: '/logo.png',
-        locales: {
-            '/': {
+            themeConfig: { 
                 nav: [
                     { text: 'Home', link: '/en/index'},
                     DocEnDropDown,
                     { text: 'Community', link: 'http://forum.dbnest.net'},
                     languageEnDropDown
                     ],
-                socialLinks: [
-                    { icon: "github", link: "https://github.com/jansu-dev/Jan-Blog" },
-                    { icon: "linkedin", link: "https://www.linkedin.com/in/zhipeng-su-2282b3217/"},
-                    { icon: "youtube", link: "https://space.bilibili.com/318184941?spm_id_from=333.788.0.0"}
-                ],
                 sidebar: {
                       '/en/tidb/': tidbDocEnSideBar,
                       '/en/english/': englishDocEnSideBar
                   },
-            },
-            '/zh/': {
+            }
+        },
+        zh: {
+            lang: 'zh',
+            title: 'Jan-Blog-CN',
+            link: '/zh/index',
+            themeConfig: {
                 nav: [
                     { text: '首页', link: '/zh/index'},
                     DocZhDropDown,
                     { text: '社区', link: 'http://forum.dbnest.net/categories'},
                     languageZhDropDown
-                ],
-                socialLinks: [
-                    { icon: "github", link: "https://github.com/jansu-dev/Jan-Blog" },
-                    { icon: "linkedin", link: "https://www.linkedin.com/in/zhipeng-su-2282b3217/"},
-                    { icon: "youtube", link: "https://space.bilibili.com/318184941?spm_id_from=333.788.0.0"}
                 ],
                 sidebar: {
                     '/zh/tidb/': tidbDocZhSideBar,
@@ -120,6 +106,14 @@ export default {
                 },
             }
         }
+    },
+    themeConfig: {
+        logo: '/logo.png',
+        socialLinks: [
+            { icon: "github", link: "https://github.com/jansu-dev/Jan-Blog" },
+            { icon: "linkedin", link: "https://www.linkedin.com/in/zhipeng-su-2282b3217/"},
+            { icon: "youtube", link: "https://space.bilibili.com/318184941?spm_id_from=333.788.0.0"}
+        ],
     }
 }
   
