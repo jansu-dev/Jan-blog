@@ -6,14 +6,14 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;依据 [Prometheus 官网的定义](https://prometheus.io/docs/introduction/overview/#what-is-prometheus),Prometheus 是一个开源的、系统监控及警报的工具包。具有如下特点：
 
-1. **多维时序数据：**Prometheus 以时间序列为基础，通过追加键值对标识的方式，实现了多维度的数据模型。
-2. **查询语句支持：**Prometheus 支持 PromQL 允许对时间序列数据切片计算，以便生成图表、表格、警报。PromQL 与 SQL 类似，同属声明式查询语言，Prometheus 提供了多种函数完成，时序数据的聚合，如：rate、irate、delta 等等。
-3. **可视效果美观：**Prometheus 支持多种的可视化模式，如：内置的 Dashboard 浏览器或集成 Grafana 等。
-4. **存储方式高效：**Prometheus 以自定义格式将时间序列存储在内存及本地磁盘，缩放通过分片和联合实现。自 v2 以后，Prometheus 实现了类似于 LSM 数据库的 Block、WAL、Compaction 等结构，极大避免随机读、随机写，加快读写速率。  
-5. **部署操作简单：**Prometheus 用 Go 编写，每台服务器仅依赖本地存储，独立于可靠且易于部署。
-6. **告警系统精确：**Prometheus 的警报是依据 PromQL 定义，alertManager 处理来处理是否告警。
-7. **多客户端支持：**Prometheus 支持十多种语言客户端库，允许轻量化检测服务，自定义库易于实现。
-8. **三方集成众多：**Prometheus 可以轻松连接第三方 exporter 数据。如：系统信息、Docker、HAProxy、JMX 等指标。TiDB 监控系统中就引用了 Node_exporter、Blackbox_exporter 等三方开源 exporter 监控操作系统、网络运行情况。  
+1. **多维时序数据：** Prometheus 以时间序列为基础，通过追加键值对标识的方式，实现了多维度的数据模型。
+2. **查询语句支持：** Prometheus 支持 PromQL 允许对时间序列数据切片计算，以便生成图表、表格、警报。PromQL 与 SQL 类似，同属声明式查询语言，Prometheus 提供了多种函数完成，时序数据的聚合，如：rate、irate、delta 等等。
+3. **可视效果美观：** Prometheus 支持多种的可视化模式，如：内置的 Dashboard 浏览器或集成 Grafana 等。
+4. **存储方式高效：** Prometheus 以自定义格式将时间序列存储在内存及本地磁盘，缩放通过分片和联合实现。自 v2 以后，Prometheus 实现了类似于 LSM 数据库的 Block、WAL、Compaction 等结构，极大避免随机读、随机写，加快读写速率。  
+5. **部署操作简单：** Prometheus 用 Go 编写，每台服务器仅依赖本地存储，独立于可靠且易于部署。
+6. **告警系统精确：** Prometheus 的警报是依据 PromQL 定义，alertManager 处理来处理是否告警。
+7. **多客户端支持：** Prometheus 支持十多种语言客户端库，允许轻量化检测服务，自定义库易于实现。
+8. **三方集成众多：** Prometheus 可以轻松连接第三方 exporter 数据。如：系统信息、Docker、HAProxy、JMX 等指标。TiDB 监控系统中就引用了 Node_exporter、Blackbox_exporter 等三方开源 exporter 监控操作系统、网络运行情况。  
 
 ## 二、prometheus 逻辑结构  
 
