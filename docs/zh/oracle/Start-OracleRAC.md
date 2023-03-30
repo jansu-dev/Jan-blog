@@ -1,30 +1,30 @@
-> [DBNEST -- Bilibili RAC 基础搭建视频地址](https://www.bilibili.com/video/BV1ZT4y157NN?from=search&seid=17237800447886927935&spm_id_from=333.337.0.0)    
-> [DBNEST -- 旧版文档 “点击” 直接浏览或下载 PDF](./Oracle11gRAC集群搭建手册.pdf) 
+# Oracle 11g RAC 部署搭建
+
+> [DBNEST -- Bilibili RAC 基础搭建视频地址](https://www.bilibili.com/video/BV1ZT4y157NN?from=search&seid=17237800447886927935&spm_id_from=333.337.0.0)
 
 <iframe src="//player.bilibili.com/player.html?aid=926769884&bvid=BV1ZT4y157NN&cid=228088873&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height="560" width="780"> </iframe>
 
-| HOSTNAME	| 公网IP |	主机名	| 私网IP	| VIP	| SCANIP |
+| HOSTNAME | 公网IP | 主机名 | 私网IP | VIP | SCANIP |
 | - | - | - | - | - | - |
 | node1 | 192.168.174.11 | Prod1 | 10.10.10.1 | 192.168.174.111 | 192.168.174.24
-| node2	| 192.168.174.12 | Prod2 | 10.10.10.2 | 192.168.174.121	| 192.168.174.24
-
-				                                                              
+| node2 | 192.168.174.12 | Prod2 | 10.10.10.2 | 192.168.174.121 | 192.168.174.24
 
 ## 一、创建虚拟机及搭建操作系统
 
 ### 1.1 创建虚拟机
-虚拟机的创建 需要创建两个虚拟机配置相同取不同的名字来区分。   
-打开vmware点击创建新的虚拟机。   
+
+虚拟机的创建 需要创建两个虚拟机配置相同取不同的名字来区分。
+打开vmware点击创建新的虚拟机。
 
 ![01](./Oracle-RAC/01.png)  
 
-![02](./Oracle-RAC/02.png) 
+![02](./Oracle-RAC/02.png)
 
 ![03](./Oracle-RAC/03.png)
 
 选择redhat 6 版本64位  
 
-![04](./Oracle-RAC/04.png)   
+![04](./Oracle-RAC/04.png)
 
 此处最好在windows上创建好一个目录来放集群方便区分  
 
@@ -78,25 +78,24 @@
 
 ![29](./Oracle-RAC/29.png)  
 
-![30](./Oracle-RAC/30.png) 
+![30](./Oracle-RAC/30.png)
 
 ![31](./Oracle-RAC/31.png)  
 
-![32](./Oracle-RAC/32.png)   
+![32](./Oracle-RAC/32.png)
 
 ![33](./Oracle-RAC/33.png)  
 
-![34](./Oracle-RAC/34.png) 
+![34](./Oracle-RAC/34.png)
 
 ### 1.2 配置虚拟机网卡
 
 点击虚拟网络编辑器，准备添加网卡；
 
-![35](./Oracle-RAC/35.png) 
+![35](./Oracle-RAC/35.png)
 
 点击更改设置；
-![36](./Oracle-RAC/36.png) 
-
+![36](./Oracle-RAC/36.png)
 
 点击添加网络，添加虚拟网卡；
 ![37](./Oracle-RAC/37.png)  
@@ -105,27 +104,23 @@
 ![38](./Oracle-RAC/38.png)  
 
 修改子网IP至规划的公网地址。
-按照上述操作，创建内网网卡，并修改IP我地址为10.10.10.1；   
+按照上述操作，创建内网网卡，并修改IP我地址为10.10.10.1；
 ![39](./Oracle-RAC/39.png)  
-
 
 点击vmware的编辑虚拟机设置  
 ![40](./Oracle-RAC/40.png)  
 
-
 选中网络适配器点击添加  
 ![41](./Oracle-RAC/41.png)  
-
 
 选择网络适配器点击完成即可完成添加  
 ![42](./Oracle-RAC/42.png)  
 
-
 新添加的网卡选择为桥接模式点击确定保存更改  
 ![43](./Oracle-RAC/43.png)  
 
-
 ### 1.3 创建共享磁盘
+
 进入windows的cmd命令行窗口到安装VMware软件的目录执行如下命令创建共享磁盘，就是两台机器共用的磁盘所以在另一台虚机上无需再次创建五个。
 创建的磁盘最好单独放到一个目录中方便后续的配置
 
@@ -157,30 +152,30 @@ vmware-vdiskmanager.exe -c -s 5Gb -a lsilogic -t 2 "D:\JanRAC\sharedisk\ARCH.vmd
 
 按照同样的方法把五个盘都加到上面。
 全部完成后点击确认使其生效
- 
+
 ![53](./Oracle-RAC/53.png)  
 ![54](./Oracle-RAC/54.png)  
 
 找到两台虚拟机的配置文件用记事本模式打开它加入两行参数。
- 
- 
 
 将下面配置粘贴至VMX文件中，两个节点均操作。
+
 ```
 disk.locking="FALSE"
 disk.EnableUUID = "TRUE" 
 ```
+
 ### 1.4 搭建linux操作系统
 
 点击虚拟机设置
-![55](./Oracle-RAC/55.png)   
+![55](./Oracle-RAC/55.png)
 
 选择安装光盘后点击确认  
 ![56](./Oracle-RAC/56.png)  
- 
+
 点击开启次虚拟机
 ![57](./Oracle-RAC/57.png)  
- 
+
 点击回车
 ![58](./Oracle-RAC/58.png)  
 ![59](./Oracle-RAC/59.png)  
@@ -188,29 +183,28 @@ disk.EnableUUID = "TRUE" 
 ![61](./Oracle-RAC/61.png)  
 ![62](./Oracle-RAC/62.png)  
 ![63](./Oracle-RAC/63.png)  
- 
+
 选择yes
 ![64](./Oracle-RAC/64.png)  
 
 主机名字
 ![65](./Oracle-RAC/65.png)  
- 
+
 时区选择上海
 ![66](./Oracle-RAC/66.png)  
- 
+
 设置密码
 ![67](./Oracle-RAC/67.png)  
 
 磁盘分区
 ![68](./Oracle-RAC/68.png)  
- 
 
 点击create
 ![69](./Oracle-RAC/69.png)  
- 
+
 注意只选择sda盘进行分区其他的盘勾掉，首先加一个/boot分区大小200点击ok
 ![70](./Oracle-RAC/70.png)  
- 
+
 注意只选择sda盘进行分区其他的盘勾掉，加一个swap分区大小2G
 ![71](./Oracle-RAC/71.png)  
 
@@ -218,20 +212,21 @@ disk.EnableUUID = "TRUE" 
 ![72](./Oracle-RAC/72.png)  
 
 注意只选择sda盘进行分区其他的盘勾掉，/u01分区将剩下所有空间全部分配给他
- 
+
 ![73](./Oracle-RAC/73.png)  
 ![74](./Oracle-RAC/74.png)  
 ![75](./Oracle-RAC/75.png)  
 ![76](./Oracle-RAC/76.png)  
 
- 
- 
 点击reboot完成操作系统的安装重启后进入操作系统界面
 ![77](./Oracle-RAC/78.png)  
 
 ## 二、操作系统配置
+
 ### 2.1 检查操作系统设置
+
 两个虚机根据自己的网卡信息配置网卡
+
 ```shell
 vi /etc/sysconfig/network-script/ifcfg-eth0
 DEVICE=eth0
@@ -257,7 +252,9 @@ NETMASK=255.255.255.0
 ```
 
 ### 2.2 检查系统库依赖
+
 配置yum源，并安装依赖包
+
 ```shell
 vi /etc/yum.repos.d/iso.repo
 [iso]
@@ -270,8 +267,8 @@ mount /dev/cdrom /mnt
 yum -y install binutils compat-libstdc++-33 glibc ksh libaio libgcc libstdc++ make compat-libcap1 gcc gcc-c++ glibc-devel libaio-devel libstdc++-devel sysstat
 ```
 
-
 ### 2.3 操作系统内核参数调整
+
 ```shell
 vi /etc/sysctl.conf
 kernel.shmall = xxx  #填入命令echo "`cat /proc/meminfo | grep "MemTotal" | awk '{print $2}'` / (`getconf PAGESIZE` / 1024)" | bc 的运行结果
@@ -299,8 +296,10 @@ sysctl -p   使参数生效
 ```
 
 ### 2.4 关闭 SElinux、防火墙
+
 根据安装规范，此两项内容应该已经被关闭
 使用如下命令关闭：
+
 ```shell
 sed -i 's/enforcing/disabled/g' /etc/selinux/config
 setenforce 0
@@ -311,9 +310,11 @@ chkconfig iptables off
 service NetworkManager stop
 chkconfig NetworkManager off
 ```
+
 ### 2.5 IP地址分配
 
 #### 2.5.1 主机文件配置
+
 1. 每个节点的公网网卡名，私网网卡名应保持一致，例如：在节点1公网网卡名为eth0，私网网卡名eth1，则节点2的公2. 网网卡名也应为eth0，私网网卡名应为eth1。
 注意：各个节点的同名网卡的配置文件“/etc/sysconfig/network-scripts/ifcfg-网卡名”也应相同！
 
@@ -326,6 +327,7 @@ vip/priv/scan命名规则如下：
 ```
 
 针对IP地址分配如下，需要在/etc/hosts文件中增加以下IP地址解析：
+
 ```shell
 #PUBLIC
 192.168.174.11    rac1
@@ -340,14 +342,18 @@ vip/priv/scan命名规则如下：
 192.168.174.121   rac2-vip
 192.168.174.24    rac-scan
 ```
+
 #### 2.5.2 Ip地址分配应遵循如下原则
+
 （1） Public ip,scan ip, vip 必须在相同网段
 （2） private ip 与上述ip 不能在相同网段；
 
 ## 三、用户环境及目录配置
 
 ### 3.1 用户相关设置
+
 创建用户和组
+
 ```shell
 groupadd -g 1000 oinstall
 groupadd -g 1001 dba
@@ -360,7 +366,9 @@ useradd -u 1002 -g oinstall -G dba,oper,asmadmin,asmdba oracle
 echo grid |passwd --stdin grid
 echo grid |passwd --stdin oracle
 ```
+
 创建目录
+
 ```shell
 mkdir -p /u01/app/oraInventory
 chown -R grid:oinstall /u01/app/oraInventory
@@ -384,6 +392,7 @@ chmod -R 775 /u01/app/oracle/product/11.2.0.4/db_1
 ```
 
 修改系统资源限制
+
 ```shell
 vi /etc/security/limits.conf
 grid soft nproc 2047    
@@ -396,9 +405,8 @@ oracle soft nofile 1024
 oracle hard nofile 65536
 ```
 
-
-
 修改/etc/profile，添加如下配置
+
 ```shell
 vi /etc/profile
 if [ \$USER = "oracle" ] || [ \$USER = "grid" ]; then
@@ -413,6 +421,7 @@ fi
 ```
 
 修改/etc/csh.log，添加如下配置
+
 ```shell
 vi /etc/csh.login
 if ( \$USER = "oracle" || \$USER = "grid" ) then
@@ -422,6 +431,7 @@ endif
 ```
 
 修改grid用户环境变量
+
 ```shell
 su - grid
 vi .bash_profile
@@ -434,7 +444,8 @@ PS1="[$NAME:$LOGNAME]:\${PWD}>"
 umask 022
 ```
 
-修改oracle环境变量 
+修改oracle环境变量
+
 ```shell
 su - oracle
 vi .bash_profile
@@ -447,11 +458,10 @@ PS1="[$NAME:$LOGNAME]:\${PWD}>"
 umask 022
 ```
 
-
-
-
 ### 3.2 解压 11.2.0.4 安装包
+
 上传安装介质并解压缩，共三个压缩包，1,2解压出来为database，3解压出来为grid
+
 ```shell
 p13390677_112040_Linux-x86-64_1of7.zip
 p13390677_112040_Linux-x86-64_2of7.zip
@@ -459,10 +469,11 @@ p13390677_112040_Linux-x86-64_3of7.zip
 ```
 
 ### 3.3 设置 UDEV 规则
+
 绑定前需要查看下虚机的配置文件的disk.EnableUUID参数需要是TRUE，如果不是需要关闭操作系统血钙参数后再重启
- 
 
 修改文件/etc/udev/rules.d/99-oracle-asmdevices.rules，运行一下脚本：
+
 ```shell
 >/etc/udev/rules.d/99-oracle-asmdevices.rules
 export DISK=0
@@ -473,17 +484,23 @@ UUID=`scsi_id -gud /dev/sd$i`
 echo "KERNEL==\"sd*\", SUBSYSTEM==\"block\", PROGRAM==\"/sbin/scsi_id --whitelisted --replace-whitespace --device=/dev/\$name\",  RESULT==\"$UUID\", NAME=\"asm-disk$DISK\",  OWNER=\"grid\",  GROUP=\"asmadmin\", MODE=\"0660\" " >>/etc/udev/rules.d/99-oracle-asmdevices.rules
 done
 ```
+
 重启UDEV以使上述设置生效：
+
 ```shell
 /sbin/udevadm control --reload-rules
 /sbin/start_udev
 ```
+
 ## 四、GRID 和 DB 软件安装
+
 1. 用SecureCRT，对应服务器连接属性中勾选Forward X11 Packets，即可实现在不设置DISPLAY选项，对应服务器ping不通本机的情形下依然可以正常显示Oracle安装界面。
 2. 但在执行runInstaller时最后要以对应的grid/oracle用户登录，不能用root用户ssh登录后再su到grid/oracle用户，否则Oracle安装界面有可能显示不出来。
 
 ### 4.1 GRID 软件安装
+
 grid用户登录第一个节点主机，然后执行runInstaller命令安装Grid Infrastructure,具体安装步骤如下：执行./runInstaller安装：
+
 ```shell
 [grid@epayrac1 ~]$ cd /home/oracle_install/grid
 [root@tim1 ~]# dd if=/dev/zero of=/u01/swap1 bs=1M count=2048
@@ -568,16 +585,17 @@ IPMI一般不设置，单击“Next”按钮进行下一步：
 因此可以选择“Ignore All”,然后单击“Next”按钮执行下一步：
 ![101](./Oracle-RAC/101.png)  
 接着出现安装概要界面，确认无误后单击“Install”按钮进行软件安装：
-![102](./Oracle-RAC/102.png) 
+![102](./Oracle-RAC/102.png)
 如下是安装进度界面：
-![103](./Oracle-RAC/103.png) 
+![103](./Oracle-RAC/103.png)
 接着出现如下界面：
-![104](./Oracle-RAC/104.png) 
+![104](./Oracle-RAC/104.png)
 以root用户登陆系统，执行上面的脚本，顺序如下：
-1）	在epayrac1上执行脚本1，在epayrac2上执行脚本1；
-2）	在epayrac1上执行脚本2，在epayrac2上执行脚本2。
+1） 在epayrac1上执行脚本1，在epayrac2上执行脚本1；
+2） 在epayrac1上执行脚本2，在epayrac2上执行脚本2。
 
 各个节点执行上述脚本情况如下：
+
 ```
 [root@epayrac1 ~]# /home/app/oraInventory/orainstRoot.sh
 Changing permissions of /home/app/oraInventory.
@@ -710,22 +728,25 @@ Preparing packages for installation...
 cvuqdisk-1.0.9-1
 Configure Oracle Grid Infrastructure for a Cluster ... succeeded
 ```
+
 上面的脚本执行成功后，单击”OK”按钮，自动执行几个配置操作后，出现如下窗口：
- 
-![105](./Oracle-RAC/105.png) 
+
+![105](./Oracle-RAC/105.png)
 由于SCAN VIP主机名epayrac-scan没有在DNS注册，导致Oracle Cluster Verification Utility失败，可以忽略此错误。
 
 单击“OK”按钮：
-![106](./Oracle-RAC/106.png) 
+![106](./Oracle-RAC/106.png)
 
 单击“Next”按钮继续：
-![107](./Oracle-RAC/107.png) 
+![107](./Oracle-RAC/107.png)
 单击“Yes”按钮：
-![108](./Oracle-RAC/108.png) 
+![108](./Oracle-RAC/108.png)
 单击“Close”按钮，至此Grid 11.2.0.3软件安装完毕。
- 
+
 ### 4.2 DB 软件安装
+
 以oracle用户登录第一个节点，然后执行runInstaller命令安装DB软件,具体安装步骤如下：执行./runInstaller安装：
+
 ```
 [oracle@epayrac1 ~]$ cd /home/oracle_install/database
 
@@ -737,16 +758,17 @@ Checking swap space: must be greater than 150 MB.   Actual 32145 MB    Passed
 Checking monitor: must be configured to display at least 256 colors.    Actual 16777216    Passed
 Preparing to launch Oracle Universal Installer from /tmp/OraInstall2014-08-21_07-09-01PM. Please wait ...
 ```
+
 执行runInstaller后出现如下安装界面：
 取消“I wish to receive security updates via My Oracle Support”选项，然后单击“Next”按钮执行下一步：
- 
-![109](./Oracle-RAC/109.png) 
+
+![109](./Oracle-RAC/109.png)
 单击“Yes”按钮:
-![110](./Oracle-RAC/110.png) 
+![110](./Oracle-RAC/110.png)
 选择“Skip software updates”选项，然后单击“Next”按钮执行下一步：
-![111](./Oracle-RAC/111.png) 
+![111](./Oracle-RAC/111.png)
 选择“Install database software only”选项，然后单击“Next”按钮执行下一步：
-![112](./Oracle-RAC/112.png) 
+![112](./Oracle-RAC/112.png)
 选择“Oracle Real Application Clusters database installation”选项，确保第二个节点epayrac2已被勾选:
 ![113](./Oracle-RAC/113.png)
 单击SSH Connectivity按钮后，单击“setup”按钮，出现以下成功窗口：
@@ -782,10 +804,11 @@ Database Operator组可不选，直接单击“Next”按钮执行下一步：
 
 接着出现如下界面：
 ![125](./Oracle-RAC/125.png)
-以root用户登陆系统，执行上面的脚本，顺序如下：    
-在epayrac1上执行脚本1，在epayrac2上执行脚本1；    
+以root用户登陆系统，执行上面的脚本，顺序如下：
+在epayrac1上执行脚本1，在epayrac2上执行脚本1；
 
-节点1的执行情况：   
+节点1的执行情况：
+
 ```
 [root@epayrac1 ~]# /home/app/oracle/product/11.2.0.3/db_1/root.sh
 Performing root user operation for Oracle 11g 
@@ -805,7 +828,9 @@ Finished running generic part of root script.
 Now product-specific root actions will be performed.
 Finished product-specific root actions.
 ```
+
 节点2的执行情况：
+
 ```
 [root@epayrac2 ~]# /home/app/oracle/product/11.2.0.3/db_1/root.sh
 Performing root user operation for Oracle 11g 
@@ -826,31 +851,21 @@ Now product-specific root actions will be performed.
 Finished product-specific root actions.
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 上面的脚本执行成功后，单击”OK”按钮，出现如下界面：
 ![126](./Oracle-RAC/126.png)
 
 单击“Close”按钮,Oracle database 11.2.0.3软件安装完毕。
 
-
-
 ### 4.3 创建 ASM 磁盘组
+
 以grid用户登录节点1执行ASMCA创建DATADG和ARCHDG
+
 ```
 [grid@epayrac1 ~]$ asmca
 ```
+
 执行asmca后出现如下安装界面：
- 
+
 ![127](./Oracle-RAC/127.png)
 点击“Create”按钮，选择asmr1datadisk1，选择External Redundancy，创建磁盘组DATADG1：
  ![128](./Oracle-RAC/128.png)
@@ -865,9 +880,9 @@ Finished product-specific root actions.
 
 从如下结果中可以看到磁盘组FRADG已经成功创建：
 ![132](./Oracle-RAC/132.png)
- 
 
 ### 4.4 建库
+
 以oracle用户登录节点1执行DBCA建库
 注意要修改相关设置，如字符集、归档模式、redo log大小、multiplex redo log设置等
 [oracle@epayrac1 ~]$ dbca
@@ -889,13 +904,13 @@ Finished product-specific root actions.
 ![146](./Oracle-RAC/146.png)
 ![147](./Oracle-RAC/147.png)
 
-
-
 ## 五、常见问题解决
+
 Red Hat Linux6.9安装RAC11.2.0.4.0，dbca建库配置ASM时报错：
 Counld not connect to ASM due to following error,ora-12547:TNS:lost comact
 ![148](./Oracle-RAC/148.png)
 解决办法：
+
 ```shell
 [grid@liuqi1 oracle]$ cd $ORACLE_HOME/bin
 [grid@liuqi1 bin]$ ll oracle
@@ -905,6 +920,7 @@ Counld not connect to ASM due to following error,ora-12547:TNS:lost comact
 -rwsr-s--x 1 grid oinstall 203974257 Mar  9 20:42 oracle
 [grid@liuqi1 bin]$
 ```
+
 将$GRID_HOME/bin和$ORACLE_HOME/bin下的oracle都赋6751权限：
 
 ```shell

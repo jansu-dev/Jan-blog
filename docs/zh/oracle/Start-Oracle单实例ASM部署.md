@@ -1,25 +1,19 @@
----
-sidebar_position: 204
-title: Start--11g单库ASM部署
----
+# Oracle 11g单库ASM部署
 
-
-> [DBNEST -- 旧版文档 “点击” 直接浏览或下载 PDF](./Oracle11g单实例ASM静默安装.pdf) 
-
-
+> [DBNEST -- 旧版文档 “点击” 直接浏览或下载 PDF](./Oracle11g单实例ASM静默安装.pdf)
 
 ## 一、环境说明
 
-| 参数名	| 参数值 |
+| 参数名 | 参数值 |
 | - | - |
 | 服务器环境 | Red Hat Enterprise Linux Server release 6.9 (Santiago) |
 | Oracle版本 | Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 |
 | grid软件版本 | 11g Enterprise Edition Release 11.2.0.4.0 |
 
-      
-
 ## 二、建立数据库
+
 ### 2.1 虚拟机建立共享盘
+
 ```shell
 [root@jandb ~]# fdisk -l
 
@@ -80,6 +74,7 @@ Disk identifier: 0xf207b5b8
 ```
 
 ### 2.2 创建组和用户
+
 ```shell
 groupadd -g 1000 oinstall
 groupadd -g 1001 dba
@@ -93,6 +88,7 @@ useradd -u 2001 -g oinstall -G asmdba,asmadmin,dba,oper -d /home/oracle oracle
 passwd grid
 passwd oracle
 ```
+
 ### 2.3 创建目录
 
 ```shell
@@ -103,8 +99,11 @@ mkdir -p /oracle/app/oracle
 chown -R oracle:oinstall /oracle/app/oracle
 chmod -R 775 /oracle
 ```
+
 ### 2.4 修改内核参数
+
 首先注销掉配置文件最后6行内容，然后添加下面8行内容。
+
 ```shell
 [root@jandb ~]# vim /etc/sysctl.conf
 ##################11g#############################
@@ -123,8 +122,10 @@ net.core.rmem_max = 16777216
 net.core.wmem_max = 16777216
 [root@jandb ~]# sysctl -p
 ```
+
 ### 2.5 修改最大限制
-```
+
+```shell
 [root@jandb ~]# vim /etc/profile
 if [ $USER = "oracle" ]||[ $USER = "grid" ]; then
         if [ $SHELL = "/bin/ksh" ]; then
@@ -149,7 +150,9 @@ session    required     pam_limits.so
 ```
 
 ### 2.6 设置环境变量
+
 Grid用户：添加如下内容
+
 ```shell
 [root@jandb ~]# vim /home/grid/.bash_profile
 export EDITOR=vi
@@ -179,6 +182,7 @@ umask 022
 ```
 
 ### 2.7 配置裸设备
+
 ```shell
 [root@jandb oracle]# cat /etc/udev/rules.d/60-raw.rules 
 # Enter raw device bindings here.
@@ -210,7 +214,9 @@ chmod 660 /dev/raw/raw*
 ```
 
 配置设备参数文件，重启服务器
+
 ## 三、安装grid
+
 ### 3.1 下载依赖包
 
 ```shell
@@ -218,6 +224,7 @@ yum install -y compat-libstdc++-33* elfutils-libelf* elfutils-libelf-devel* gcc 
 ```
 
 ### 3.2 脚本修改内核参数
+
 grid的包是 ：p10404530_112030_Linux-x86-64_3of7.zip
 
 ```shell
@@ -230,7 +237,8 @@ grid的包是 ：p10404530_112030_Linux-x86-64_3of7.zip
 ./runcluvfy.sh stage -pre crsinst -n jandb -fixup -verbose
 ```
 
-### 3.3 修改安装文件grid_install.rsp 
+### 3.3 修改安装文件grid_install.rsp
+
 ```shell
 [grid@jandb response]$ sed -i 's/^#.*$//g' *.rsp 
 [grid@jandb response]$ sed -i '/^$/d' *.rsp
@@ -278,7 +286,9 @@ PROXY_USER=
 PROXY_PWD=
 PROXY_REALM=
 ```
+
 ### 3.4 开始静默安装
+
 ```shell
 [grid@jandb grid] ./runInstaller -responseFile /soft/grid/response/grid_install.rsp -silent -ignorePrereq -showProgress
 
@@ -330,19 +340,19 @@ Please check '/oracle/app/oraInventory/logs/silentInstall2020-11-05_08-38-55AM.l
 Execute Root Scripts in progress.
 
 As a root user, execute the following script(s):
-	1. /oracle/app/oraInventory/orainstRoot.sh
-	2. /oracle/app/11.2.0/grid/root.sh
+ 1. /oracle/app/oraInventory/orainstRoot.sh
+ 2. /oracle/app/11.2.0/grid/root.sh
 
 
 ..................................................   100% Done.
 
 Execute Root Scripts successful.
 As install user, execute the following script to complete the configuration.
-	1. /oracle/app/11.2.0/grid/cfgtoollogs/configToolAllCommands RESPONSE_FILE=<response_file>
+ 1. /oracle/app/11.2.0/grid/cfgtoollogs/configToolAllCommands RESPONSE_FILE=<response_file>
 
- 	Note:
-	1. This script must be run on the same host from where installer was run. 
-	2. This script needs a small password properties file for configuration assistants that require passwords (refer to install guide documentation).
+  Note:
+ 1. This script must be run on the same host from where installer was run. 
+ 2. This script needs a small password properties file for configuration assistants that require passwords (refer to install guide documentation).
 
 
 Successfully Setup Software.
@@ -392,11 +402,12 @@ perform - mode finished for action: configure
 You can see the log file: /oracle/app/11.2.0/grid/cfgtoollogs/oui/configActions2020-11-05_09-57-46-AM.log
 ```
 
-
 到这里整个grid安装成功
 
 ## 四、建立ASM
+
 ### 4.1 检查has,css,evm都是online
+
 [grid@jandb grid]$ crsctl check has
 CRS-4638: Oracle 高可用性服务联机
 [grid@jandb grid]$ crsctl check css
@@ -405,10 +416,12 @@ CRS-4529: 集群同步服务联机
 CRS-4533: 事件管理器联机
 
 ### 4.2 创建密码文件
+
 [grid@jandb grid]$ cd $ORACLE_HOME/dbs
 [grid@jandb dbs]$ orapwd file=orapw+ASM password=oracle entries=10 ignorecase=y
 
 ### 4.3 配置RESPONSE_FILE
+
 grid用户执行配置
 [grid@jandb dbs]$ /oracle/app/11.2.0/grid/cfgtoollogs/configToolAllCommands RESPONSE_FILE=/oracle/soft/grid/response/grid_install.rsp
 Setting the invPtrLoc to /oracle/app/11.2.0/grid/oraInst.loc
@@ -417,10 +430,8 @@ perform - mode finished for action: configure
 
 You can see the log file: /oracle/app/11.2.0/grid/cfgtoollogs/oui/configActions2020-11-08_06-05-25-AM.log
 
-
-
-
 ### 4.4 配置ASM的pfile
+
 ```shell
 [grid@jandb dbs]$ ll
 total 8
@@ -437,7 +448,9 @@ ASM_DISKSTRING=/dev/raw/raw*
 ASM_DISKGROUPS=data1
 LARGE_POOL_SIZE=16M
 ```
+
 启动到nomount
+
 ```shell
 [grid@jandb dbs]$ sqlplus / as sysasm
 SQL> startup nomount pfile='$ORACLE_HOME/dbs/init+ASM.ora'
@@ -447,10 +460,10 @@ col name for a10
 col FAILGROUP for a15
 select GROUP_NUMBER, DISK_NUMBER, MOUNT_STATUS, NAME, FAILGROUP, CREATE_DATE, PATH from v$asm_disk;
 SQL> 
-GROUP_NUMBER DISK_NUMBER MOUNT_STATUS	NAME	   FAILGROUP	   CREATE_DATE	PATH
+GROUP_NUMBER DISK_NUMBER MOUNT_STATUS NAME    FAILGROUP    CREATE_DATE PATH
 ------------ ----------- -------------- ---------- --------------- ------------ --------------------
-	   2	       0 CACHED 	DATA2_0000 DATA2_0000	   08-NOV-20	/dev/raw/raw2
-	   1	       0 CACHED 	DATA1_0000 DATA1_0000	   08-NOV-20	/dev/raw/raw1
+    2        0 CACHED  DATA2_0000 DATA2_0000    08-NOV-20 /dev/raw/raw2
+    1        0 CACHED  DATA1_0000 DATA1_0000    08-NOV-20 /dev/raw/raw1
 
 SQL> select GROUP_NUMBER, NAME, TYPE, TOTAL_MB, FREE_MB, USABLE_FILE_MB from v$asm_diskgroup;
 no rows selected
@@ -460,13 +473,14 @@ SQL> create diskgroup DATA2 external REDUNDANCY disk '/dev/raw/raw2';
 Diskgroup created.
 SQL> select group_number,name,total_mb/1024 total_G,free_mb/1024 free_G,state,type from v$asm_diskgroup;
 
-GROUP_NUMBER NAME	   TOTAL_G     FREE_G STATE		     TYPE
+GROUP_NUMBER NAME    TOTAL_G     FREE_G STATE       TYPE
 ------------ ---------- ---------- ---------- ---------------------- ------------
-	   1 DATA1	5.00976563  4.9609375 MOUNTED		     EXTERN
-	   2 DATA2	4.98632813     4.9375 MOUNTED		     EXTERN
+    1 DATA1 5.00976563  4.9609375 MOUNTED       EXTERN
+    2 DATA2 4.98632813     4.9375 MOUNTED       EXTERN
 ```
 
 ### 4.5 ASM服务加入集群
+
 ```shell
 [grid@jandb dbs]$ srvctl add asm
 [grid@jandb dbs]$ crsctl stat res -t
@@ -520,9 +534,11 @@ ora.diskmon
 ora.evmd
       1        ONLINE  ONLINE       jandb   
 ```
+
 ## 五、安装数据库软件
 
 ### 5.1 修改应答文件db_install.rsp
+
 ```shell
 [root@jandb soft]# chown oracle:oinstall database/ -R
 [root@jandb soft]#  su – oracle
@@ -547,6 +563,7 @@ DECLINE_SECURITY_UPDATES=true    //一定要设为true
 ```
 
 ### 5.2 开始安装软件
+
 ```shell
 [oracle@jandb response]$ pwd
 /soft/database/response
@@ -562,13 +579,14 @@ Preparing to launch Oracle Universal Installer from /tmp/OraInstall2020-11-08_06
 Please check '/oracle/app/oraInventory/logs/silentInstall2020-11-08_06-39-56AM.log' for more details.
 
 As a root user, execute the following script(s):
-	1. /oracle/app/oracle/product/11.2.0/db_1/root.sh
+ 1. /oracle/app/oracle/product/11.2.0/db_1/root.sh
 
 
 Successfully Setup Software.
 ```
 
 ### 5.3 执行脚本
+
 ```shell
 [oracle@jandb ~]$ /oracle/app/oracle/product/11.2.0/db_1/root.sh
 ```
@@ -576,6 +594,7 @@ Successfully Setup Software.
 ## 六、建立数据库
 
 ### 6.1 修改应答文件dbca.resp
+
 ```shell
 [oracle@jandb response]$ sed -i 's/^#.*$//g' *.rsp 
 [oracle@jandb response]$ sed -i '/^$/d' *.rsp
@@ -612,15 +631,17 @@ Completing Database Creation
 100% complete
 Look at the log file "/oracle/app/oracle/cfgtoollogs/dbca/prod/prod.log" for further details.
 ```
+
 ### 6.2 Mount所有磁盘组
+
 ```shell
 [grid@jandb ~]$ sqlplus / as sysasm
 SQL> select group_number,name,total_mb/1024 total_G,free_mb/1024 free_G,state,type from v$asm_diskgroup;
 
-GROUP_NUMBER NAME	 TOTAL_G  FREE_G   STATE  TYPE
+GROUP_NUMBER NAME  TOTAL_G  FREE_G   STATE  TYPE
 ----------------------  ----------  ----------  ------------    ----------  ------------
-	   1         DATA1	5.00976563  4.9609375  MOUNTED  EXTERN 
-	   0         DATA2		 0	    0       DISMOUNTED
+    1         DATA1 5.00976563  4.9609375  MOUNTED  EXTERN 
+    0         DATA2   0     0       DISMOUNTED
 
 SQL> alter diskgroup DATA2 mount;
 Diskgroup altered.
@@ -629,9 +650,9 @@ SQL> col name for a10
 SQL> col state for a10
 SQL> select group_number,name,total_mb/1024 total_G,free_mb/1024 free_G,state,type from v$asm_diskgroup;
 
-GROUP_NUMBER NAME	   TOTAL_G     FREE_G STATE	 TYPE
+GROUP_NUMBER NAME    TOTAL_G     FREE_G STATE  TYPE
 ------------ ---------- ---------- ---------- ---------- ------------
-	   1 DATA1	5.00976563  4.9609375 MOUNTED	 EXTERN
-	   2 DATA2	4.98632813 4.93652344 MOUNTED	 EXTERN
+    1 DATA1 5.00976563  4.9609375 MOUNTED  EXTERN
+    2 DATA2 4.98632813 4.93652344 MOUNTED  EXTERN
 
 ```

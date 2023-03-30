@@ -1,8 +1,10 @@
 # Macbook M1 体验 Operator 部署 TiDB Cluster
 
+> 我是红色字体
+
 ## 一、内容前导
 
-1. 个人觉得 TiDB Operator 的自愈，加持 TiDB 本身是具有 cloud native 属性的数据库产品，可以说是绝配，也是实现真正 “云” 概念的可行之路，否则 TiDB 仅能实现一定程度的自愈，并不完美。因此，决定在笔记本上搭建一套 tidb cluster on k8s 实验环境。
+1. 个人觉得 TiDB Operator 的故障自愈，加持 TiDB 本身是具有 cloud native 属性的数据库产品，可以说是绝配，也是实现真正 “云” 概念的可行之路，否则 TiDB 仅能实现一定程度的自愈，并不完美。因此，决定在笔记本上搭建一套 tidb cluster on k8s 实验环境。
 
 2. 由于本人使用的是 macbook pro m1 pro，m1 本身是 arm 芯片，经实验测试发现，在部署上 TiDB 是支持的，即使不使用 [arm64 镜像 安装指引](https://docs.pingcap.com/zh/tidb-in-kubernetes/dev/deploy-cluster-on-arm64)。
 

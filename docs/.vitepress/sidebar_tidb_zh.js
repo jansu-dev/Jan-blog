@@ -70,8 +70,16 @@ export default tidbDocZhSideBar = [
     ] },
     {text: "TiDB-源码阅读", items: [
             { text: "TiDB", items: [
-                { text: "TiDB run and debug on M1", link: "/zh/tidb/07TiDB-源码阅读/8-1TiDB/01TiDB run and debug on M1.md"},
-                { text: "TiDB Point_Get 点查的一生", link: "/zh/tidb/07TiDB-源码阅读/8-1TiDB/02TiDB Point_Get 点查的一生.md"},
+                { text: "TiDB run and debug on M1", link: "/zh/tidb/07TiDB-源码阅读/7-1TiDB/01TiDB run and debug on M1.md"},
+                { text: "TiDB Point_Get 点查的一生", link: "/zh/tidb/07TiDB-源码阅读/7-1TiDB/02TiDB Point_Get 点查的一生.md"},
+            ] },
+    ] },
+    {text: "TiDB-Cloud-K8S", items: [
+            { text: "TiDB-应用实践", items: [
+                { text: "TiDB-Operator 部署 TiDB", link: "/zh/tidb/08TiDB-Cloud-K8S/8-1TiDB-应用实践/01TiDB-Operator 部署 TiDB.md"},
+                { text: "TiDB-Operator 部署 DM", link: "/zh/tidb/08TiDB-Cloud-K8S/8-1TiDB-应用实践/02TiDB-Operator 部署 DM.md"},
+                { text: "TiDB-Operator 部署 Lightning", link: "/zh/tidb/08TiDB-Cloud-K8S/8-1TiDB-应用实践/03TiDB-Operator 部署 Lightning.md"},
+                { text: "TiDB-Operator 部署 TiCDC", link: "/zh/tidb/08TiDB-Cloud-K8S/8-1TiDB-应用实践/04TiDB-Operator 部署 TiCDC.md"},
             ] },
     ] }
 ]
