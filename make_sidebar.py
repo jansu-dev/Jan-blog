@@ -292,8 +292,8 @@ def gen_sub_sidebar(sidebar_list):
             append_export_file('    {text: "'+sidebar[0][2:]+'", items: [')
         last_sidebar=sidebar[0]
         if last_sub_sidebar != sidebar[1]:
-            print('            { text: "scenario_'+sidebar[1].split('/')[4].split('.md')[0].split('_')[1]+'", link: "'+sidebar[1]+'"},')
-            append_export_file('            { text: "scenario_'+sidebar[1].split('/')[4].split('.md')[0].split('_')[1]+'", link: "'+sidebar[1]+'"},')
+            print('            { text: "场景_'+sidebar[1].split('/')[4].split('.md')[0].split('_')[1]+'", link: "'+sidebar[1]+'"},')
+            append_export_file('            { text: "场景_'+sidebar[1].split('/')[4].split('.md')[0].split('_')[1]+'", link: "'+sidebar[1]+'"},')
         last_sub_sidebar=sidebar[1]
         # output end flag
         if len(sidebar_list) - 1 == index:

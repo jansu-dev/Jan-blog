@@ -25,5 +25,13 @@ export default tidbDocZhSideBar = [
                 { text: "TiDB-DM SourceWorker", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/02TiDB-DM SourceWorker.md"},
                 { text: "TiDB-DM Metrics", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/03TiDB-DM Metrics.md"},
             ] },
+    ] },
+    {text: "TiDB-Cloud-K8S", items: [
+            { text: "TiDB-Deployment", items: [
+                { text: "TiDB-Operator deploys TiDB", link: "/en/tidb/08TiDB-Cloud-K8S/8-1TiDB-Deployment/01TiDB-Operator deploys TiDB.md"},
+                { text: "TiDB-Operator deploys DM", link: "/en/tidb/08TiDB-Cloud-K8S/8-1TiDB-Deployment/02TiDB-Operator deploys DM.md"},
+                { text: "TiDB-Operator deploys Lightning", link: "/en/tidb/08TiDB-Cloud-K8S/8-1TiDB-Deployment/03TiDB-Operator deploys Lightning.md"},
+                { text: "TiDB-Operator deploys TiCDC", link: "/en/tidb/08TiDB-Cloud-K8S/8-1TiDB-Deployment/04TiDB-Operator deploys TiCDC.md"},
+            ] },
     ] }
 ]

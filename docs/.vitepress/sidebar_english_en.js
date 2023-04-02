@@ -34,5 +34,8 @@ export default englishDocEnSideBar = [
             { text: "scenario_intothefuture", link: "/en/english/03vantage_english/3-7scenario_intothefuture.md"},
             { text: "scenario_getalong", link: "/en/english/03vantage_english/3-8scenario_getalong.md"},
             { text: "scenario_agreatread", link: "/en/english/03vantage_english/3-9scenario_agreatread.md"},
+    ] },
+    {text: "IELTS_exam", items: [
+            { text: "scenario_rules", link: "/en/english/04IELTS_exam/4-1day1_rules.md"},
     ] }
 ]
