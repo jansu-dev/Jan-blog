@@ -1,9 +1,9 @@
-# # scernario the way we are
+# scernario the way we are
 
 ## First of all
 
 1. Talk about people's behavior using manner adverbs and adjectives  
-2. Describe people's personalities using adverbs before afjectives
+2. Describe people's personalities using adverbs before adjectives
 3. Use always with a countinuous verb to describe habits
 4. Use at least to point out the positive side of a situation
 
