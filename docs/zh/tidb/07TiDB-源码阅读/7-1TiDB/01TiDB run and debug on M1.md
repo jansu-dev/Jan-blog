@@ -14,7 +14,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. 在 M1 arch 架构长寻找运行 x86 软指令集的 VM，目前已经有些软件支持了，如：QEMU、ACVM、UTM、ToyVM 等，详情可浏览 [油管视频-Apple Silicon M1 Virtualization: Running x86 and ARM Virtual Machines](https://www.youtube.com/watch?v=vm8fvNxByHU)，结果不是运行效率低下几乎卡死，就是不定不稳定会影响数据库使用，投入产出比不高。  
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**最后惊喜的发现， TiDB 原生支持了 TiDB running on M1，[详情参考官网](https://docs.pingcap.com/zh/tidb/stable/quick-start-with-tidb#%E5%9C%A8-mac-os-%E4%B8%8A%E9%83%A8%E7%BD%B2%E6%9C%AC%E5%9C%B0%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83)**  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. 起初，我曾尝试过直接在 M1 上 build tidb，当时应为依赖库有问题，尚未成功。在看了一篇 [TiDB 作者文章-在 ARM64 上面运行 TiDB](https://www.jianshu.com/p/e07928fb7577) 发现在 arm 上是应有成功经验的，于是重新尝试。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. 起初，我曾尝试过直接在 M1 上 build tidb，当时应为依赖库有问题，尚未成功。在看了一篇 [TiDB 作者文章-在 ARM64 上面运行 TiDB](https://www.jianshu.com/p/e07928fb7577) 发现在 arm 上是应有成功经验的，于是重新尝试。  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. 这是 build 直接就成功了，查阅 tidb 官方文档发现从 v5.2.2 开始已经提供了 tiup playground 实验集群支持。  
 
 ## 二、Tiup Operations
