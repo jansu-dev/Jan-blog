@@ -74,4 +74,4 @@ cat tidb.log|grep "Jan version"
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; VsCode 安装 TiDE 按照 与 TiDE Step-by-Step Guide 一步步操作便可 DEBUG 了，或者参考 [Aiky哇](https://blog.csdn.net/qq_35423190/article/details/115676932) 写的指引也挺好，基本内容一致。
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **下面展示一张我本地电脑 DEBUG 成功的图片，✌️！**
-![01](../../../../../images/tidb/07TiDB-CodeReading/debug_m1.png)
+![debug_m1](../../../../../images/tidb/07TiDB-CodeReading/debug_m1.png)
