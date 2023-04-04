@@ -1,21 +1,21 @@
 # The Prometheus of TiDB
 
-如果您需要100%的准确性，例如按请求计费，普罗米修斯不是一个好选择，因为收集的数据可能不够详细和完整。在这种情况下，您最好使用其他系统来收集和分析计费数据，并使用普罗米修斯进行其余的监控。
+If you need 100% accuracy, such as billing on request, Prometheus is not a good choice because the data collected may not be detailed and complete enough. In this case, you are better off using other systems to collect and analyze the billing data, and using Prometheus for the rest of the monitoring.
 
-## 一、prometheus 特性定义
+## 1. Prometheus Feature Definition
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;依据 [Prometheus 官网的定义](https://prometheus.io/docs/introduction/overview/#what-is-prometheus),Prometheus 是一个开源的、系统监控及警报的工具包。具有如下特点：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; On the basis of the definition of [the Prometheus's official website](https://prometheus.io/docs/introduction/overview/#what-is-prometheus), Prometheus Is an open source, system monitoring and alert toolkit. It has the following characteristics:
 
-1. **多维时序数据：** Prometheus 以时间序列为基础，通过追加键值对标识的方式，实现了多维度的数据模型。
-2. **查询语句支持：** Prometheus 支持 PromQL 允许对时间序列数据切片计算，以便生成图表、表格、警报。PromQL 与 SQL 类似，同属声明式查询语言，Prometheus 提供了多种函数完成，时序数据的聚合，如：rate、irate、delta 等等。
-3. **可视效果美观：** Prometheus 支持多种的可视化模式，如：内置的 Dashboard 浏览器或集成 Grafana 等。
-4. **存储方式高效：** Prometheus 以自定义格式将时间序列存储在内存及本地磁盘，缩放通过分片和联合实现。自 v2 以后，Prometheus 实现了类似于 LSM 数据库的 Block、WAL、Compaction 等结构，极大避免随机读、随机写，加快读写速率。  
-5. **部署操作简单：** Prometheus 用 Go 编写，每台服务器仅依赖本地存储，独立于可靠且易于部署。
-6. **告警系统精确：** Prometheus 的警报是依据 PromQL 定义，alertManager 处理来处理是否告警。
-7. **多客户端支持：** Prometheus 支持十多种语言客户端库，允许轻量化检测服务，自定义库易于实现。
-8. **三方集成众多：** Prometheus 可以轻松连接第三方 exporter 数据。如：系统信息、Docker、HAProxy、JMX 等指标。TiDB 监控系统中就引用了 Node_exporter、Blackbox_exporter 等三方开源 exporter 监控操作系统、网络运行情况。  
+1. **Multi-dimensional sequential data:** Prometheus provides a multi-dimensional data model based on time series by appending key-value pairs.
+2. **Query Statement support:** Prometheus Support PromQL allows slicing of time series data to generate charts, tables, and alerts. PromQL, similar to SQL, is a declarative query language; Prometheus provides a variety of functional implementations, aggregation of timing data such as rate, irate, delta, and so on.
+3. **Excellent visual quality:** Prometheus supports a variety of visual modes, such as a built-in Dashboard browser or an integrated Grafana.
+4. **Efficient storage:** Prometheus stores time series in memory and local disks in a custom format, scaled by sharding and union. Since v2, Prometheus has implemented LSM database-like structures such as blocks, WAL, and Compaction. Compaction prevents random reads and writes and compacts read and write faster.
+5. **Easy to deploy:** Prometheus is written in Go, each server relies only on local storage, independent, reliable, and easy to deploy.
+6. **Alarm system accuracy:** Prometheus alarms are handled by alertManager according to PromQL definition.
+7. **Multi-client support:** Prometheus supports over a dozen language client libraries, allowing lightweight detection services and easy implementation of custom libraries.
+8. **Numerous third-party integrations:** Prometheus makes it easy to connect with third party exporter data. Such as system information, Docker, HAProxy, JMX and other indicators. The TiDB monitoring system uses the three open source exporters, such as Node_exporter and Blackbox_exporter, to monitor the operating system and network status.
 
-## 二、prometheus 逻辑结构  
+## Prometheus Logical Structure
 
 ```yaml
 Time Series Data  
@@ -33,23 +33,24 @@ Typical set of identifiers :
 
 ![Prometheus01](../../../../../images/tidb/03TiDB-Maintaining/Prometheus01.png)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prometheus Metric 配合 Label 会分拆成有限个指标，反映成二维平面上的点，在运算时通过取 `交集` 或 `并集` 实现 Metric 的聚合。每个指标点随时间的增加指标值的变化情况会保存在一个文件中，实现了并行读、写极大，提高了性能。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Prometheus Metric with the Label is broken up into a finite number of metrics, reflected as points on a two-dimensional plane, and aggregated by 'intersection' or 'union' during computation. The change of each indicator value over time is saved in a file, which realizes parallel read and write and greatly improves performance.
 
-## 三、prometheus 时间过滤
+## 3. Prometheus Time Filtering
 
-瞬时向量过滤器 : 指定时间戳内,选择一组标签的时间序列和对应的单个样本值；
+Instantaneous vector filter: select the time series of a group of labels and the corresponding single sample value within the specified time stamp;
 
-如：`tidb_server_handle_query_duration_seconds_bucket{tidb_cluster="$tidb_cluster",type="select"}` ，表示 TiDB 中 tidb_server_handle_query_duration_seconds 指标在 `tidb_cluster` 和 `type` 的标签组合下， 获取当前时间的瞬时样本值。
+Like ：`tidb_server_handle_query_duration_seconds_bucket{tidb_cluster="$tidb_cluster",type="select"}`, which means that the tidb_server_handle_query_duration_seconds index in TiDB obtains the instantaneous sample value of the current time under the combination of the `tidb_cluster` and `type` tags.
 
-区间向量过滤器 : 通过 `[]` 定义指标时间范围，获取 `瞬时向量过滤器` 所有时间范围内该指标的单个样本值；
-如：`tidb_server_handle_query_duration_seconds_bucket{tidb_cluster="$tidb_cluster",type="select"}` ，表示 TIDB 中 tidb_server_handle_query_duration_seconds_bucket 指标在时间范围内的所有值。
+Interval vector filter: define the index time range through '[]' to obtain the single sample value of the index within all time ranges of 'instantaneous vector filter';
 
-时间位移操作   : 通过 `offset` 指定自当前时刻起向后偏移的时长；
-如：`tidb_server_handle_query_duration_seconds_bucket offset 5m` ，表示 TIDB 中 tidb_server_handle_query_duration_seconds_bucket 指标 5 min 之前那个时刻的瞬时值。
+如：`tidb_server_handle_query_duration_seconds_bucket{tidb_cluster="$tidb_cluster",type="select"}`, Specifies all the values of the tidb_server_handle_query_duration_seconds_bucket index in the TIDB time range.
 
-## 四、prometheus 聚合操作
+Time shift operation: specify the time offset from the current time by `offset`;
+Like : `tidb_server_handle_query_duration_seconds_bucket offset 5m`, Specifies the instantaneous value of the tidb_server_handle_query_duration_seconds_bucket index in the TIDB 5 minutes earlier.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以由 Label 为 instance、job、le、sql_type 组合构成的 tidb_server_handle_query_duration_seconds_bucket Metric 为例；
+## 4. Prometheus Aggregation Operation
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For example, tidb_server_handle_query_duration_seconds_bucket Metric, which consists of Label instance, job, le, and sql_type, is used.
 
 ```json
 { 
@@ -61,19 +62,20 @@ Typical set of identifiers :
 }
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设取 tidb_server_handle_query_duration_seconds_bucket { instance = "172.16.6.155:10080" , sql_type = "Select" , le = "+Inf" } [2m] 的瞬时值。第一步，从 prometheus 存储中截取对应时段的数据后对数据结果倒排重构。第二步，取各文件结果交集得出 Metric 在 2min 内的所有值。
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**注意：**第一步倒排的目的是为了实现，在有序数组下的快速归并查找，是基于性能层面考虑的操作。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assume that `tidb_server_handle_query_duration_seconds_bucket {instance = "172.16.6.155:10080", sql_type = "Select", le = "+Inf"} [2m]`'s instantaneous value. The first step is to reconstruct the data from the prometheus storage after intercepting the data for the corresponding period. The second step, take the intersection file results Metric all values within 2 min.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Notice：**The purpose of the first inversion is to achieve fast merge lookup in an ordered array, which is a performance-based operation.
 
 ![Prometheus02](../../../../../images/tidb/03TiDB-Maintaining/prometheus02.png)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 Prometheus Dashboard 中汇聚结果，如下图所示。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Converge the results in the Prometheus Dashboard, as shown in the following figure.
 
 ![Prometheus03](../../../../../images/tidb/03TiDB-Maintaining/prometheus03.jpg)
 
-## 五、prometheus 指标类型
+## 五、Prometheus Indicator Type
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;依据 [promehteus 官网介绍](https://prometheus.fuckcloudnative.io/di-er-zhang-gai-nian/metric_types) 指标类型仅存在于 client 端，在 server 端不区分指标类型，均视为无序时序数据。那么为什么要区分不同指标类型呢？
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TiDB 中封装 Prometheus 后，数据流转如下图所示；
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;According to the website [promehteus](https://prometheus.fuckcloudnative.io/di-er-zhang-gai-nian/metric_types) index type is confined to the client side, On the server side, indicator types are not distinguished and are regarded as unordered time sequence data. So why distinguish between different indicator types?  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The data flow after Prometheus encapsulated in TiDB is shown below;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Prometheus04](../../../../../images/tidb/03TiDB-Maintaining/prometheus04.png)
 
 ### 5.1 Counter
