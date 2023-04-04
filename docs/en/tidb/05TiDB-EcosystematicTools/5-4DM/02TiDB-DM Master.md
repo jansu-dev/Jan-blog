@@ -4,7 +4,7 @@
 
 1. **First**, It's a comman package which's been encapsulated to implment function of leader election based on etcd.
 2. **Second**, [compaignLoop](https://github.com/pingcap/tiflow/blob/c65e2b72198de10319008b31dcf13d51509ccfde/dm/pkg/election/election.go#L200) is the kye to understand how the logical concept is continuous running.
-3. **Third,** Periodically， it'll recampaign leader of DM master instances and the leader'll **start** some components including `Scheduler`, `Pessimist` and `Optimist`.
+3. **Third,** periodically, it'll recampaign leader of DM master instances and the leader'll **start** some components including `Scheduler`, `Pessimist` and `Optimist`, [more details](https://github.com/pingcap/tiflow/blob/c65e2b72198de10319008b31dcf13d51509ccfde/dm/master/election.go#L169).
 4. **Fourth**, It also spilits task into subtasks which represents only one source in one migration task.
 
 ## Scheduler
@@ -14,6 +14,13 @@
 
 ## pessimist
 
-1. The [concept](https://github.com/pingcap/tiflow/blob/c65e2b72198de10319008b31dcf13d51509ccfde/dm/pkg/shardddl/pessimism/doc.go) of the sequence of coordinate a shard DDL lock.
+1. PTAL at the [shard-merge-pessimistic](https://docs.pingcap.com/zh/tidb-data-migration/v5.3/feature-shard-merge-pessimistic#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86). The [detail](https://github.com/pingcap/tiflow/blob/c65e2b72198de10319008b31dcf13d51509ccfde/dm/pkg/shardddl/pessimism/doc.go) of the sequence of coordinate a shard DDL lock. In short, what it's actually does is keeping every DML in a DM Cluster before a specific DDL timestamp, till the end of the DDL.
+2. `LockKeeper` which encapsulates `Lock` used to keep and handle DDL lock conveniently, which doesn't need to be presistent. Lock represents the shard DDL lock in memory. This information also does not need to be persistent, and can be re-constructed from the shard DDL info. And, this strcut has a key founction named `TrySync`, which's to sync the lock by increase the number of remain, which number is equal to the number of sources.  
+
+![pessimism](https://download.pingcap.com/images/tidb-data-migration/shard-ddl-flow.png)
 
 ## Optimist
+
+1. LockKeeper used to keep and handle DDL lock conveniently. The logical function is equal to Lock in pessimism, just the different name instead of `Lock`.
+
+![optimistic](https://download.pingcap.com/images/tidb-data-migration/optimistic-ddl-flow.png)

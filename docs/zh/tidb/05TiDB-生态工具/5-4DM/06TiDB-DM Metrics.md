@@ -6,29 +6,9 @@
 
 ## HA
 
-1. **number of dm-masters start leader components per minute**  
-    **a. Meaning** : number of dm-masters try to start leader components per minute
-    **b. Colculation** :
-
-2. **number of workers in different state**  
-    **a. Meaning** : number of workers in different state
-    **b. Colculation** :
-
-3. **workers' state**  
-    **a. Meaning** : workers' state  
-    **b. Colculation** :
-
-4. **number of worker event error**  
-    **a. Meaning** : number of worker event error  
-    **b. Colculation** :
-
-5. **shard ddl error per minute**  
-    **a. Meaning** : number of shard DDL lock/operation error in one minute  
-    **b. Colculation** :
-
-6. . **number of pending shard ddl**  
-    **a. Meaning** : number of pending shard DDL in different states, Un-synced (waiting all upstream), Synced (all upstream finished, waiting all downstream). It has three different types of DDL job, including `None`, `Un-synced`, `Synced`. The metrics will change the one type when every new Lock generates(`None` --> `Un-synced`, like `NewLock` in [pessimism](https://github.com/pingcap/tiflow/blob/c65e2b72198de10319008b31dcf13d51509ccfde/dm/pkg/shardddl/pessimism/lock.go#L45)) or releases(`Un-synced` --> `Synced`).  
-    **b. Colculation** : In `pressimism`,  In `pressimism`,
+1. **每分钟dm-master启动领导组件的数量**  
+    **a. 含义** : 每分钟dm-master尝试启动leader组件的个数
+    **b. 计算** :
 
 ## task
 
