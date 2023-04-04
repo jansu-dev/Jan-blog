@@ -6,8 +6,8 @@
 
 ## 二、探索
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，翻遍 TiDB 官方文档也没有找到能够查询 TiDB 集群初始化时间的方法。所有监控信息（Dashboard、Grafana）都只能仅查询各组件的 Startup Time，查询表的 Create Time 也不准确。
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其次，之前知道在集群初始化的时候 PD 会初始化一个 ClusterID 并持久化。即然，TiDB 官方没有提供查询接口，那能够分别集群的也许只有这一个信息了。最开始，一直在尝试使用 pd-ctl 的 `tiup ctl:v5.2.3 pd tso 1571036791` 直接转译 TSO ，但始终没有成功。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，翻遍 TiDB 官方文档也没有找到能够查询 TiDB 集群初始化时间的方法。所有监控信息（Dashboard、Grafana）都只能仅查询各组件的 Startup Time，查询表的 Create Time 也不准确。  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其次，之前知道在集群初始化的时候 PD 会初始化一个 ClusterID 并持久化。即然，TiDB 官方没有提供查询接口，那能够分别集群的也许只有这一个信息了。最开始，一直在尝试使用 pd-ctl 的 `tiup ctl:v5.2.3 pd tso 1571036791` 直接转译 TSO ，但始终没有成功。  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后在一位同事的提醒下，翻了下 PD 在初始化 Cluster_ID 时的源码,才成功解决问题。详情见 **三、解决** 部分。
 
 ## 三、解决

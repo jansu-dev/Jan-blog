@@ -40,7 +40,7 @@
     c. Somewhat and slightly are more common in formal speaking.  
     d. People often use not quite with sure, right, true, clear and certain.  
 
-4. Use `Yeah, no` to agress with someone and then make a comment of your own.  
+4. Use `Yeah, no` to agree with someone and then make a comment of your own.  
     a. Yeah : you're talking/ I agree with you.  
     b. no : no, that's not good.
 
