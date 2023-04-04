@@ -13,9 +13,9 @@
 
 ## Plans
 
-Besides the oral part, I also tested the `listening` and felt so bad, because of just finished part of them and right ratio is just 1/14.  
-So, I need put much more energy in `listening`, `reading` and `writing`. For oral part, the main aim should be keeping the feeling in oral part as usual, and trying to reach the fluent level.  
-I think my aimed score is 7 at oral part of IELTS.
+1. Besides the oral part, I also tested the `listening` and felt so bad, because of just finished part of them and right ratio is just 1/14.  
+2. So, I need put much more energy in `listening`, `reading` and `writing`. For oral part, the main aim should be keeping the feeling in oral part as usual, and trying to reach the fluent level.  
+3. I think my aimed score is 7 at oral part of IELTS.
 
 So, I wanna use 4 months to improve english, and everyday I'll put 2h, at the end day, adding up all of time, it should be 240h.
 
@@ -27,9 +27,15 @@ I's my first time to test my oral english score for IELTS, which was powered by 
 
 ## Progress
 
-| Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
-| - | - | - | - | - | - | - |
-| | | 1. got test result of IELTS about speaking and listening 2. finish a oral test in `雅思考满分` | 1. watched and wrote a video powered by [steve Job](https://www.bilibili.com/video/BV1Rt411U7Ve), which intention is to check out if it's useful when I recite ever sentence. 3. Translated all of my english note into chinese version and reviewed the ones(including grammar, words, pharse) 4. retested my oral english score 5. finish home work of IELTS class | | | |
+|  | Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
+| - | - | - | - | - | - | - | - |
+|  | | | 1. got test result of IELTS about speaking and listening 2. finish a oral test in `雅思考满分` | 1. watched and wrote a video powered by [steve Job](https://www.bilibili.com/video/BV1Rt411U7Ve), which intention is to check out if it's useful when I recite ever sentence. 2. Translated all of my english note into chinese version and reviewed the ones(including grammar, words, pharse)3. finish one oral test in `雅思考满分` | | | |
+| Time | None | None | 3h(11:00-2:00) | 5h(11:00-5:00) | | | |
+
+| Date | ModelText | BestScore ｜ BestTimeConsuming ｜ MyBestScore ｜ MyTimeConsuming ｜
+| - | - | - | - | - | - |
+| 2023:04:03| forgot to record | N/A | N/A | N/A | N/A |
+| 2023:04:04| Do you have patience? --> I will be lying if I say I have patient. Even though I know that patient is one of the most important virtue that one can have. I'm not a patient person, I am always want to rush things no matter it's for work, or in my personal life, even a minute more, I'll consider it as a waste of time. | 93 | 35s | 91 | 27s |
 
 ## New Words, Phrase, Sentences
 
