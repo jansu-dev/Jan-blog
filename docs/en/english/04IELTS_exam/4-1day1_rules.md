@@ -29,7 +29,7 @@ I's my first time to test my oral english score for IELTS, which was powered by 
 
 | Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
 | - | - | - | - | - | - | - |
-| | | 1. got test result of IELTS about speaking and listening </br> 2. finish a oral test in `雅思考满分` | | | | |
+| | | 1. got test result of IELTS about speaking and listening 2. finish a oral test in `雅思考满分` | | | | |
 
 ## New Words
 
@@ -40,4 +40,3 @@ This part is about new word I haven't seen and misunderstanding.
 3. corridor 通道
 4. entrance to somewhere 某地的入口
 5. look out onto 向外看向
-
