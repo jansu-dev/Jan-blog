@@ -25,6 +25,12 @@ I's my first time to test my oral english score for IELTS, which was powered by 
 
 ![day1_oral_english_result_2023_04_04](../../../../images/english/04IELTS_exam/day1_oral_english_result_2023_04_04.jpeg)
 
+## Progress
+
+| Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
+| - | - | - | - | - | - | - |
+| | | 1. got test result of IELTS about speaking and listening </br> 2. finish a oral test in `雅思考满分` | | | | |
+
 ## New Words
 
 This part is about new word I haven't seen and misunderstanding.
