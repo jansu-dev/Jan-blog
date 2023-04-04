@@ -29,10 +29,10 @@ I's my first time to test my oral english score for IELTS, which was powered by 
 
 |  | Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
 | - | - | - | - | - | - | - | - |
-|  | | | 1. got test result of IELTS about speaking and listening 2. finish a oral test in `雅思考满分` | 1. watched and wrote a video powered by [steve Job](https://www.bilibili.com/video/BV1Rt411U7Ve), which intention is to check out if it's useful when I recite ever sentence. 2. Translated all of my english note into chinese version and reviewed the ones(including grammar, words, pharse)3. finish one oral test in `雅思考满分` | | | |
+|  | | | 1. got test result of IELTS about speaking and listening 2. finish a oral test in `雅思考满分` | 1. watched and wrote a video powered by [steve Job](https://www.bilibili.com/video/BV1Rt411U7Ve), which intention is to check out if it's useful when I recite ever sentence. 2. Translated all of my english note into chinese version and reviewed the ones(including grammar, words, pharse)3. finish one oral test in `雅思考满分` | | | | |
 | Time | None | None | 3h(11:00-2:00) | 5h(11:00-5:00) | | | |
 
-| Date | ModelText | BestScore ｜ BestTimeConsuming ｜ MyBestScore ｜ MyTimeConsuming ｜
+| Date | Model Text | BestScore | BestTimeConsuming | MyBestScore | MyTimeConsuming |
 | - | - | - | - | - | - |
 | 2023:04:03| forgot to record | N/A | N/A | N/A | N/A |
 | 2023:04:04| Do you have patience? --> I will be lying if I say I have patient. Even though I know that patient is one of the most important virtue that one can have. I'm not a patient person, I am always want to rush things no matter it's for work, or in my personal life, even a minute more, I'll consider it as a waste of time. | 93 | 35s | 91 | 27s |
