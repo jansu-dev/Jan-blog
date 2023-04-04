@@ -35,8 +35,8 @@ I's my first time to test my oral english score for IELTS, which was powered by 
 
 This part is about new word I haven't seen and misunderstanding.
 
-1. monologue --> 独白
-2. interpret --> 说明
-3. corridor --> 通道
-4. entrance to somewhere --> 某地的入口
-5. look out onto -->  向外看向
+1. monologue -> 独白
+2. interpret -> 说明
+3. corridor -> 通道
+4. entrance to somewhere -> 某地的入口
+5. look out onto ->  向外看向
