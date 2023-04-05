@@ -27,15 +27,19 @@ I's my first time to test my oral english score for IELTS, which was powered by 
 
 ## Progress
 
-|  | Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
+1. Week schedule
+| | Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
 | - | - | - | - | - | - | - | - |
-|  | | | 1. got test result of IELTS about speaking and listening 2. finish a oral test in `雅思考满分` | 1. watched and wrote a video powered by [steve Job](https://www.bilibili.com/video/BV1Rt411U7Ve), which intention is to check out if it's useful when I recite ever sentence. 2. Translated all of my english note into chinese version and reviewed the ones(including grammar, words, pharse)3. finish one oral test in `雅思考满分` | | | | |
-| Time | None | None | 3h(11:00-2:00) | 5h(11:00-5:00) | | | |
+| | | | 1.得到雅思听力和口语的测试结果 2. 完成口语练习，在 `雅思考满分` | 1. 看并抄录一份 7min 的[乔布斯内部视频](https://www.bilibili.com/video/BV1Rt411U7Ve),目的是先听 3 遍，再背下来，再听看对听力是否有改善(有部分改善) 2. 翻译之前的英语笔记成中文，并复习其中内容（语法，单词，词组）3. 完成一个口语练习在 `雅思考满分` | | | |
+| 花费时间 | None | None | 3h(11:00-2:00) | 5h(11:00-5:00) | 1.5h(19:00-20:30) | | |
 
-| Date | Model Text | BestScore | BestTimeConsuming | MyBestScore | MyTimeConsuming |
-| - | - | - | - | - | - |
-| 2023:04:03| forgot to record | N/A | N/A | N/A | N/A |
-| 2023:04:04| Do you have patience? --> I will be lying if I say I have patient. Even though I know that patient is one of the most important virtue that one can have. I'm not a patient person, I am always want to rush things no matter it's for work, or in my personal life, even a minute more, I'll consider it as a waste of time. | 93 | 35s | 91 | 27s |
+2. Daily progress
+
+| Date | Model Text | BestScore , BestTimeConsuming , MyBestScore , MyTimeConsuming |
+| - | - | - |
+| 2023-04-03| forgot to record | N/A |
+| 2023-04-04| Do you have patience? --> I will be lying if I say I have patient. Even though I know that patient is one of the most important virtue that one can have. I'm not a patient person, I am always want to rush things no matter it's for work, or in my personal life, even a minute more, I'll consider it as a waste of time. | 93, 35s,91,27s |
+| 2023-04-05| 1. Do you have patience? --> [My answer](https://ielts.kmf.com/speaking/wechat/speakinfo?exam_unique=168069586533056514&by_name=%25E5%25AD%25A6%25E5%2591%2598vQStk1), 2. What may distract you when you're trying to stay foucused? --> [My answer](https://ielts.kmf.com/speaking/wechat/speakinfo?exam_unique=168069625066321730&by_name=%25E5%25AD%25A6%25E5%2591%2598vQStk1), 3. What do you do to help you concentrate? --> [My answer](https://ielts.kmf.com/speaking/wechat/speakinfo?exam_unique=168069661875421160&by_name=%25E5%25AD%25A6%25E5%2591%2598vQStk1), 4. Is it difficult for you to stay focused on something? --> [My answer](https://ielts.kmf.com/speaking/wechat/speakinfo?exam_unique=168069700793308542&by_name=%25E5%25AD%25A6%25E5%2591%2598vQStk1) | N/A |
 
 ## New Words, Phrase, Sentences
 
