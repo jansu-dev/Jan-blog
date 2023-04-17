@@ -27,22 +27,25 @@ Most indicators on this panel are related to process status and operating system
 
 2. Goroutine count
 
-变更：进程运行时，go profile 采用统计记录；
-消亡：进程结束时 prometheus client 中的 go 收集器退出，不在记录对应指标信息；
-作用：TiCDC 节点 Goroutine 的个数，用于问题诊断时，分析组建进程重启与当前问题的相关性。
-原理：（下面有个隐藏指标，go_threads 与 go_goroutines 功能类似，cdc process 在 linux 创建的线程数，主要用于性能调优，如：goroutine 过多等问题。）
+  变更：进程运行时，go profile 采用统计记录；
+  消亡：进程结束时 prometheus client 中的 go 收集器退出，不在记录对应指标信息；
+  作用：TiCDC 节点 Goroutine 的个数，用于问题诊断时，分析组建进程重启与当前问题的相关性。
+  原理：（下面有个隐藏指标，go_threads 与 go_goroutines 功能类似，cdc process 在 linux 创建的线程数，主要用于性能调优，如：goroutine 过多等问题。）
+
 Open FD count
 产生：采用 Prometheus Guage 类型统计，打开的文件描述符数量；
 变更：以默认 15s 为间隔更新指标值；
 消亡：进程结束时指标值归零；
 作用：TiCDC 节点打开的文件句柄个数，用于问题诊断时，分析操作系统层面文件句柄打开数量与当前问题的相关性；
 原理：该信息源自 /proc/PID/fd。
+
 Ownership
 产生：采用 Prometheus Guage 类型统计，进程运行时指标值初始化完毕；
 变更：以 owner-flush-interval  为周期，在进程 Tick 时于内存中更新；
 消亡：进程结束时指标值归零；
 作用：TiCDC 集群中节点的当前状态，指标值包含 Instance（IP:port） 及 Role(Processor 或 Owner)。用于问题诊断时，分析当前问题与 Owner 相关性，如：是否同时存在 2 个 Owner 等。
 原理：依据 CDC 的 Tick 机制，在每次 Tick 时 Owner 的 updateMetrics 会以 ownershipCounter.Add(float64(now.Sub(o.lastTickTime)) / float64(time.Second)) 计算加和统计。以 owner-flush-interval 在 Process 启动时构造一个 goroutine ，周期性的完成 Tick 操作，Tick 详细运行机制参考 --> What is tick in cdc
+
 Ownership history
 产生：同 Ownership 面板；
 变更：同 Ownership 面板；
