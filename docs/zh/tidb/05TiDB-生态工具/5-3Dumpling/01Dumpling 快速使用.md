@@ -1,17 +1,12 @@
-## 原理讲解
+# Dumpling 快速使用
 
+- 通过导出将SQL数据组合成SQL语句的逻辑格式或CSV等第三方格式的数据文件，在由其他数据库识别此类文件的方式导入，从而实现数据迁移。
 
- - 通过导出将SQL数据组合成SQL语句的逻辑格式或CSV等第三方格式的数据文件，在由其他数据库识别此类文件的方式导入，从而实现数据迁移。
+## 下载安装包
 
-
-![image.png](http://cdn.lifemini.cn/dbblog/20201228/f6e704ee71424ac8833765dc53c465aa.png)
-
-
-## 部署方式
-
-#### 下载安装包
-下载链接https://download.pingcap.org/tidb-toolkit-{version}-linux-amd64.tar.gz中的 **{version}** 为 Dumpling 的版本号。  
+下载链接<https://download.pingcap.org/tidb-toolkit-{version}-linux-amd64.tar.gz中的> **{version}** 为 Dumpling 的版本号。  
 本例，以v4.0.2 版本为范例下载链接如下。
+
 ```shell
 [tidb@tidb01-41 soft]$ wget https://download.pingcap.org/tidb-toolkit-v4.0.2-linux-amd64.tar.gz
 
@@ -33,8 +28,8 @@ drwxrwxr-x 18 tidb tidb      4096 Dec 27 03:29 tidb-ansible
 -rw-rw-r--  1 tidb tidb 142758194 Jul  1  2020 tidb-toolkit-v4.0.2-linux-amd64.tar.gz
 ```
 
+## 解压并配置环境变量
 
-#### 解压并配置环境变量
 ```shell
 [tidb@tidb01-41 soft]$ ll
 total 139420
@@ -73,8 +68,7 @@ export PATH
 [tidb@tidb01-41 soft]$ dumpling --help
 ```
 
-
-#### tiup工具使用dumpling
+## tiup工具使用dumpling
 
 ```
 [tidb@tiup-tidb41 ~]$ tiup install dumpling
@@ -127,7 +121,6 @@ dumpling  pingcap  Dumpling is a CLI tool that helps you dump MySQL/TiDB data
 | --version                |  -V |   输出dumpling工具版本 |
 | --where string           |      |   仅导出谓词过滤部分包含的数据 |
 
-
 ## 注意事项
 
 1. 支持全新的table-filter，筛选数据更加方面
@@ -138,13 +131,12 @@ dumpling  pingcap  Dumpling is a CLI tool that helps you dump MySQL/TiDB data
 6. 如果新建一个用户导出数据需要拥有select、reload、lock table、replication client权限，使用root用户来导出可以忽略上述问题
 7. 版本支持方面：dumpling工具有go语言开发，支持MySQL5.7、8.0版本，支持MariaDB 10.3和10.4版本、TiDB 2.1及以上版本。
 
-
 ## 操作案例
 
-
-#### MySQL测试dumping
+## MySQL测试dumping
 
 将dumpling工具相关机器上传入测试MySQL的服务器/usr/local/bin路径下,全局可用状态；
+
 ```
 [tidb@tidb01-41 bin]$ scp dumpling root@192.168.1.44:/usr/local/bin/
 root@192.168.1.44's password: 
@@ -152,6 +144,7 @@ dumpling                                                             100%   21MB
 ```
 
 实验环境准备；
+
 ```shell
 # 创建测试数据库
 
@@ -177,6 +170,7 @@ flush privileges;
 ```
 
 MySQL端使用dumpling导出，并更改表名将数据导回数据库；
+
 ```shell
 # 成功使用dumpling导出MySQL数据
 
@@ -235,8 +229,8 @@ mysql> select count(*) from jan_test_bak;
 
 ```
 
+## TiDB导出到 sql 文件
 
-#### TiDB导出到 sql 文件
 ```shell
 
 # 执行dumpling导出命令
@@ -276,8 +270,8 @@ total 24
 [tidb@tidb01-41 sqlexp]$ cat metadata 
 Started dump at: 2021-01-04 09:26:42
 SHOW MASTER STATUS:
-		Log: tidb-binlog        #  binlog日志名称
-		Pos: 421991652309860365 #  master binary log 的位置
+  Log: tidb-binlog        #  binlog日志名称
+  Pos: 421991652309860365 #  master binary log 的位置
 Finished dump at: 2021-01-04 09:26:42   #  导出的起始时间
 
 
@@ -295,9 +289,11 @@ INSERT INTO `` (`id`,`k`,`c`,`pad`) VALUES
 [tidb@tidb01-41 sqlexp]$ cat ./result.0.sql |wc -l
 101
 ```
+
 可以看到导出的result文件中为101行，证明--sql参数也适用于sql文件的导出。
 
-#### TiDB导出到csv文件
+## TiDB导出到csv文件
+
 ```shell
 
 # 执行dumpling导出命令
@@ -338,8 +334,8 @@ total 24
 [tidb@tidb01-41 dumpdir]$ cat metadata 
 Started dump at: 2021-01-04 09:11:00
 SHOW MASTER STATUS:
-		Log: tidb-binlog        #  binlog日志名称
-		Pos: 421991405435486213 #  master binary log 的位置
+  Log: tidb-binlog        #  binlog日志名称
+  Pos: 421991405435486213 #  master binary log 的位置
 Finished dump at: 2021-01-04 09:11:00   # 导出的起始时间
 
 
@@ -369,11 +365,11 @@ VARIABLE_VALUE: 720h
 
 ```
 
-
-#### thread参数case精讲 
+## thread参数case精讲
 
 备份并发线程数默认值是4
 更改线程前后，total take(real time): 8.887353811s和total take(real time): 7.944831691s可以看到耗费时间有一定缩短
+
 ```
 MySQL [jan]> use jan;
 Database changed
@@ -420,8 +416,7 @@ Starting component `dumpling`: /home/tidb/.tiup/components/dumpling/v4.0.9/dumpl
 [2021/01/13 09:58:21.539 -05:00] [INFO] [main.go:78] ["dump data successfully, dumpling will exit now"]
 ```
 
-
-#### filiter参数case精讲  
+## filiter参数case精讲  
 
 ```shell
 MySQL [jan]> create database dumptest1;
@@ -478,8 +473,8 @@ total 52
 -rw-r--r-- 1 tidb tidb 146 Jan 13 09:25 metadata
 ```
 
+## rows参数case精讲  
 
-#### rows参数case精讲  
 ```
 [tidb@tiup-tidb41 dumpling_dir]$ tiup dumpling -u root -P 4000 --host 192.168.169.41 -o /home/tidb/dumpling_dir --database jan --tables-list jan.sbtest1 --rows 100000
 Starting component `dumpling`: /home/tidb/.tiup/components/dumpling/v4.0.9/dumpling -u root -P 4000 --host 192.168.169.41 -o /home/tidb/dumpling_dir --database jan --tables-list jan.sbtest1 --rows 100000
@@ -519,14 +514,16 @@ total 81700
 [tidb@tiup-tidb41 dumpling_dir]$ cat jan.sbtest1.000000000.sql |wc -l
 104460
 ```
-#### filesize参数case精讲  
+
+## filesize参数case精讲  
+
 filesize可以配合lighting导入
 
 ```
 [tidb@tiup-tidb41 dumpling_dir]$ tiup dumpling -u root -P 4000 --host 192.168.169.41 -o /home/tidb/dumpling_dir --database jan --tables-list "jan.sbtest1" 
 
 [tidb@tiup-tidb41 dumpling_dir]$ du -sh
-80M	.
+80M .
 [tidb@tiup-tidb41 dumpling_dir]$ ll -h
 total 80M
 -rw-r--r-- 1 tidb tidb 80M Jan 13 10:20 jan.sbtest1.000000000.sql
@@ -547,7 +544,8 @@ total 80M
 
 ```
 
-#### snapshot参数case精讲  
+## snapshot参数case精讲  
+
 ```
 MySQL [jan]> update mysql.tidb set VARIABLE_VALUE = '10m' where VARIABLE_NAME = 'tikv_gc_life_time';
 Query OK, 1 row affected (0.02 sec)
@@ -612,6 +610,7 @@ MySQL [jan]> update mysql.tidb set VARIABLE_VALUE = '10m' where VARIABLE_NAME = 
 Query OK, 1 row affected (0.02 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 ```
+
 ### 常用案例
 
 ```
@@ -644,6 +643,5 @@ Go version:      go version go1.13 linux/amd64
 [TiDB官网-工具下载：https://docs.pingcap.com/zh/tidb/stable/download-ecosystem-tools#dumpling](https://docs.pingcap.com/zh/tidb/stable/download-ecosystem-tools#dumpling)
 
 [B站-yi888long对dumpling的讲解：https://www.bilibili.com/video/BV1kK4y1Z7tE?from=search&seid=8438422389068483544](https://www.bilibili.com/video/BV1kK4y1Z7tE?from=search&seid=8438422389068483544)
-
 
 [B站-【High Performance TiDB】Lesson 12 生态工具优化：https://www.bilibili.com/video/BV1D5411L7z5](https://www.bilibili.com/video/BV1D5411L7z5)

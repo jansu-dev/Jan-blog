@@ -173,7 +173,7 @@ ID                   Role       Host            Ports      OS/Arch       Status 
 
 ## 上游数据准备
 
-```
+```sql
 create database user;
 
 create database store;
@@ -233,7 +233,7 @@ insert into store.store_sz values (1,'store_shenzhen_01'),(2,'store_shenzhen_02'
 
 ## 下游schema准备
 
-```
+```sql
 create database user_north;
 
 create database user_east;
@@ -275,7 +275,7 @@ create table store_shenzhen (id int primary key,name varchar(20));
 
 ## 创建source对应的worker
 
-```
+```shell
 [tidb@tiup-tidb41 conf]$ tiup dmctl --master-addr=192.168.169.41:8261 operate-source create source1.yaml 
 Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr=192.168.169.41:8261 operate-source create source1.yaml
 {
@@ -326,7 +326,7 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 
 ## dmctl工具验证member
 
-```
+```shell
 [tidb@tiup-tidb41 conf]$ tiup dmctl --master-addr=192.168.169.41:8261 list-member
 Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr=192.168.169.41:8261 list-member
 {
@@ -532,7 +532,7 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 
 ## dmctl恢复task
 
-```
+```shell
 [tidb@tiup-tidb41 dm]$ tiup dmctl --master-addr 192.168.169.42:8261 resume-task one-tidb-slave
 Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr 192.168.169.42:8261 resume-task one-tidb-slave
 {
@@ -675,7 +675,7 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 
 ## TiDB验证同步
 
-```
+```shell
 [tidb@tiup-tidb41 dm]$ mysql -uroot -P4000 -h192.168.169.41
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MySQL connection id is 429
