@@ -1,52 +1,46 @@
 # TiDB-DM Quick Start
 
+## Something you have to know
+
+This's a quickstart step by step on permise, you can also do it on docker if you're more familiar with the one. And I've prepared another content for that, [PTAL this one.](./../../../tidb/08TiDB-Cloud-K8S/8-1TiDB-Deployment/02TiDB-Operator%20deploys%20DM.md)
+
 ## Install MySQL5.7
 
 ```shell
-# 下载
+# Get rpm package
 wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
 
-
-#安装mysql源
+# Insatll mysql package
  yum localinstall mysql57-community-release-el7-11.noarch.rpm
 
-
-# 检查是否成功
+# Check wether it's success
 yum repolist enabled | grep "mysql.*-community.*"
 yum install mysql-server
 systemctl start mysqld
 systemctl status mysqld
 systemctl enable mysqld
 
-# 重载所有修改过的配置文件
-systemctl daemon-reload
+# Get init password from mysqld.log
 grep 'temporary password' /var/log/mysqld.log
 mysql -uroot -p
 
-# 修改密码，一开始输入密码尽量复杂点，字符、大小写字母、数字都要有
-
+# Change into a new password
 ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!'
 
-# 现在可以回到第3步，设置一个简单的密码了。
+# Now, it's time to create a more simple password
 SHOW VARIABLES LIKE 'validate_password%';
 set global validate_password_policy=LOW; 
 set global validate_password_length=6; 
-
-# 这个密码可以和客户端密码不一致，但最好一致。
 ALTER USER 'root'@'localhost' IDENTIFIED BY '123123';
 grant all privileges on *.* to root@'%' identified by '123123' with grant option;
 
-
+# In this way, we could be able to access MySQL Server by port 3306 without forbidden from firewall of Linux
 firewall-cmd --state
 firewall-cmd --zone=public --add-port=3306/tcp --permanent
-## zone -- 作用域
-## add-port=80/tcp -- 添加端口，格式为：端口/通讯协议
-## permanent -- 永久生效，没有此参数重启后失效
-## 开启3306端口后，workbench或naivcat 就能连接到MySQL数据库了
 firewall-cmd --reload
 ```
 
-## 部署DM
+## Deploy DM
 
 ```shell
 [tidb@tiup-tidb41 dumpling_dir]$ tiup install dm
@@ -58,11 +52,8 @@ Name      Owner    Description
 dm        pingcap  Data Migration Platform manager
 dm-master  pingcap  dm-master component of Data Migration Platform
 dm-worker  pingcap  dm-worker component of Data Migration Platform
-
 ......
 ......
-
-
 
 [tidb@tiup-tidb41 ~]$ mkdir dm
 [tidb@tiup-tidb41 ~]$ cd dm/
@@ -169,69 +160,46 @@ ID                   Role       Host            Ports      OS/Arch       Status 
 192.168.169.43:8262  dm-worker  192.168.169.43  8262       linux/x86_64  Free       /data/tidb-data/dm/dm-worker-8262  /data/tidb-deploy/dm/dm-worker-8262
 ```
 
-## 上游数据准备
+## Prepare Upstream Data
 
-```
+```sql
 create database user;
-
 create database store;
-
 create database log;
 
 use user;
-
 create table information (id int primary key,name varchar(20));
-
 create table log (id int primary key,name varchar(20));
 
 use log;
-
 create table messages(id int primary key,name varchar(20));
 
-
-
 # 192.168.169.44
-
 use store;
-
 create table store_bj (id int primary key,name varchar(20));
-
 create table store_tj (id int primary key,name varchar(20));
-
 insert into store.store_bj values (1,'store_bj_01'),(2,'store_bj_02');
-
 insert into store.store_tj values (1,'store_tj_01'),(2,'store_tj_02');
 
 # 192.168.169.45
-
 use store;
-
 create table store_sh (id int primary key,name varchar(20));
-
 create table store_sz (id int primary key,name varchar(20));
-
 insert into store.store_sh values (1,'store_sh_01'),(2,'store_sh_02');
-
 insert into store.store_sz values (1,'store_suzhou_01'),(2,'store_suzhou_02');
 
 # 192.168.169.46
 
 use store;
-
 create table store_gz (id int primary key,name varchar(20));
-
 create table store_sz (id int primary key,name varchar(20));
-
 insert into store.store_gz values (1,'store_gz_01'),(2,'store_gz_02');
-
 insert into store.store_sz values (1,'store_shenzhen_01'),(2,'store_shenzhen_02');
-
-
 ```
 
-## 下游schema准备
+## Prepare Downstream Schemas
 
-```
+```sql
 create database user_north;
 
 create database user_east;
@@ -271,9 +239,9 @@ create table store_shenzhen (id int primary key,name varchar(20));
 
 ```
 
-## 创建source对应的worker
+## Createsource to worker
 
-```
+```shell
 [tidb@tiup-tidb41 conf]$ tiup dmctl --master-addr=192.168.169.41:8261 operate-source create source1.yaml 
 Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr=192.168.169.41:8261 operate-source create source1.yaml
 {
@@ -322,9 +290,9 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 }
 ```
 
-## dmctl工具验证member
+## Check member by dmctl
 
-```
+```shell
 [tidb@tiup-tidb41 conf]$ tiup dmctl --master-addr=192.168.169.41:8261 list-member
 Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr=192.168.169.41:8261 list-member
 {
@@ -408,13 +376,13 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 
 ```
 
-## dmctl启动并验证task
+## Start task by dmctl
 
 ```shell
 [tidb@tiup-tidb41 dm]$ tiup dmctl -master-addr 192.168.169.42:8261 start-task task.yml
 
 
-# dmctl查看任务状态
+# look status of task
 [tidb@tiup-tidb41 dm]$ tiup dmctl --master-addr 192.168.169.42:8261 query-status one-tidb-slave
 Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr 192.168.169.42:8261 query-status one-tidb-slave
 {
@@ -528,9 +496,9 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 
 ```
 
-## dmctl恢复task
+## Resume task by dmctl
 
-```
+```shell
 [tidb@tiup-tidb41 dm]$ tiup dmctl --master-addr 192.168.169.42:8261 resume-task one-tidb-slave
 Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl --master-addr 192.168.169.42:8261 resume-task one-tidb-slave
 {
@@ -671,9 +639,9 @@ Starting component `dmctl`: /home/tidb/.tiup/components/dmctl/v2.0.1/dmctl/dmctl
 
 ```
 
-## TiDB验证同步
+## Check Downstram Replication
 
-```
+```shell
 [tidb@tiup-tidb41 dm]$ mysql -uroot -P4000 -h192.168.169.41
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MySQL connection id is 429
@@ -762,11 +730,11 @@ MySQL [store]> select * from store_suzhou;
 
 ```
 
-## MySQL到TiDB增量同步验证
+## Incremental Replication Checking
 
 ```shell
 
-# MySQL上游泳增量插入
+# MySQL
 mysql> insert into store_bj values (3,'incremental_bj_03');
 Query OK, 1 row affected (0.00 sec)
 
@@ -781,8 +749,7 @@ mysql> select * from store_bj;
 3 rows in set (0.00 sec)
 
 
-# 下游验证
-
+# TiDB
 MySQL [store]> select * from store_bj;
 +------+-------------------+
 | id   | name              |
@@ -795,7 +762,7 @@ MySQL [store]> select * from store_bj;
 
 ```
 
-## 参考文章
+## Reference
 
 [TiDB Data Migration (DM) 用户文档 v1.0://www.bookstack.cn/read/tidb-data-migration-1.0-zh/zh-get-started.md](https://www.bookstack.cn/read/tidb-data-migration-1.0-zh/zh-get-started.md)
 

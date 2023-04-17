@@ -32,7 +32,7 @@ I's my first time to test my oral english score for IELTS, which was powered by 
     | | Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday |
     | - | - | - | - | - | - | - | - |
     | | | | 1.得到雅思听力和口语的测试结果 2. 完成口语练习，在 `雅思考满分` | 1. 看并抄录一份 7min 的[乔布斯内部视频](https://www.bilibili.com/video/BV1Rt411U7Ve),目的是先听 3 遍，再背下来，再听看对听力是否有改善(有部分改善) 2. 翻译之前的英语笔记成中文，并复习其中内容（语法，单词，词组）3. 完成一个口语练习在 `雅思考满分` | 1. finish oral english homework. 2. finish one practice on `雅思考满分` | | |
-    | 花费时间 | None | None | 3h(11:00-2:00) | 5h(11:00-5:00) | 1.5h(19:00-20:30) | | |
+    | 花费时间 | None | None | 3h(11:00 A.M.-2:00 A.M.) | 5h(11:00 P.M.-5:00 A.M.) | 1.5h(19:00 P.M.-20:30 P.M.) | | |
 
 2. Daily progress
 
@@ -73,3 +73,7 @@ This part isn't relevent to classes or plan I've made in daily life, but, which 
 In short, "think about" is more general and can refer to any kind of thought process, while "consider doing" usually implies a more focused thought process with the intention of making a decision.
 2. Difference between `intention` and `aim`
 The difference is that `intention` refers to objective thought process or actions, meanwhile, `aim` is more revelent to their subjective part of though process. For example of `aim`, I can make a sentence which's `I'm warring about if I can achieve my goal in the future`. If the scenario is I'am thinking about something in turly wold, the best choice should be `intention`.
+3. Difference between `catastrophe` and `disaster`  
+Catastrophe is any large and disastrous event of great significance while disaster is an unexpected natural or man-made catastrophe of substantial extent
+4. When do we use solve or resolve?  
+This difference means that solve and resolve are often used in slightly different contexts. To generalise, we tend to solve something objective, and resolve something subjective.
