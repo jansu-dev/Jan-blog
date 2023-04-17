@@ -1,7 +1,6 @@
 # CDC Component in TiKV
 
-Lazy worker of cdc component
-What is worker
+## Lazy worker of cdc component
 
 1. lazy_build 为什么是 lazy_build?
 lazy_worker 源自于调用 worker 的 lazy_build，表示延迟执行。延迟表示仅 spwan 一个 task，由其自身调度机制决定何时运行。
@@ -24,7 +23,7 @@ pub struct Worker {
 }
 ```
 
-What is lazy_worker
+## What is lazy_worker
 
 1. 什么是 lazy worker
   从结构体可以看出，首先，lazy_worker 是一个封装了 worker 结构的 worker。
@@ -41,7 +40,7 @@ pub struct LazyWorker<T: Display + Send + 'static> {
 }
 ```
 
-What is task(homework) in cdc endpoint
+## What is task(homework) in cdc endpoint
 
 1. 在 <https://github.com/tikv/tikv/blob/7861f56f6249ea6b4cc19a6b2ba7d7dbd2a63c25/components/server/src/server.rs#L1077> 启动一个 cdc worker，并调用 fn start_with_timer 一直（层层封装）传递到 tikv_util worker 的 fn start_with_timer；
 2. Receiver 从 channel 中接收 task，handle.inner.run(task) 会调用对应的 inner（即：对应 worker 的 runner（cdc_worker 在这里就是 inner），内部封装了自己的方法处理；
@@ -56,43 +55,43 @@ What is task(homework) in cdc endpoint
 8. ScanLocks ：扫描 Region 中指定 apply_index 位置，对应 entries 的锁信息；
 9. ChangeConfig：处理动态配置的信息；
 
-```rust
-pub enum Task<S: Snapshot> {
-    RegionUpdated(Region),
-    RegionDestroyed(Region),
-    RegisterRegion {
-        region: Region,
-    },
-    DeRegisterRegion {
-        region_id: u64,
-    },
-    ReRegisterRegion {
-        region_id: u64,
-        observe_id: ObserveID,
-        cause: String,
-    },
-    RegisterAdvanceEvent {
-        cfg_version: usize,
-    },
-    AdvanceResolvedTs {
-        regions: Vec<u64>,
-        ts: TimeStamp,
-    },
-    ChangeLog {
-        cmd_batch: Vec<CmdBatch>,
-        snapshot: Option<RegionSnapshot<S>>,
-    },
-    ScanLocks {
-        region_id: u64,
-        observe_id: ObserveID,
-        entries: Vec<ScanEntry>,
-        apply_index: u64,
-    },
-    ChangeConfig {
-        change: ConfigChange,
-    },
-}
-```
+    ```rust
+    pub enum Task<S: Snapshot> {
+        RegionUpdated(Region),
+        RegionDestroyed(Region),
+        RegisterRegion {
+            region: Region,
+        },
+        DeRegisterRegion {
+            region_id: u64,
+        },
+        ReRegisterRegion {
+            region_id: u64,
+            observe_id: ObserveID,
+            cause: String,
+        },
+        RegisterAdvanceEvent {
+            cfg_version: usize,
+        },
+        AdvanceResolvedTs {
+            regions: Vec<u64>,
+            ts: TimeStamp,
+        },
+        ChangeLog {
+            cmd_batch: Vec<CmdBatch>,
+            snapshot: Option<RegionSnapshot<S>>,
+        },
+        ScanLocks {
+            region_id: u64,
+            observe_id: ObserveID,
+            entries: Vec<ScanEntry>,
+            apply_index: u64,
+        },
+        ChangeConfig {
+            change: ConfigChange,
+        },
+    }
+    ```
 
 Qs:
 
