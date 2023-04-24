@@ -1,5 +1,7 @@
 import tidbDocZhSideBar from './sidebar_tidb_zh.js';
 import tidbDocEnSideBar from './sidebar_tidb_en.js';
+import pgDocZhSideBar from './sidebar_pg_zh.js';
+import pgDocEnSideBar from './sidebar_pg_en.js';
 import englishDocEnSideBar from './sidebar_english_en.js';
 import englishDocZhSideBar from './sidebar_english_zh.js';
 
@@ -32,6 +34,7 @@ const DocEnDropDown = {
     items: [
       { text: "TiDB Series", link: "/en/tidb/index" },
       { text: "Oracle Series", link: "/en/oracle/index" },
+      { text: "PostgreSQL Series", link: "/en/postgres/index" },
       { text: "SQL Server Series", link: "/en/sqlserver/index" },
       { text: "English Learning Series", link: "/en/english/index" },
     ]
@@ -42,6 +45,7 @@ const DocZhDropDown = {
     items: [
       { text: "TiDB 系列", link: "/zh/tidb/index" },
       { text: "Oracle 系列", link: "/zh/oracle/index" },
+      { text: "PostgreSQL 系列", link: "/zh/postgres/index" },
       { text: "SQL Server 系列", link: "/zh/sqlserver/index" },
       { text: "英语学习系列", link: "/zh/english/index" },
     ]
@@ -83,6 +87,7 @@ export default {
                     ],
                 sidebar: {
                       '/en/tidb/': tidbDocEnSideBar,
+                      '/en/postgres/': pgDocEnSideBar,
                       '/en/english/': englishDocEnSideBar
                   },
             }
@@ -101,6 +106,7 @@ export default {
                 sidebar: {
                     '/zh/tidb/': tidbDocZhSideBar,
                     '/zh/oracle/': oracleZHDocSidebar,
+                    '/zh/postgres/': pgDocZhSideBar,
                     '/zh/sqlserver/': sqlServerZHDocSideBar,
                     '/zh/english/': englishDocZhSideBar
                 },
