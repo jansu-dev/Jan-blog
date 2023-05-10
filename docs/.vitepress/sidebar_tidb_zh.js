@@ -18,7 +18,7 @@ export default tidbDocZhSideBar = [
                 { text: "Ansible 修改集群配置", link: "/zh/tidb/02TIDB-部署实践/2-1Ansible 部署实践/02Ansible 修改集群配置.md"},
             ] },
             { text: "TiUP 部署实践", items: [
-                { text: "TTiUP 离线部署 TiDB", link: "/zh/tidb/02TIDB-部署实践/2-2TiUP 部署实践/01TTiUP 离线部署 TiDB.md"},
+                { text: "TiUP 离线部署 TiDB", link: "/zh/tidb/02TIDB-部署实践/2-2TiUP 部署实践/01TiUP 离线部署 TiDB.md"},
                 { text: "TiUP 扩缩容主要组件", link: "/zh/tidb/02TIDB-部署实践/2-2TiUP 部署实践/02TiUP 扩缩容主要组件.md"},
                 { text: "TiUP 滚动升级 TiDB", link: "/zh/tidb/02TIDB-部署实践/2-2TiUP 部署实践/03TiUP 滚动升级 TiDB.md"},
                 { text: "TiUP 单机混部多实例", link: "/zh/tidb/02TIDB-部署实践/2-2TiUP 部署实践/04TiUP 单机混部多实例.md"},
@@ -51,10 +51,16 @@ export default tidbDocZhSideBar = [
                 { text: "监控原理解析", link: "/zh/tidb/05TiDB-生态工具/5-1TiCDC/04监控原理解析.md"},
             ] },
             { text: "Dumpling", items: [
-                { text: "Dumpling原理与使用", link: "/zh/tidb/05TiDB-生态工具/5-3Dumpling/01Dumpling原理与使用.md"},
+                { text: "Dumpling 快速使用", link: "/zh/tidb/05TiDB-生态工具/5-3Dumpling/01Dumpling 快速使用.md"},
+                { text: "Dumpling 架构原理", link: "/zh/tidb/05TiDB-生态工具/5-3Dumpling/02Dumpling 架构原理.md"},
             ] },
             { text: "DM", items: [
-                { text: "DB-DM工具原理与使用", link: "/zh/tidb/05TiDB-生态工具/5-4DM/TiDB-DM工具原理与使用.md"},
+                { text: "TiDB-DM 架构总览", link: "/zh/tidb/05TiDB-生态工具/5-4DM/01TiDB-DM 架构总览.md"},
+                { text: "TiDB-DM 快速使用", link: "/zh/tidb/05TiDB-生态工具/5-4DM/02TiDB-DM 快速使用.md"},
+                { text: "TiDB-DM Master", link: "/zh/tidb/05TiDB-生态工具/5-4DM/03TiDB-DM Master.md"},
+                { text: "TiDB-DM Worker", link: "/zh/tidb/05TiDB-生态工具/5-4DM/04TiDB-DM Worker.md"},
+                { text: "TiDB-DM syncer", link: "/zh/tidb/05TiDB-生态工具/5-4DM/05TiDB-DM syncer.md"},
+                { text: "TiDB-DM Metrics", link: "/zh/tidb/05TiDB-生态工具/5-4DM/06TiDB-DM Metrics.md"},
             ] },
             { text: "Binlog", items: [
                 { text: "Binlog及Reparo原理与使用", link: "/zh/tidb/05TiDB-生态工具/5-6Binlog/01Binlog及Reparo原理与使用.md"},
@@ -72,6 +78,7 @@ export default tidbDocZhSideBar = [
             { text: "TiDB", items: [
                 { text: "TiDB run and debug on M1", link: "/zh/tidb/07TiDB-源码阅读/7-1TiDB/01TiDB run and debug on M1.md"},
                 { text: "TiDB Point_Get 点查的一生", link: "/zh/tidb/07TiDB-源码阅读/7-1TiDB/02TiDB Point_Get 点查的一生.md"},
+                { text: "TIDB how to get init time", link: "/zh/tidb/07TiDB-源码阅读/7-1TiDB/03TIDB how to get init time.md"},
             ] },
     ] },
     {text: "TiDB-Cloud-K8S", items: [

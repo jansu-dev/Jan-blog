@@ -20,10 +20,31 @@ export default tidbDocZhSideBar = [
             ] },
     ] },
     {text: "TiDB-EcosystematicTools", items: [
+            { text: "TiCDC", items: [
+                { text: "TiCDC Overview", link: "/en/tidb/05TiDB-EcosystematicTools/5-1TiCDC/01TiCDC Overview.md"},
+                { text: "TiCDC Streaming", link: "/en/tidb/05TiDB-EcosystematicTools/5-1TiCDC/02TiCDC Streaming.md"},
+                { text: "TiKV CDC Component", link: "/en/tidb/05TiDB-EcosystematicTools/5-1TiCDC/03TiKV CDC Component.md"},
+                { text: "All metrics in TiCDC", link: "/en/tidb/05TiDB-EcosystematicTools/5-1TiCDC/04All metrics in TiCDC.md"},
+            ] },
+            { text: "BR", items: [
+                { text: "BR Overview", link: "/en/tidb/05TiDB-EcosystematicTools/5-2BR/01BR Overview.md"},
+                { text: "BR Tuning", link: "/en/tidb/05TiDB-EcosystematicTools/5-2BR/02BR Tuning.md"},
+            ] },
+            { text: "Dumpling", items: [
+                { text: "Dumpling QuickStart", link: "/en/tidb/05TiDB-EcosystematicTools/5-3Dumpling/01Dumpling QuickStart.md"},
+                { text: "Dumpling Architecture", link: "/en/tidb/05TiDB-EcosystematicTools/5-3Dumpling/02Dumpling Architecture.md"},
+            ] },
             { text: "DM", items: [
-                { text: "TiDB-DM syncer", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/01TiDB-DM syncer.md"},
-                { text: "TiDB-DM SourceWorker", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/02TiDB-DM SourceWorker.md"},
-                { text: "TiDB-DM Metrics", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/03TiDB-DM Metrics.md"},
+                { text: "TiDB-DM Overview", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/01TiDB-DM Overview.md"},
+                { text: "TiDB-DM QuickStart", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/02TiDB-DM QuickStart.md"},
+                { text: "TiDB-DM Master", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/03TiDB-DM Master.md"},
+                { text: "TiDB-DM Worker", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/04TiDB-DM Worker.md"},
+                { text: "TiDB-DM syncer", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/05TiDB-DM syncer.md"},
+                { text: "TiDB-DM Metrics", link: "/en/tidb/05TiDB-EcosystematicTools/5-4DM/06TiDB-DM Metrics.md"},
+            ] },
+            { text: "TiDB-Lightning", items: [
+                { text: "Quick Start", link: "/en/tidb/05TiDB-EcosystematicTools/5-7TiDB-Lightning/01Quick Start.md"},
+                { text: "Lighting Architecture", link: "/en/tidb/05TiDB-EcosystematicTools/5-7TiDB-Lightning/02Lighting Architecture.md"},
             ] },
     ] },
     {text: "TiDB-Cloud-K8S", items: [

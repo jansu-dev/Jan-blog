@@ -36,6 +36,9 @@ export default englishDocEnSideBar = [
             { text: "scenario_agreatread", link: "/en/english/03vantage_english/3-9scenario_agreatread.md"},
     ] },
     {text: "IELTS_exam", items: [
-            { text: "scenario_rules", link: "/en/english/04IELTS_exam/4-1day1_rules.md"},
+            { text: "scenario_rules", link: "/en/english/04IELTS_exam/4-1week1_rules.md"},
+            { text: "scenario_review4B", link: "/en/english/04IELTS_exam/4-2week2_review4B.md"},
+            { text: "scenario_stragegy", link: "/en/english/04IELTS_exam/4-3week3_stragegy.md"},
+            { text: "scenario_IELTS", link: "/en/english/04IELTS_exam/4-4week4_IELTS_part2.md"},
     ] }
 ]
